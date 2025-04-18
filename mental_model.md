@@ -46,7 +46,7 @@ So a is now invalid.
 
 **What the compiler does (in C):**<br/>
 ```c
-char* b = "Hola";
+char* b = "Hi";
 ```
 
 - **No runtime penalty** — fast.
