@@ -56,6 +56,6 @@ let b = a;
 // Both a and b share the same value
 ```
 
-[How Ruthenium works under the hood?]()
+[How Ruthenium works under the hood?](mental_model.md)
 
 
