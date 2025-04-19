@@ -1,4 +1,4 @@
-const types = {
+/*const types = {
     // Keywords
     'null': 'kw_NULL',          // OPCODE: x00
     'let':  'kw_LET',           // OPCODE: x01
@@ -41,9 +41,11 @@ const NUM_LITERAL = 'NUM_LITERAL'; // OPCODE: x1C
 const STR_LITERAL = 'STR_LITERAL'; // OPCODE: x1D
 const TYPE        = 'TYPE';        // OPCODE: x1E
 const ID          = 'ID';          // OPCODE: x1F
+*/
 
 export function Token(s) {
-    let t = ID;
+    // TODO: Delete useless
+    /*let t = ID;
 
     if (s[0] === '"')
         t = STR_LITERAL;
@@ -60,5 +62,6 @@ export function Token(s) {
         });
     }
 
-    return { symbol: s, type: t };
+    return { symbol: s, type: t };*/
+    return s;
 }
