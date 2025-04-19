@@ -1,5 +1,4 @@
 export const Character = {
-    isNotWhitespace: c => (c > ' '),
     isDoubleQuotes:  c => (c === '"'),
     isWhitespace:    c => (c <= ' '),
     isLetter:        c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'),
