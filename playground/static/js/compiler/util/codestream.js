@@ -60,8 +60,9 @@ window.CodeStream = class {
             return undefined;
         }
 
-        // Engineering work:
-        return this.code.substring(this.index, this.index = ++i);
+        let unwrapped = this.code.substring(this.index, this.index = i);
+        this.skip(); // Skip the last quotation mark
+        return unwrapped;
     }
 
     isEOF(index) {
