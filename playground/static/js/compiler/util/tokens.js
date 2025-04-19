@@ -38,13 +38,16 @@ const types = {
 }
 
 const NUM_LITERAL = 'NUM_LITERAL'; // OPCODE: x1C
+const STR_LITERAL = 'STR_LITERAL'; // OPCODE: x1D
 const TYPE        = 'TYPE';        // OPCODE: x1E
-const ID          = 'ID';          // OPCODE: x1D
+const ID          = 'ID';          // OPCODE: x1F
 
 export function Token(s) {
     let t = ID;
 
-    if (!(isNaN(parseInt(s)) && isNaN(parseFloat(s))))
+    if (s[0] === '"')
+        t = STR_LITERAL;
+    else if (!(isNaN(parseInt(s)) && isNaN(parseFloat(s))))
         t = NUM_LITERAL;
     else if (s === 'uint' || s === 'int')
         t = TYPE;
