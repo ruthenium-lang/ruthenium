@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+* {
+    padding: 0;
+    margin:  0;
+}
+
+body {
+    padding: 30px;
+}
+
+#playground {
+    min-height: 500px !important;
+    min-width:  500px !important;
+    padding:    8px;
+}
