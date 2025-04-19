@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ruthenium - Playground</title>
+
+
+    <link rel="stylesheet" href="static/css/layout.css" />
+    <link rel="stylesheet" href="static/css/fonts.css" />
+    <link rel="stylesheet" href="static/css/appearance.css" />
+
+</head>
+
+<body>
+
+    <div id="playground">fn main() {
+    println("Hello world!");
+}</div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="module" src="static/js/compiler/lexer.js"></script>
+<script src="static/js/compiler/util/codestream.js"></script>
+<script src="static/js/editor.js"></script>
+
+<script>
+    const editor = setupEditor();
+</script>
+
+</html>
