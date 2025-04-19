@@ -35,7 +35,7 @@ fn main() int {
         <h3>Bitcasts?</h3>
     </summary>
 
-###### [What is a bitcast?](casts.md#bitcasts)
+Necessary to proceed: [**What is a bitcast?**](casts.md#bitcasts)
 
 In Ruthenium, function return types resemble bitcasts in syntax.
 
@@ -51,7 +51,5 @@ fn main() (int) {
 }
 ```
 
-> [!NOTE]
-> But remember: a normal cast consumes more CPU than a bitcast, so this isn’t recommended. It's just a fun quirk of the syntax.
-
+**But remember:** a normal cast consumes more CPU than a bitcast, so this isn’t recommended. It's just a fun quirk of the syntax.
 </details>
