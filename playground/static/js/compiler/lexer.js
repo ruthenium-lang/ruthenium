@@ -21,14 +21,14 @@ export function qrtTokenize(stream) {
         else if (Character.isDigit(c))
             token += stream.readWhile(Character.isDigit);
         else {
-            stream.skip(1);
+            stream.skip();
             if (Character.isWhitespace(c))
                 continue;
 
             token += c;
             if (stream.peek() == '=' && equalsCanGoNext(c)) {
                 token += '=';
-                stream.skip(1);
+                stream.skip();
             }
         }
 
