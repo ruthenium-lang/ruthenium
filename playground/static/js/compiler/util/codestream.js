@@ -45,6 +45,25 @@ window.CodeStream = class {
 		return str;
 	}
 
+    unwrap(wrapch) {
+        // TODO: Create a expect function to force the first character to be wrapch
+        this.skip(); // Skip the first character (assuming it matches with wrapch)
+
+        let i = this.index;
+        for (; i < this.code.length; i++)
+            if (this.code[i] === wrapch) break;
+
+        if (i === this.code.length)
+        {
+            console.error("Unterminated string!");
+            console.trace();
+            return undefined;
+        }
+
+        // Engineering work:
+        return this.code.substring(this.index, this.index = ++i);
+    }
+
     isEOF(index) {
         if (index == undefined)
             index = this.index;
