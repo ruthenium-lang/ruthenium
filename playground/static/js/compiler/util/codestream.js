@@ -32,6 +32,14 @@ window.CodeStream = class {
 		return c;
 	}
 
+	expect(s0) {
+		if (this.isEOF(this.index + s0.length + 1))
+			return false;
+
+		const s1 = this.code.substring(this.index, this.index += s0.length);
+		return s1 === s0;
+	}
+
     readWhile(condition) {
 		let str = "";
 
@@ -46,8 +54,8 @@ window.CodeStream = class {
 	}
 
     unwrap(wrapch) {
-        // TODO: Create a expect function to force the first character to be wrapch
-        this.skip(); // Skip the first character (assuming it matches with wrapch)
+        if (!this.expect(wrapch))
+            console.warn("The first character is not " + wrapch + "!");
 
         let i = this.index;
         for (; i < this.code.length; i++)
