@@ -1,105 +1,65 @@
-export class CodeStream {
+window.CodeStream = class {
 
     constructor(code) {
+        this.code = code;
         this.index = 0;
-        this.code  = code;
     }
 
-    peek(i = 0) {
-        if (this.remaining(i) < 1)
-            return undefined;
+    peek(i) {
+        if (i == undefined)
+            i = 0;
+
+        if (this.index + i > this.code.length)
+            return '\0';
 
         return this.code[this.index + i];
     }
 
-    back(i = 1) {
-        this.index = Math.max(this.index - i, 0);
-        return this.peek();
+    back(i) {
+        if (i == undefined)
+            i = 1;
+
+        if (this.index - i < 0)
+			return '\0';
+
+		this.index -= i;
+		return this.peek();
     }
 
     pop() {
-        const c = this.peek();
-        this.skip();
-        return c;
-    }
-
-    expect(s0) {
-        if (this.remaining() < s0.length)
-            return false;
-
-        const s1 = this.code.substring(this.index, this.index += s0.length);
-        return s1 === s0;
-    }
-
-    next(s0) {
-        if (this.remaining() < s0.length)
-            return false;
-
-        const s1 = this.code.substring(this.index, this.index + s0.length);
-        if (s1 === s0)
-            return this.skip(s0.length), true;
-
-        return false;
-    }
+		const c = this.peek();
+		this.skip();
+		return c;
+	}
 
     readWhile(condition) {
-        let str = "";
+		let str = "";
 
-        let c;
-        while (this.remaining() > 0 && condition(c = this.pop()))
-            str += c;
+		let c;
+		while (!this.isEOF() && condition(c = this.pop()))
+			str += c;
 
-        if (this.remaining() > 0)
-            this.back(); // The last character doesn't belong to the string
+        if (!this.isEOF())
+		    this.back(); // The last character doesn't belong to the string
 
-        return str;
-    }
+		return str;
+	}
 
-    unwrap(wrapch) {
-        if (!this.expect(wrapch))
-            console.warn("The first character is not " + wrapch + "!");
+    isEOF(index) {
+        if (index == undefined)
+            index = this.index;
 
-        let i = this.index;
-        for (; i < this.code.length; i++)
-            if (this.code[i] === wrapch) break;
+		return index >= this.code.length;
+	}
 
-        if (i === this.code.length) {
-            // TODO: error handling
-            console.error("Unterminated string!");
-            console.trace();
-            return undefined;
-        }
+	skip(i) {
+        if (i == undefined)
+            i = 1;
 
-        let unwrapped = this.code.substring(this.index, this.index = i);
-        this.skip(); // Skip the last quotation mark
-        return unwrapped;
-    }
+		if (this.isEOF())
+			return;
 
-    cursor() {
-        let line = 1;
-        let col  = 1;
-
-        for (let i = 0; i < this.index; i++) {
-            if (this.code[i] === '\n') {
-                line++;
-                col = 1;
-                continue;
-            }
-
-            col++;
-        }
-
-        return `${line}:${col}`;
-    }
-
-    remaining(i = 0) {
-        return this.code.length - (this.index + i);
-    }
-
-    skip(i = 1) {
-        this.index = Math.min(this.index + i, this.code.length);
-    }
+        this.index += i;
+	}
 
 }
-
-window.CodeStream = CodeStream;

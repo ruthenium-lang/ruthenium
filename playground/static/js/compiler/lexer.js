@@ -1,5 +1,5 @@
 import { Character } from './util/character.js'
-import { Token } from '../tokens/tokens.js'
+import { Token } from './util/tokens.js'
 
 function equalsCanGoNext(c) {
     if (!c)
@@ -12,23 +12,24 @@ export function qrtTokenize(stream) {
     const tokens = [];
     let token = "";
 
-    while (stream.remaining() > 0) {
+    while (!stream.isEOF())
+    {
         const c = stream.peek();
 
-        if (Character.isDoubleQuotes(c))
-            token += `"${stream.unwrap('"')}"`; // Surrond by quotation marks
-        else if (Character.isLetter(c))
+        if (Character.isLetter(c))
             token += stream.readWhile(Character.isLetter);
         else if (Character.isDigit(c))
             token += stream.readWhile(Character.isDigit);
         else {
-            stream.skip();
+            stream.skip(1);
             if (Character.isWhitespace(c))
                 continue;
 
             token += c;
-            if (stream.next("=") && equalsCanGoNext(c))
+            if (stream.peek() == '=' && equalsCanGoNext(c)) {
                 token += '=';
+                stream.skip(1);
+            }
         }
 
         tokens.push(Token(token));
