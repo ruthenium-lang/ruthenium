@@ -1,64 +1,54 @@
-# The Ruthenium Programming Language
+<div align="center">
+   <img src="assets/image/rpl_logo.png">
+   <br />
+   <a href="https://github.com/ruthenium-lang/ruthenium/wiki/">
+      <b>Explore the docs »</b>
+   </a>
+   <br/>
 
----
+   <a href="https://github.com/ruthenium-lang/ruthenium/wiki/Examples">📖 See examples</a>
+   ·
+   🧪 Playground (in the other branch)
+   ·
+   <a href="https://github.com/ruthenium-lang/ruthenium/issues">💡 Suggest Features</a>
 
-### 🚧 We are revamping the README 🚧
-
----
-
+   <br /><br />
+   <sup>⭐ Star us on GitHub — it motivates us a lot!</sup>
+</div>
 
 <br />
 
+> [!IMPORTANT]
+> **CHECK THE WIKI BEFORE GIVING YOUR FEEDBACK PLEASE**<br />
+> https://github.com/ruthenium-lang/ruthenium/wiki/
 
-### [See examples here](https://github.com/ruthenium-lang/ruthenium/wiki/Examples)
+**Ruthenium** is a programming language designed for the next era of programming. It was
+designed as a simple and flexible language based on languages like C and JavaScript.
 
-If you're here, you probably want to learn more about this language :D
-Check its features:
+---
 
-## Hello world
+### 🤔 Why should I choose Ruthenium?
 
-```rust
-fn main() {
-   println("Hello, world!");
-}
-```
+| Feature                    | Ruthenium          | Rust             | JavaScript        | C                  |
+|----------------------------|--------------------|------------------|-------------------|--------------------|
+| 🧠 Learning curve          | Easy               | Medium/Hard      | Easy              | Medium             |
+| ⚡ Performance              | Like assembler     | High             | Medium (interpreted) | Very high       |
+| 🛡️ Memory safety           | Hybrid Rust/C      | Strong (by design)| Weak              | Manual             |
+| 🔧 Manual memory control   | Optional           | Yes              | No                | Yes                |
+| 🔄 Syntax style            | C/JS hybrid        | C-like           | C-like            | C                  |
+| 🧰 Standard library        | Modular (growing)  | Rich             | Very rich         | Minimal            |
+| 🧪 Playground support      | Soon               | Available        | Yes               | Indirect (via tools)|
+| 🧩 Metaprogramming         | Yes                | Limited (macros) | Yes               | No                 |
+| 🔨 Low-level capabilities  | Yes                | Yes              | No                | Yes                |
+| 🚀 Ideal use cases         | Everything | Systems programming | Web dev, scripting | OS/devices      |
 
-## Variables
-Variables are declared using these keywords, with optional types:
-```rust
-let my_var: uint = 5; // Can change (mutable)
-const my_var: uint = 5; // Can't change (Immutable)
-constexpr my_var: uint = 5; // Immutable. Its value must be known at compilation time.
-```
+---
 
-[Why is it like that?](https://github.com/ruthenium-lang/ruthenium/wiki/Variables#why-is-it-like-that)<br />
-[What if the type goes before the number?](https://github.com/ruthenium-lang/ruthenium/wiki/Casts#bitcasts)<br />
-[See examples](https://github.com/ruthenium-lang/ruthenium/wiki/Examples#variables)<br />
+### 🚀 Vision
 
-## Functions
-
-A typical function is declared like this:
-
-```rust
-fn main() {
-}
-```
-
-To return a value, place the return type just before the opening brace, like this:
-
-```rust
-fn five() uint {
-   return 5;
-}
-```
-
-[Why no arrows or colons for the type?](https://github.com/ruthenium-lang/ruthenium/wiki/Functions#functions-with-return)<br />
-[Is the way functions return related with bitcasts?](https://github.com/ruthenium-lang/ruthenium/wiki/Functions#bitcasts)<br />
-[I want to know more](https://github.com/ruthenium-lang/ruthenium/wiki/Functions)<br />
-
-## Memory managment
-No garbage collector. No manual memory managment.
-
-- [Examples of Memory Managment](https://github.com/ruthenium-lang/ruthenium/wiki/Mental-Model)
+Ruthenium aims to bring **the power and performance of low-level languages** with the **ease and readability of high-level scripting**, supporting both interpreted and compiled workflows. With support for plugins, raw memory operations, and fine control over your environment, Ruthenium is perfect for creators who want to push the limits of what a language can do.
 
 
+🛠️ Want to contribute? Check out the [issues](https://github.com/ruthenium-lang/ruthenium/issues) or start with the [examples](https://github.com/ruthenium-lang/ruthenium/wiki/Examples).
+
+📌 Don't forget to ⭐ star us — every star counts to grow the community!
