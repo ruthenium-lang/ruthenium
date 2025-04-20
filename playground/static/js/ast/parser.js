@@ -1,7 +1,7 @@
 export class ASTParser {
     constructor(tokenStream) {
         this.stream = tokenStream;
-        this.ast = [];
+        this.tree   = [];
     }
 
     parse() {
@@ -11,13 +11,12 @@ export class ASTParser {
             // Match a function
             if (token === 'fn') {
                 const fn = new window.ASTFunctionTemplate().fill(this.stream);
-                this.ast.push({ type: "FunctionDeclaration", ...fn });
             }
 
             // Match a variable
             else if (token === 'let') {
-                const variable = new window.ASTVariableTemplate().fill(this.stream);
-                this.ast.push({ type: "VariableDeclaration", ...variable });
+                const variable = new ASTVariableTemplate().fill(this.stream);
+                this.tree.push({ type: "VariableDeclaration", ...variable });
             }
 
             // Unknown token, skip
@@ -25,9 +24,9 @@ export class ASTParser {
                 console.warn("Unknown construct:", token);
                 this.stream.skip();
             }
+        return this.tree;
         }
 
-        return this.ast;
     }
 }
 
