@@ -49,7 +49,7 @@
         document.getElementById("tokenize").addEventListener("click", () => {
             const tokens = tokenize();
             const tokenized = document.getElementById("tokenized");
-            tokenized.innerHTML = tokens.map(t => t.toString()).join(", ");
+            tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", "&nbsp;")).join(", ");
         });
     </script>
 </body>
