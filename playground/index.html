@@ -61,7 +61,7 @@
             const parser = new window.ASTParser(tokenStream);
             const ast = parser.parse();
             const astElement = document.getElementById("ast");
-            astElement.innerHTML = `<pre>${JSON.stringify(ast, null, 2)}</pre>`;
+            astElement.innerHTML = `<pre>${jsyaml.dump(ast)}</pre>`;
         });
     </script>
 </body>
