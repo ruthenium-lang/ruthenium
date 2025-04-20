@@ -2,7 +2,7 @@ const playgroundDOM = document.querySelector("#playground");
 
 function setupEditor() {
     playgroundDOM.innerHTML = `fn main() {
-    println("Hello world!");
+    let a: uint;
 }\n`;
 
     const editor = ace.edit("playground");
