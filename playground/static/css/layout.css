@@ -10,8 +10,8 @@ body {
 }
 
 #playground {
-    min-height: 500px !important;
-    min-width: 500px !important;
+    height: 350px !important;
+    width: 450px !important;
     padding: 8px;
     border-radius: 5px;
     outline: none;
