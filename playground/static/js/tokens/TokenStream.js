@@ -34,6 +34,14 @@ window.TokenStream = class {
         this.index = Math.min(this.index + i, this.tokens.length);
     }
 
+    back(i) {
+        if (i === undefined)
+            i = 1;
+
+        this.index = Math.max(this.index - i, 0)
+        return this.peek();
+    }
+
     expect(t) {
         if (this.remaining() < 1)
             return false;

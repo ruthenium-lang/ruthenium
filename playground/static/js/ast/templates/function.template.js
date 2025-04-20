@@ -31,8 +31,7 @@ window.ASTFunctionTemplate = class {
             const value = stream.pop();
             if (!stream.expect(',')) {
                 // TODO: error handling
-                // TODO: implement back function
-                return console.error("Expected comma but found ..."), obj;
+                return console.error(`Expected ',' but found '${stream.back()}'`), obj;
             }
 
             obj.params.push({ name: name, value: value });
