@@ -50,7 +50,7 @@ window.ASTVariableTemplate = class {
 
 window.ASTFunctionTemplate = class {
     fill(stream) {
-        let obj = {};
+        let obj = { params: [] };
         if (!stream.popEquals("fn")) {
             // TODO: error handling
             return console.error("Invalid function declaration!"), obj;
@@ -63,33 +63,23 @@ window.ASTFunctionTemplate = class {
 
         obj.name = stream.pop();
 
-        if (stream.peekEquals("(")) {
-            stream.skip();
-            // Parameters
-            obj.params = [];
-            while (!stream.peekEquals(")")) {
-                if (!stream.peekTypeEquals("ID")) {
-                    // TODO: error handling
-                    return console.error("Invalid parameter!"), obj;
-                }
-                let param = stream.pop();
-                obj.params.push(param);
+        if (!stream.popEquals("(")) {
+            // TODO: error handling
+            return console.error("no function name found"), obj;
+        }
+
+        while (!stream.peekEquals(")")) {
+            if (!stream.peekTypeEquals(["TYPE", "ID"])) {
+                // TODO: error handling
+                return console.error("Invalid parameter!"), obj;
             }
+            const param = stream.pop();
+            obj.params.push(param);
         }
 
         stream.skip(); // Skip ")"
         if (stream.peekTypeEquals("ID")) {
             obj.returnType = stream.pop();
-        }
-
-        if (stream.peekEquals("{")) {
-            stream.skip();
-            // Body
-            obj.nodes = [];
-            while (!stream.popEquals("}")) {
-                obj.nodes.push(node);
-            }
-            stream.skip(); // Skip "}"
         }
 
         return obj;
