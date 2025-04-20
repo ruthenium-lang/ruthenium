@@ -11,8 +11,7 @@ export class ASTParser {
     }
 
     parse() {
-        // TODO: peek() -> remaining()
-        while (this.stream.peek()) {
+        while (this.stream.remaining() >= 1) {
             const keyword = this.stream.peek();
 
             switch (keyword) {
