@@ -18,6 +18,7 @@ window.ASTFunctionTemplate = class {
             return console.error("no function name found"), obj;
         }
 
+        // TODO: use next function
         while (!stream.peek() === ")") {
             if (!stream.peekTypeEquals(["TYPE", "ID"])) {
                 // TODO: error handling
@@ -29,7 +30,8 @@ window.ASTFunctionTemplate = class {
                 return console.error("Invalid parameter name!"), obj;
             }
             const value = stream.pop();
-            if (stream.peek() === ",") {
+
+            if (stream.peek() === ",") { // TODO: use expect function
                 stream.skip(); // Skip ","
             }
 

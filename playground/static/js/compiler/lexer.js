@@ -27,6 +27,7 @@ export function qrtTokenize(stream) {
                 continue;
 
             token += c;
+            // TODO: use next function
             if (stream.peek() == '=' && equalsCanGoNext(c)) {
                 token += '=';
                 stream.skip();

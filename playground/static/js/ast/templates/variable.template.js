@@ -20,7 +20,7 @@ window.ASTVariableTemplate = class {
             return obj;
         }
 
-        if (stream.peek() === ":") {
+        if (stream.peek() === ":") { // TODO: use next function
             stream.skip();
             // Type declaration
             if (!stream.peekTypeEquals("TYPE")) {
@@ -31,7 +31,7 @@ window.ASTVariableTemplate = class {
             obj.varType = stream.pop();
         }
 
-        if (stream.peek() === "=") {
+        if (stream.peek() === "=") { // TODO: use next function
             stream.skip();
             // Initialization
             if (!stream.peekTypeEquals(["NUM_LITERAL", "STR_LITERAL"])) {
