@@ -71,10 +71,16 @@ window.ASTFunctionTemplate = class {
         while (!stream.peekEquals(")")) {
             if (!stream.peekTypeEquals(["TYPE", "ID"])) {
                 // TODO: error handling
-                return console.error("Invalid parameter!"), obj;
+                return console.error("Invalid parameter type!"), obj;
             }
-            const param = stream.pop();
-            obj.params.push(param);
+            const name = stream.pop();
+            if (!stream.peekTypeEquals("ID")) {
+                // TODO: error handling
+                return console.error("Invalid parameter name!"), obj;
+            }
+            const value = stream.pop();
+
+            obj.params.push({ name: name, value: value });
         }
 
         stream.skip(); // Skip ")"
