@@ -1,6 +1,10 @@
 const playgroundDOM = document.querySelector("#playground");
 
 function setupEditor() {
+    playgroundDOM.innerHTML = `fn main() {
+    println("Hello world!");
+}\n`;
+
     const editor = ace.edit("playground");
     editor.setTheme("ace/theme/merbivore_soft");
     editor.session.setMode("ace/mode/rust");
