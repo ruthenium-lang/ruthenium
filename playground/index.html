@@ -24,7 +24,7 @@
 
     </div>
     <div style="float: right;">
-        <button id="tokenize" class="codeBtn">Tokenize</button>
+        <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
         <button id="parse"    class="codeBtn">Parse</button>
     </div>
 
@@ -47,11 +47,13 @@
     <script>
         const editor = setupEditor();
 
-        document.getElementById("tokenize").addEventListener("click", () => {
-            const tokens = tokenize();
+        function tokenize() {
+            const tokens = qrtTokenize(new CodeStream(editor.getContent()));
             const tokenized = document.getElementById("tokenized");
             tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", "&nbsp;")).join(", ");
-        });
+
+            return tokens;
+        }
 
         document.getElementById("parse").addEventListener("click", () => {
             const tokens = tokenize();

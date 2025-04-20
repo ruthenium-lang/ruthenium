@@ -19,7 +19,3 @@ function setupEditor() {
     return editor;
 }
 
-function tokenize() {
-    return qrtTokenize(new CodeStream(editor.getContent()));
-}
-
