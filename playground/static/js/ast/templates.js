@@ -56,6 +56,44 @@ window.ASTFunctionTemplate = class {
             return console.error("Invalid function declaration!"), obj;
         }
 
+        if (!stream.peekTypeEquals("ID")) {
+            // TODO: error handling
+            return console.error("no function name found"), obj;
+        }
+        
+        obj.name = stream.pop();
 
+        if (stream.peekEquals("(")) {
+            stream.skip();
+            // Parameters
+            obj.params = [];
+            while (!stream.peekEquals(")")) {
+                if (!stream.peekTypeEquals("ID")) {
+                    // TODO: error handling
+                    return console.error("Invalid parameter!"), obj;
+                }
+                let param = stream.pop();
+                obj.params.push(param);
+            }
+        }
+
+        stream.skip(); // Skip ")"
+        if (stream.peekTypeEquals("ID")) {
+            obj.returnType = stream.pop();
+        }
+
+        if (stream.peekEquals("{")) {
+            stream.skip();
+            // Body
+            obj.nodes = [];
+            while (!stream.peekEquals("}")) {
+                console.log("stream: ", stream.tokens);
+                let node = window.evaluate(stream);
+                obj.nodes.push(node);
+            }
+            stream.skip(); // Skip "}"
+        }
+
+        return obj;
     }
 }
