@@ -55,8 +55,6 @@
 
         document.getElementById("parse").addEventListener("click", () => {
             const tokens = tokenize();
-            const tokenized = document.getElementById("tokenized");
-            tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", "&nbsp;")).join(", ");
             const tokenStream = new TokenStream(tokens);
             const parser = new window.ASTParser(tokenStream);
             const ast = parser.parse();
