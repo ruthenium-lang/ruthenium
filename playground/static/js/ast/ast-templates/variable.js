@@ -28,7 +28,7 @@ window.ASTVariableTemplate = class {
                 return console.error("Invalid type declaration!"), obj;
             }
 
-            obj.type = stream.pop();
+            obj.varType = stream.pop();
         }
 
         if (stream.peek() === "=") {
