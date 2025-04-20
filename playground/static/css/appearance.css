@@ -5,3 +5,22 @@
     outline: none;
     border: 1px solid #ddd;
 }
+
+.codeBtn {
+    border-radius: 4px;
+    background-color: lightgreen;
+    border: 2px solid #000;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.codeBtn:hover {
+    background-color: #46a537;
+    cursor: pointer;
+}
+
+.codeBtn:disabled {
+    background-color: #ddd;
+    color: #444;
+    cursor: not-allowed;
+}

@@ -11,41 +11,37 @@
     <link rel="stylesheet" href="static/css/appearance.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-
 </head>
-
 <body>
     <div style="float: left;">
     <div id="playground"></div>
 
     </div>
     <div style="float: right;">
-        <button>Tokenize</button>
-        <button disabled>Parse</button>
+        <button          id="tokenize" class="codeBtn">Tokenize</button>
+        <button disabled id="parse"    class="codeBtn">Parse</button>
     </div>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
+        type="text/javascript"
+        charset="utf-8"
+    ></script>
+    
+    
+    <script type="module" src="static/js/ast/templates.js"></script>
+    <script type="module" src="static/js/compiler/lexer.js"></script>
+    <script type="module" src="static/js/compiler/util/codestream.js"></script>
+    <script type="module" src="static/js/tokens/tokenstream.js"></script>
+    
+    <script src="static/js/editor.js"></script>
+    
+    <script>
+        const editor = setupEditor();
 
-
+        document.getElementById("tokenize").addEventListener("click", () => {
+            const tokens = tokenize();
+            document.getElementById("parse").disabled = false;
+        });
+    </script>
 </body>
-
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
-    type="text/javascript"
-    charset="utf-8"
-></script>
-
-
-<script type="module" src="static/js/ast/templates.js"></script>
-<script type="module" src="static/js/compiler/lexer.js"></script>
-<script type="module" src="static/js/compiler/util/codestream.js"></script>
-<script type="module" src="static/js/tokens/tokenstream.js"></script>
-
-<script src="static/js/editor.js"></script>
-
-<script>
-    const editor = setupEditor();
-
-</script>
-
-
-
 </html>
