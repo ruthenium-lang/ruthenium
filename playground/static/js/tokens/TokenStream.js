@@ -41,6 +41,14 @@ window.TokenStream = class {
         return this.tokens.pop() === t;
     }
 
+    next(t) {
+        const token = this.peek();
+        if (t === token)
+            return this.skip(), true;
+
+        return false;
+    }
+
     remaining(i) {
         if (i === undefined)
             i = 0;

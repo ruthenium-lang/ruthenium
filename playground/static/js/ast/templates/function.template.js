@@ -18,8 +18,7 @@ window.ASTFunctionTemplate = class {
             return console.error("no function name found"), obj;
         }
 
-        // TODO: use next function
-        while (!stream.peek() === ")") {
+        while (!stream.next(")")) {
             if (!stream.peekTypeEquals(["TYPE", "ID"])) {
                 // TODO: error handling
                 return console.error("Invalid parameter type!"), obj;
@@ -39,7 +38,6 @@ window.ASTFunctionTemplate = class {
             obj.params.push({ name: name, value: value });
         }
 
-        stream.skip(); // Skip ")"
         if (stream.peekTypeEquals("ID")) {
             obj.returnType = stream.pop();
         }
