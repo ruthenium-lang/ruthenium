@@ -97,3 +97,6 @@ window.ASTFunctionTemplate = class {
         return obj;
     }
 }
+
+function evaluate(stream) { return; } // Dummy function to avoid errors
+window.evaluate = evaluate;
