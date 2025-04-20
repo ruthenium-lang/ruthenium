@@ -73,6 +73,22 @@ window.CodeStream = class {
         return unwrapped;
     }
 
+    cursor() {
+        let line = 1;
+        let col  = 1;
+
+        for (let i = 0; i < this.index; i++) {
+            if (this.code[i] === '\n') {
+                line++;
+                col = 1;
+            } else {
+                col++;
+            }
+        }
+
+        return `${line}:${col}`;
+    }
+
     isEOF(index) {
         if (index == undefined)
             index = this.index;
