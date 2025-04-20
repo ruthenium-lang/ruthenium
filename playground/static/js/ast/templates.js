@@ -60,7 +60,7 @@ window.ASTFunctionTemplate = class {
             // TODO: error handling
             return console.error("no function name found"), obj;
         }
-        
+
         obj.name = stream.pop();
 
         if (stream.peekEquals("(")) {
@@ -86,7 +86,7 @@ window.ASTFunctionTemplate = class {
             stream.skip();
             // Body
             obj.nodes = [];
-            while (!stream.peekEquals("}")) {
+            while (!stream.popEquals("}")) {
                 console.log("stream: ", stream.tokens);
                 let node = window.evaluate(stream);
                 obj.nodes.push(node);
