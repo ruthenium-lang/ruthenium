@@ -1,4 +1,4 @@
-window.ASTVariableTemplate = class {
+export class ASTVariableTemplate {
 
     fill(stream) {
         let obj = {};
@@ -46,3 +46,4 @@ window.ASTVariableTemplate = class {
 
 };
 
+window.ASTVariableTemplate = ASTVariableTemplate;

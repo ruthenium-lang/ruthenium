@@ -1,4 +1,5 @@
-window.ASTFunctionTemplate = class {
+export class ASTFunctionTemplate {
+
     fill(stream) {
         let obj = { params: [] };
         if (!stream.pop() === "fn") {
@@ -43,4 +44,7 @@ window.ASTFunctionTemplate = class {
 
         return obj;
     }
-}
+
+};
+
+window.ASTFunctionTemplate = ASTFunctionTemplate;

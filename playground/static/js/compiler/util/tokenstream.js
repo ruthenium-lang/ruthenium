@@ -1,6 +1,6 @@
 import { detectTokenType } from "../../tokens/types.js";
 
-window.TokenStream = class {
+export class TokenStream {
 
     constructor(tokens) {
         this.tokens = tokens;
@@ -65,3 +65,5 @@ window.TokenStream = class {
     }
 
 }
+
+window.TokenStream = TokenStream;

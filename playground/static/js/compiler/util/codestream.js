@@ -1,4 +1,4 @@
-window.CodeStream = class {
+export class CodeStream {
 
     constructor(code) {
         this.code = code;
@@ -96,6 +96,7 @@ window.CodeStream = class {
         return `${line}:${col}`;
     }
 
+    // TODO: convert to remaining
     isEOF(index) {
         if (index == undefined)
             index = this.index;
@@ -114,3 +115,5 @@ window.CodeStream = class {
     }
 
 }
+
+window.CodeStream = CodeStream;

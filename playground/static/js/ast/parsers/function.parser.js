@@ -45,3 +45,5 @@ export class ASTFunctionParser {
     }
 
 }
+
+window.ASTFunctionParser = ASTFunctionParser;

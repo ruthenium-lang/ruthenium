@@ -20,7 +20,7 @@
     <div style="float: left;">
     <div id="playground"></div>
     <div id="tokenized"></div>
-    <div id="ast"></div>
+    <div id="ast"><pre id="ast-visor-content"></pre></div>
 
     </div>
     <div style="float: right;">
@@ -38,19 +38,20 @@
     <script type="module" src="static/js/ast/templates/function.template.js"></script>
     <script type="module" src="static/js/ast/templates/variable.template.js"></script>
 
-    <script type="module" src="static/js/compiler/lexer.js"></script>
-    <script type="module" src="static/js/compiler/util/codestream.js"></script>
     <script type="module" src="static/js/compiler/util/tokenstream.js"></script>
+    <script type="module" src="static/js/compiler/util/codestream.js"></script>
     <script type="module" src="static/js/compiler/parser.js"></script>
+    <script type="module" src="static/js/compiler/lexer.js"></script>
 
     <script src="static/js/editor.js"></script>
 
     <script>
         const editor = setupEditor();
+        const astVisorDOM = document.getElementById("ast-visor-content");
+        const tokenized = document.getElementById("tokenized");
 
         function tokenize() {
             const tokens = qrtTokenize(new CodeStream(editor.getContent()));
-            const tokenized = document.getElementById("tokenized");
             tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", "&nbsp;")).join(", ");
 
             return tokens;
@@ -58,11 +59,10 @@
 
         document.getElementById("parse").addEventListener("click", () => {
             const tokens = tokenize();
-            const tokenStream = new TokenStream(tokens);
-            const parser = new window.ASTParser(tokenStream);
+            const stream = new TokenStream(tokens);
+            const parser = new ASTParser(stream);
             const ast = parser.parse();
-            const astElement = document.getElementById("ast");
-            astElement.innerHTML = `<pre>${jsyaml.dump(ast)}</pre>`;
+            astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
         });
     </script>
 </body>

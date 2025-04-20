@@ -13,3 +13,5 @@ export class ASTVariableParser {
     }
 
 }
+
+window.ASTVariableParser = ASTVariableParser;
