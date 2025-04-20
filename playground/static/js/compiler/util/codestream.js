@@ -15,7 +15,7 @@ window.CodeStream = class {
         return this.code[this.index + i];
     }
 
-    back(i) {
+    back(i) { // TODO: can be smaller
         if (i == undefined)
             i = 1;
 
@@ -38,6 +38,17 @@ window.CodeStream = class {
 
         const s1 = this.code.substring(this.index, this.index += s0.length);
         return s1 === s0;
+    }
+
+    next(s0) {
+        if (this.isEOF(this.index + s0.length + 1))
+            return false;
+
+        const s1 = this.code.substring(this.index, this.index + s0.length);
+        if (s1 === s0)
+            return this.skip(s0.length), true;
+
+        return false;
     }
 
     readWhile(condition) {
