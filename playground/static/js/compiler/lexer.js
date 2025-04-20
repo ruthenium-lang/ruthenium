@@ -1,5 +1,5 @@
 import { Character } from './util/character.js'
-import { Token } from './util/tokens.js'
+import { Token } from '../tokens/tokens.js'
 
 function equalsCanGoNext(c) {
     if (!c)
@@ -12,8 +12,7 @@ export function qrtTokenize(stream) {
     const tokens = [];
     let token = "";
 
-    while (!stream.isEOF())
-    {
+    while (!stream.isEOF()) {
         const c = stream.peek();
 
         if (Character.isDoubleQuotes(c))
