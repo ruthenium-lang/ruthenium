@@ -34,6 +34,8 @@ window.TokenStream = class {
         this.index += i;
     }
 
+    remaining() {
+        return this.tokens.length - this.index;
     }
 
 }
