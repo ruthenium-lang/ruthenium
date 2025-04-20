@@ -31,7 +31,7 @@ window.TokenStream = class {
         if (i === undefined)
             i = 1;
 
-        this.index += i;
+        this.index = Math.min(this.index + i, this.tokens.length);
     }
 
     expect(t) {
