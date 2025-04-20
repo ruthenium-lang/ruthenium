@@ -13,10 +13,13 @@ function setupEditor() {
     editor.setOption("fontSize", 18);
 
     playgroundDOM.style.lineHeight = "26px";
-
-
     window.aceContentDOM = document.querySelector(".ace_content");
     editor.getContent = () => aceContentDOM.innerText;
+
     return editor;
+}
+
+function tokenize() {
+    return qrtTokenize(new CodeStream(editor.getContent()));
 }
 
