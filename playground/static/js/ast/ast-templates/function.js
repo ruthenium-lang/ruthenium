@@ -29,6 +29,9 @@ window.ASTFunctionTemplate = class {
                 return console.error("Invalid parameter name!"), obj;
             }
             const value = stream.pop();
+            if (stream.peekEquals(",")) {
+                stream.skip(); // Skip ","
+            }
 
             obj.params.push({ name: name, value: value });
         }

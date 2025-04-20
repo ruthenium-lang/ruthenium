@@ -23,6 +23,23 @@
     overflow-wrap: break-word;
 }
 
+#ast {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #ddd;
+    background-color: #222;
+    color: #23a521;
+    font-family: "Hermit", monospace;
+    font-size: 16px;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    padding: 8px;
+    overflow: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .codeBtn {
     color: white;
     border-radius: 4px;
