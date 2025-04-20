@@ -34,14 +34,11 @@ export class ASTFunctionParser {
             return console.error("Expected a valid return type"), block;
         }
 
-        console.log(this.stream.remaining());
         while (this.stream.peek() !== "}"
             && this.stream.remaining() >= 1)
         {
-            console.log("hola");
             const parser = new ASTParser(this.stream);
             body = parser.parse();
-            console.log(body);
         }
 
         return body;
