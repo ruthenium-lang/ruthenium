@@ -13,7 +13,4 @@ body {
     height: 350px !important;
     width: 450px !important;
     padding: 8px;
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #ddd;
 }
