@@ -1,5 +1,5 @@
-import { ASTFunctionParser } from './parsers/function.parser.js'
-import { ASTVariableParser } from './parsers/variable.parser.js'
+import { ASTFunctionParser } from '../ast/parsers/function.parser.js'
+import { ASTVariableParser } from '../ast/parsers/variable.parser.js'
 
 export class ASTParser {
 
