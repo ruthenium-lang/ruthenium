@@ -11,12 +11,7 @@ export class TokenStream {
         if (!Array.isArray(type))
             return detectTokenType(this.peek()) === type;
 
-        let equals = false;
-        for (let i = 0; i < type.length; i++) {
-            equals = equals || this.peekTypeEquals(type[i]);
-        }
-
-        return equals;
+        return type.some(t => this.peekTypeEquals(t));
     }
 
     pop() {
@@ -27,17 +22,11 @@ export class TokenStream {
         return this.tokens[this.index];
     }
 
-    skip(i) {
-        if (i === undefined)
-            i = 1;
-
+    skip(i = 1) {
         this.index = Math.min(this.index + i, this.tokens.length);
     }
 
-    back(i) {
-        if (i === undefined)
-            i = 1;
-
+    back(i = 1) {
         this.index = Math.max(this.index - i, 0)
         return this.peek();
     }
@@ -46,21 +35,20 @@ export class TokenStream {
         if (this.remaining() < 1)
             return false;
 
-        return this.tokens.pop() === t;
+        return this.tokens[this.index++] === t;
     }
 
     next(t) {
+        if (this.remaining() < 1) return false;
         const token = this.peek();
+
         if (t === token)
             return this.skip(), true;
 
         return false;
     }
 
-    remaining(i) {
-        if (i === undefined)
-            i = 0;
-
+    remaining(i = 0) {
         return this.tokens.length - (this.index + i);
     }
 

@@ -12,7 +12,7 @@ export function qrtTokenize(stream) {
     const tokens = [];
     let token = "";
 
-    while (!stream.isEOF()) {
+    while (stream.remaining() > 0) {
         const c = stream.peek();
 
         if (Character.isDoubleQuotes(c))
