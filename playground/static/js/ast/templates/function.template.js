@@ -30,9 +30,10 @@ window.ASTFunctionTemplate = class {
                 return console.error("Invalid parameter name!"), obj;
             }
             const value = stream.pop();
-
-            if (stream.peek() === ",") { // TODO: use expect function
-                stream.skip(); // Skip ","
+            if (!stream.expect(',')) {
+                // TODO: error handling
+                // TODO: implement back function
+                return console.error("Expected comma but found ..."), obj;
             }
 
             obj.params.push({ name: name, value: value });

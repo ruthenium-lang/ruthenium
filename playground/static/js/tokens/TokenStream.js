@@ -34,10 +34,18 @@ window.TokenStream = class {
         this.index += i;
     }
 
-    // TODO: Add expect function
+    expect(t) {
+        if (this.remaining() < 1)
+            return false;
 
-    remaining() {
-        return this.tokens.length - this.index;
+        return this.tokens.pop() === t;
+    }
+
+    remaining(i) {
+        if (i === undefined)
+            i = 0;
+
+        return this.tokens.length - (this.index + i);
     }
 
 }
