@@ -17,16 +17,3 @@ body {
     outline: none;
     border: 1px solid #ddd;
 }
-
-#bytecode {
-    min-height: 500px !important;
-    min-width: 500px !important;
-    padding: 8px;
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #ddd;
-
-    background-color: #222;
-    color: #0c0;
-    white-space: pre;
-}

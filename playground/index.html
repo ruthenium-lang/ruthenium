@@ -11,11 +11,9 @@
 </head>
 
 <body>
-    <button id="compile" onclick="compile()">Compile</button>
     <div id="playground">fn main() {
     println("Hello world!");
 }</div>
-    <div id="bytecode"></div>
 
 
 </body>
@@ -37,13 +35,6 @@
 <script>
     const editor = setupEditor();
 
-    function compile() {
-        const code = editor.getValue();
-        const stream = new CodeStream(code);
-        bytecode.innerHTML = window.qrtTokenize(stream).map(token => JSON.stringify(token)).join("\n");
-    }
-
-    playgroundDOM.editor = editor; // Assign the editor instance
 </script>
 
 
