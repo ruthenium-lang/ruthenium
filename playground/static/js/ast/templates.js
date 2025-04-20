@@ -87,8 +87,6 @@ window.ASTFunctionTemplate = class {
             // Body
             obj.nodes = [];
             while (!stream.popEquals("}")) {
-                console.log("stream: ", stream.tokens);
-                let node = window.evaluate(stream);
                 obj.nodes.push(node);
             }
             stream.skip(); // Skip "}"
@@ -97,6 +95,3 @@ window.ASTFunctionTemplate = class {
         return obj;
     }
 }
-
-function evaluate(stream) { return; } // Dummy function to avoid errors
-window.evaluate = evaluate;
