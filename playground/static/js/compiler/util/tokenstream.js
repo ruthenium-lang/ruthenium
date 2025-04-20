@@ -1,4 +1,4 @@
-import { detectTokenType } from "./types.js";
+import { detectTokenType } from "../../tokens/types.js";
 
 window.TokenStream = class {
 
