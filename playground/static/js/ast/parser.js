@@ -1,4 +1,5 @@
 import { ASTFunctionParser } from './parsers/function.parser.js'
+import { ASTVariableParser } from './parsers/variable.parser.js'
 
 export class ASTParser {
 
@@ -7,7 +8,7 @@ export class ASTParser {
         this.tree   = [];
 
         this.funcParser = new ASTFunctionParser(this.tree, stream);
-        // TODO: this.varParser  = new ASTVariableParser(this.tree, stream);
+        this.varParser  = new ASTVariableParser(this.tree, stream);
     }
 
     parse() {
@@ -20,16 +21,14 @@ export class ASTParser {
                     this.funcParser.parse();
                     break;
 
-                case 'let': // TODO: create ast variable parser
-                    const variable = new ASTVariableTemplate().fill(this.stream);
-                    this.tree.push({ type: "VariableDeclaration", ...variable });
+                case 'let':
+                    this.varParser.parse();
                     break;
 
                 default:
                     console.warn("I don't know what to do: ", keyword);
                     this.stream.skip();
                     break;
-
             }
 
         }
