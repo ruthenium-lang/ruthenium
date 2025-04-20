@@ -3,7 +3,7 @@ window.ASTVariableTemplate = class {
     fill(stream) {
         let obj = {};
 
-        if (!stream.popEquals("let")) {
+        if (stream.pop() !== "let") {
             // TODO: error handling
             return console.error("Invalid variable declaration!"), obj;
         }
@@ -15,12 +15,12 @@ window.ASTVariableTemplate = class {
 
         obj.name = stream.pop();
 
-        if (stream.peekEquals(";")) {
+        if (stream.peek() === ";") {
             // End
             return obj;
         }
 
-        if (stream.peekEquals(":")) {
+        if (stream.peek() === ":") {
             stream.skip();
             // Type declaration
             if (!stream.peekTypeEquals("TYPE")) {
@@ -31,7 +31,7 @@ window.ASTVariableTemplate = class {
             obj.type = stream.pop();
         }
 
-        if (stream.peekEquals("=")) {
+        if (stream.peek() === "=") {
             stream.skip();
             // Initialization
             if (!stream.peekTypeEquals(["NUM_LITERAL", "STR_LITERAL"])) {

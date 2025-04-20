@@ -7,7 +7,6 @@ window.TokenStream = class {
         this.index = 0;
     }
 
-
     peekTypeEquals(type) {
         if (!Array.isArray(type))
             return detectTokenType(this.peek()) === type;
@@ -35,12 +34,6 @@ window.TokenStream = class {
         this.index += i;
     }
 
-    peekEquals(expected) {
-        return this.peek() === expected;
-    }
-
-    popEquals(expected) {
-        return this.pop() === expected;
     }
 
 }
