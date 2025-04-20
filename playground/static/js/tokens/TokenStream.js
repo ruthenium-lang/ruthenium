@@ -34,6 +34,8 @@ window.TokenStream = class {
         this.index += i;
     }
 
+    // TODO: Add expect function
+
     remaining() {
         return this.tokens.length - this.index;
     }

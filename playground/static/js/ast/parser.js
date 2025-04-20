@@ -7,13 +7,15 @@ export class ASTParser {
         this.tree   = [];
 
         this.funcParser = new ASTFunctionParser(this.tree, stream);
-        //this.varParser  = new ASTVariableParser(this.tree, stream);
+        // TODO: this.varParser  = new ASTVariableParser(this.tree, stream);
     }
 
     parse() {
+        // TODO: peek() -> remaining()
         while (this.stream.peek()) {
             const token = this.stream.peek();
 
+            // TODO: Convert to a switch
             // Match a function
             if (token === 'fn') {
                 this.funcParser.parse();
