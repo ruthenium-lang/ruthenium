@@ -1,3 +1,5 @@
+import { ASTFunctionParser } from './parsers/function.parser.js'
+
 export class ASTParser {
 
     constructor(stream) {
@@ -33,57 +35,6 @@ export class ASTParser {
 
         return this.tree;
     }
-}
-
-export class ASTFunctionParser {
-
-    constructor(tree, stream) {
-        this.stream = stream;
-        this.tree   = tree;
-    }
-
-    parse() {
-        const fn = new ASTFunctionTemplate().fill(this.stream);
-        let block = {
-            type: "FunctionDeclaration",
-            returnType: "void",
-            body: [],
-            ...fn
-        };
-
-        if (this.stream.peek() !== "{") {
-            if (!this.stream.peekTypeEquals(["ID", "TYPE"])) {
-                // TODO: error handling
-                return console.error("Expected a valid return type"), block;
-            }
-
-            block.returnType = this.stream.pop();
-        }
-
-        block.body = this.parseBody();
-        this.tree.push(block);
-    }
-
-    parseBody() {
-        let body = [];
-        if (this.stream.peek() !== "{") {
-            // TODO: error handling
-            return console.error("Expected a valid return type"), block;
-        }
-
-        console.log(this.stream.remaining());
-        while (this.stream.peek() !== "}"
-            && this.stream.remaining() >= 1)
-        {
-            console.log("hola");
-            const parser = new ASTParser(this.stream);
-            body = parser.parse();
-            console.log(body);
-        }
-
-        return body;
-    }
-
 }
 
 window.ASTParser = ASTParser;
