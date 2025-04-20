@@ -20,38 +20,38 @@ window.CodeStream = class {
             i = 1;
 
         if (this.index - i < 0)
-			return '\0';
+            return '\0';
 
-		this.index -= i;
-		return this.peek();
+        this.index -= i;
+        return this.peek();
     }
 
     pop() {
-		const c = this.peek();
-		this.skip();
-		return c;
-	}
+        const c = this.peek();
+        this.skip();
+        return c;
+    }
 
-	expect(s0) {
-		if (this.isEOF(this.index + s0.length + 1))
-			return false;
+    expect(s0) {
+        if (this.isEOF(this.index + s0.length + 1))
+            return false;
 
-		const s1 = this.code.substring(this.index, this.index += s0.length);
-		return s1 === s0;
-	}
+        const s1 = this.code.substring(this.index, this.index += s0.length);
+        return s1 === s0;
+    }
 
     readWhile(condition) {
-		let str = "";
+        let str = "";
 
-		let c;
-		while (!this.isEOF() && condition(c = this.pop()))
-			str += c;
+        let c;
+        while (!this.isEOF() && condition(c = this.pop()))
+            str += c;
 
         if (!this.isEOF())
-		    this.back(); // The last character doesn't belong to the string
+            this.back(); // The last character doesn't belong to the string
 
-		return str;
-	}
+        return str;
+    }
 
     unwrap(wrapch) {
         if (!this.expect(wrapch))
@@ -61,8 +61,7 @@ window.CodeStream = class {
         for (; i < this.code.length; i++)
             if (this.code[i] === wrapch) break;
 
-        if (i === this.code.length)
-        {
+        if (i === this.code.length) {
             console.error("Unterminated string!");
             console.trace();
             return undefined;
@@ -75,7 +74,7 @@ window.CodeStream = class {
 
     cursor() {
         let line = 1;
-        let col  = 1;
+        let col = 1;
 
         for (let i = 0; i < this.index; i++) {
             if (this.code[i] === '\n') {
@@ -93,17 +92,17 @@ window.CodeStream = class {
         if (index == undefined)
             index = this.index;
 
-		return index >= this.code.length;
-	}
+        return index >= this.code.length;
+    }
 
-	skip(i) {
+    skip(i) {
         if (i == undefined)
             i = 1;
 
-		if (this.isEOF())
-			return;
+        if (this.isEOF())
+            return;
 
         this.index += i;
-	}
+    }
 
 }
