@@ -10,17 +10,24 @@
     <link rel="stylesheet" href="static/css/fonts.css" />
     <link rel="stylesheet" href="static/css/appearance.css" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
     <div style="float: left;">
     <div id="playground"></div>
+    <div id="tokenized"></div>
+    <div id="ast"></div>
 
     </div>
     <div style="float: right;">
         <button          id="tokenize" class="codeBtn">Tokenize</button>
         <button disabled id="parse"    class="codeBtn">Parse</button>
     </div>
+
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
         type="text/javascript"
@@ -41,7 +48,8 @@
 
         document.getElementById("tokenize").addEventListener("click", () => {
             const tokens = tokenize();
-            document.getElementById("parse").disabled = false;
+            const tokenized = document.getElementById("tokenized");
+            tokenized.innerHTML = tokens.map(t => t.toString()).join(", ");
         });
     </script>
 </body>

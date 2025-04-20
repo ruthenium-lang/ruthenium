@@ -6,12 +6,38 @@
     border: 1px solid #ddd;
 }
 
+#tokenized {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #ddd;
+    background-color: #222;
+    color: #23a521;
+    font-family: "Hermit", monospace;
+    font-size: 16px;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    padding: 8px;
+    overflow: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .codeBtn {
+    color: white;
     border-radius: 4px;
-    background-color: lightgreen;
-    border: 2px solid #000;
+    background-color: rgb(64, 104, 92);
+    border: 1px solid #000;
     width: 100%;
+    padding: 10px 16px;
+    margin: 3px 0;
     transition: background-color 0.2s;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
 }
 
 .codeBtn:hover {
