@@ -15,14 +15,11 @@ window.CodeStream = class {
         return this.code[this.index + i];
     }
 
-    back(i) { // TODO: can be smaller
+    back(i) {
         if (i == undefined)
             i = 1;
 
-        if (this.index - i < 0)
-            return '\0';
-
-        this.index -= i;
+        this.index = Math.max(this.index - i, 0);
         return this.peek();
     }
 
