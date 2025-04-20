@@ -1,9 +1,6 @@
 import { ASTFunctionParser } from '../ast/parsers/function.parser.js'
 import { ASTVariableParser } from '../ast/parsers/variable.parser.js'
 
-import { ASTFunctionTemplate } from '../ast/templates/function.template.js'
-import { ASTVariableTemplate } from '../ast/templates/variable.template.js'
-
 export class ASTParser {
 
     constructor(stream) {
@@ -27,8 +24,11 @@ export class ASTParser {
                 case 'let':
                     this.varParser.parse();
                     break;
-
+                
                 default:
+                    // Check if it's a function call
+                    
+
                     console.warn("I don't know what to do: ", keyword);
                     this.stream.skip();
                     break;
