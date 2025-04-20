@@ -13,24 +13,24 @@ export class ASTParser {
     parse() {
         // TODO: peek() -> remaining()
         while (this.stream.peek()) {
-            const token = this.stream.peek();
+            const keyword = this.stream.peek();
 
-            // TODO: Convert to a switch
-            // Match a function
-            if (token === 'fn') {
-                this.funcParser.parse();
-            }
+            switch (keyword) {
 
-            // Match a variable
-            else if (token === 'let') {
-                const variable = new ASTVariableTemplate().fill(this.stream);
-                this.tree.push({ type: "VariableDeclaration", ...variable });
-            }
+                case 'fn':
+                    this.funcParser.parse();
+                    break;
 
-            // Unknown token, skip
-            else {
-                console.warn("Unknown construct:", token);
-                this.stream.skip();
+                case 'let': // TODO: create ast variable parser
+                    const variable = new ASTVariableTemplate().fill(this.stream);
+                    this.tree.push({ type: "VariableDeclaration", ...variable });
+                    break;
+
+                default:
+                    console.warn("I don't know what to do: ", keyword);
+                    this.stream.skip();
+                    break;
+
             }
 
         }
