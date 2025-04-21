@@ -8,7 +8,7 @@
 
    <a href="https://github.com/ruthenium-lang/ruthenium/wiki/Examples">📖 See examples</a>
    ·
-   🧪 Playground (in the other branch)
+   <a href="https://ruthenium-lang.github.io/ruthenium/playground/">🧪 Playground</a>
    ·
    <a href="https://github.com/ruthenium-lang/ruthenium/issues">💡 Suggest Features</a>
 
