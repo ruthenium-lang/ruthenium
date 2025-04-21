@@ -1,4 +1,5 @@
 export class ASTFunctionCallPattern {
+
     constructor(stream) {
         this.stream = stream;
     }
@@ -16,10 +17,10 @@ export class ASTFunctionCallPattern {
         this.stream.skip(); // Skip the "("
         obj.args = this.parseArgs(this.stream);
 
-        // TODO: error handling
-        this.stream.expect(';');
+        if (this.stream.expect(';'))
+            return obj;
 
-        return obj;
+        return this.stream.error(Errors.AST.Statement_MissingEnd), block;
     }
 
     parseArgs() {
@@ -35,7 +36,7 @@ export class ASTFunctionCallPattern {
                 continue;
 
             else if (this.stream.peek() === undefined) {
-                console.warn("Unexpected end of stream"); // TODO: Issue (#18): Streams with warnings
+                this.stream.error(Errors.STREAMS.Unexpected_EOS);
                 break;
             }
         } // Skips the last ) automatically due to the next function
