@@ -2,28 +2,26 @@ const sliceError = errno => [ getPhase(errno), getModule(errno), getRawError(err
 const codeToHex  = errno => errno.toString(16).padStart(6, "0");
 
 const phases = {
-    0x1: "Lexer",
-    0x2: "AST",
-    0x3: "Parser",
-    0x4: "Semantic",
-    0x5: "Interpreter"
+    0x1: "Stream",
+    0x2: "Lexer",
+    0x3: "AST",
+    0x4: "Parser",
+    0x5: "Semantic",
+    0x6: "Typecheck",
+    0x7: "Virtual Machine",
 };
 
 export function panic(error, cursor, sourceLine, customMessage) {
-    const { code, message } = error;
+    const { code, message, hint } = error;
     const [ line, col ] = cursor.split(":").map(s => parseInt(s));
 
     const filepath = './src/main.rt';
     const phase    = phases[code >> 20] || "Unknown";
 
-    const suggestion = generateSuggestion(error);
-
     /* Display */
     let detailedMessage = "";
     {
         detailedMessage += `\n ${phase} Error[0x${codeToHex(code)}]: ${message}`;
-        if (customMessage)
-            detailedMessage += `: ${customMessage}\n`;
 
         detailedMessage += `\n     ┌─ ${filepath}:${cursor}`;
         detailedMessage += `\n     │`;
@@ -33,36 +31,11 @@ export function panic(error, cursor, sourceLine, customMessage) {
 
         // Wait until the wrong part and repeat '^' until the end of the line
         detailedMessage += `\n     │${' '.repeat(col)}${'^'.repeat(sourceLine.length - col + 1)} `;
-        if (suggestion)
-            detailedMessage += suggestion; // ^^^^^ Did you mean...?
+        if (hint)
+            detailedMessage += hint; // ^^^^^ Did you mean...?
 
     }
     displayErrorPopup(detailedMessage);
-}
-
-function generateSuggestion(error) {
-    if (error === Errors.LEXER.Unclosed_String)
-        return "Close the string with a quotation mark";
-
-    if (error === Errors.LEXER.Invalid_Char)
-        return "Use ASCII characters, not unicode";
-
-    if (error === Errors.AST.Duplicate_Declaration)
-        return "Remove the second reference";
-
-    if (error === Errors.AST.Invalid_FuncBody)
-        return "Ensure the function has a valid body";
-
-    if (error === Errors.AST.Missing_Identifier)
-        return "Add the name";
-
-    if (error === Errors.PARSER.Unclosed_Parentheses)
-        return "Add \")\"";
-
-    if (error === Errors.PARSER.Unexpected_Token)
-        return "Remove this token";
-
-    return null;
 }
 
 function displayErrorPopup(detailedMessage) {
@@ -124,50 +97,62 @@ function displayErrorPopup(detailedMessage) {
 export const Errors = {
     LEXER: {
         Invalid_Char: {
-            code: 0x100001,
-            message: "Invalid character"
+            code: 0x200001,
+            message: "Invalid character",
+            hint: "Use ASCII characters, not unicode",
         },
         Unclosed_String: {
-            code: 0x100002,
-            message: "Unclosed string literal"
+            code: 0x200002,
+            message: "Unclosed string literal",
+            hint: "Close the string with a quotation mark"
         }
     },
     AST: {
         Malformed_Variable: {
-            code: 0x200001,
-            message: "Malformed variable name"
+            code: 0x300001,
+            message: "Malformed variable",
+            hint: null
         },
         Duplicate_Declaration: {
-            code: 0x200002,
-            message: "Duplicate variable declaration"
+            code: 0x300002,
+            message: "Duplicate variable declaration",
+            hint: "Remove the second reference",
         },
-        Missing_Identifier: {
-            code: 0x200003,
-            message: "Expected identifier"
-        },
-        Invalid_FuncBody: {
-            code: 0x210004,
-            message: "Expected a valid function body"
-        },
-        Invalid_ReturnType: {
-            code: 0x210005,
-            message: "Expected a valid return type"
-        }
     },
     PARSER: {
         Unexpected_Token: {
-            code: 0x300001,
-            message: "Unexpected token"
+            code: 0x400001,
+            message: "Unexpected token",
+            hint: "Remove this token",
         },
         Unclosed_Parentheses: {
-            code: 0x300002,
-            message: "Unclosed parentheses"
-        }
+            code: 0x400002,
+            message: "Unclosed parentheses",
+            hint: "Add \")\"",
+        },
+        Missing_Identifier: {
+            code: 0x400003,
+            message: "Expected identifier",
+            hint: "Add the name"
+        },
+        Invalid_FuncBody: {
+            code: 0x410004,
+            message: "Expected a valid function body",
+            hint: "Ensure the function has a valid body",
+        },
+    },
+    TYPECHECK: {
+        NotIDTYPE_ReturnType: {
+            code: 0x610005,
+            message: "Expected a valid return type",
+            hint: "Use the return type void or some type"
+        },
     },
     STREAMS: {
         Unexpected_EOS: {
-            code: 0x400001,
-            message: "Unexpected end of stream"
+            code: 0x100001,
+            message: "Unexpected end of stream",
+            hint: "Complete the statement"
         }
     }
 };
