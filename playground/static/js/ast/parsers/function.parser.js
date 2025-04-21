@@ -35,7 +35,7 @@ export class ASTFunctionParser {
         }
 
         while (!this.stream.next("}")
-            && this.stream.remaining() >= 1) // TODO: >= 1 == > 0 +readability
+            && this.stream.remaining() > 0)
         {
             const parser = new ASTParser(this.stream);
             body = parser.parse();
