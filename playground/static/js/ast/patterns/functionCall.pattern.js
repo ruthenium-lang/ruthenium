@@ -23,21 +23,21 @@ export class ASTFunctionCallPattern {
         return obj;
     }
 
-    parseArgs(stream) { // TODO: Doesn't need stream
+    parseArgs() {
         const args = [];
         // TODO: What if we call a function that returns something?
         //       println(read()) -> println(read() ?
-        while (!stream.next(")")) {
-            let arg = stream.pop();
+        while (!this.stream.next(")")) {
+            let arg = this.stream.pop();
             console.log("argument: ", arg); // TODO: remove
             args.push(arg);
 
             // TODO: Detect things like duplicated commas
-            if (stream.next(","))
+            if (this.stream.next(","))
                 continue;
 
-            else if (stream.peek() === undefined) {
-                console.warn("Unexpected end of stream"); // TODO:
+            else if (this.stream.peek() === undefined) {
+                console.warn("Unexpected end of stream"); // TODO: Issue (#18): Streams with warnings
                 break;
             }
         } // Skips the last ) automatically due to the next function
