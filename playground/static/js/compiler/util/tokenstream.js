@@ -25,18 +25,19 @@ export class TokenStream {
         return this.tokens[this.index + i];
     }
 
-    error(data, custom = null, col_offset = 0) {
+    error(data, col_offset = 0) {
         let [ line, col ] = this.cursor().split(':').map(s => parseInt(s));
-        const line_str = CodeStream.getLine(window.editor.getContent(), this.index);
+        let line_str = CodeStream.getLine(window.editor.getContent(), this.index);
 
         col += col_offset;
-        const cursor = `${line}:${col}`;
+        if (line_str.length < col)
+            line_str += " ".repeat(col_offset);
 
+        const cursor = `${line}:${col}`;
         const e = {
             data: data,
             cursor: cursor,
-            line: line_str,
-            custom: custom
+            line: line_str
         };
 
         console.error(data.message);
