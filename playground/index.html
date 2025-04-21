@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="static/css/layout.css" />
     <link rel="stylesheet" href="static/css/fonts.css" />
     <link rel="stylesheet" href="static/css/appearance.css" />
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
-    <div style="float: left; width: 100%;">
-        <div id="playground"></div>
+    <!--<div style="float: left; width: 100%;">
         <h3>Inner Steps<button id="caret"><i class="fa-solid fa-caret-down" id="displayMore"></i><i class="fa-solid fa-caret-right" id="displayLess"></i></button></h3>
         <div id="innerSteps">
             <div id="tokenized"></div>
@@ -29,13 +28,21 @@
         </div>
         <div style="clear: both;"></div>
         <h3>Output</h3>
-        <div id="output"></div>
     </div>
     <div style="float: left;">
         <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
         <button id="parse"    class="codeBtn" onclick="parse()">Parse</button>
         <button id="run"      class="codeBtn" onclick="run()">Run</button>
     </div>-->
+
+    <div style="float: right">
+    </div>
+
+    <div class="container">
+        <div id="playground" class="left panel"></div>
+        <div class="divider" id="divider"></div>
+        <div id="output" class="right panel"></div>
+    </div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js" type="text/javascript" charset="utf-8"></script>
