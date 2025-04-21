@@ -34,12 +34,14 @@ export class ASTFunctionParser {
             return console.error("Expected a valid return type"), block;
         }
 
-        while (this.stream.peek() !== "}"
+        while (!this.stream.next("}")
             && this.stream.remaining() >= 1) // TODO: >= 1 == > 0 +readability
         {
             const parser = new ASTParser(this.stream);
             body = parser.parse();
         }
+
+        // No leaking '}', consumed due to the next function
 
         return body;
     }
