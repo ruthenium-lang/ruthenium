@@ -25,9 +25,12 @@ export class TokenStream {
         return this.tokens[this.index + i];
     }
 
-    error(data, custom = null) {
-        const cursor_pos = this.cursor();
+    error(data, custom = null, col_offset = 0) {
+        const [ line, col ] = this.cursor().split(':').map(s => parseInt(s));
         const line_str = CodeStream.getLine(window.editor.getContent(), this.index);
+
+        col += col_offset;
+        const cursor = `${line}:${col}`;
 
         const e = {
             data: data,
@@ -36,7 +39,10 @@ export class TokenStream {
             custom: custom
         };
 
+        console.error(data.message);
+        console.trace();
         this.errors.push(e);
+        return null;
     }
 
     cursor() {
