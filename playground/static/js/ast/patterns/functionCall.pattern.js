@@ -20,14 +20,13 @@ export class ASTFunctionCallPattern {
         this.stream.skip(); // Skip the "("
         console.log(this.stream.peek());
         obj.args = this.parseArgs(this.stream);
-        this.stream.skip(); // Skip the ")"
         
         return obj;
     }
 
     parseArgs(stream) {
         const args = [];
-        while (stream.peek() !== ")") {
+        while (!stream.next(")")) {
             let arg = stream.pop();
             console.log(arg);
             args.push(arg);
@@ -37,7 +36,7 @@ export class ASTFunctionCallPattern {
             if (stream.peek() === ")") {
                 break;
             }
-        }
+        } // Skips the last ) automatically due to the next function
         return args;
     }
 }
