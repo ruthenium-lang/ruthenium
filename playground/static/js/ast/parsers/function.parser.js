@@ -23,6 +23,8 @@ export class ASTFunctionParser {
             block.returnType = this.stream.pop();
         }
 
+        // TODO: PARSER ERROR: Maybe here is the problem of the parser not knowing what to do...
+
         block.body = this.parseBody();
         this.tree.push(block);
     }

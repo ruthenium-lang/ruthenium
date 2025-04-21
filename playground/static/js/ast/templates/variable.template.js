@@ -40,6 +40,7 @@ export class ASTVariableTemplate {
             obj.value = stream.pop();
         }
 
+        console.log(`Semicolon present: ${this.stream.expect(';')}`); // TODO: remove (console.log)
 
         return obj;
     }
