@@ -17,13 +17,17 @@ export class ASTFunctionCallPattern {
         obj.args = this.parseArgs(this.stream);
 
         console.log(`Semicolon present: ${this.stream.expect(';')}`); // TODO: remove (console.log)
+        // TODO: error handling
+        this.stream.expect(';');
 
         return obj;
     }
 
-    parseArgs(stream) {
+    parseArgs(stream) { // TODO: Doesn't need stream
         const args = [];
-        while (stream.peek() !== ")") {
+        // TODO: What if we call a function that returns something?
+        //       println(read()) -> println(read() ?
+        while (!stream.next(")")) {
             let arg = stream.pop();
             console.log("argument: ", arg); // TODO: remove
             args.push(arg);
@@ -32,18 +36,12 @@ export class ASTFunctionCallPattern {
             if (stream.next(","))
                 continue;
 
-            // TODO: What if we call a function that returns something?
-            //       println(read()) -> println(read() ?
-            if (stream.peek() === ")")
-                break;
-
             else if (stream.peek() === undefined) {
                 console.warn("Unexpected end of stream"); // TODO:
                 break;
             }
-        }
+        } // Skips the last ) automatically due to the next function
 
-        // Skips the last ) automatically due to the next function
         return args;
     }
 }
