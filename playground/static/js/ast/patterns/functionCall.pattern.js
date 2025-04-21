@@ -18,7 +18,7 @@ export class ASTFunctionCallPattern {
         
         obj.name = this.stream.pop();
         this.stream.skip(); // Skip the "("
-        console.log(this.stream.peek());
+        console.log(this.stream.peek()); // TODO: remove
         obj.args = this.parseArgs(this.stream);
         
         return obj;
@@ -28,14 +28,14 @@ export class ASTFunctionCallPattern {
         const args = [];
         while (!stream.next(")")) {
             let arg = stream.pop();
-            console.log(arg);
+            console.log(arg); // TODO: remove
             args.push(arg);
-            if (stream.peek() === ",") {
-                stream.skip();
-            }
-            if (stream.peek() === ")") {
+            
+            stream.expect(","); // TODO: error handling
+            
+            if (stream.peek() === ")")
                 break;
-            }
+            
         } // Skips the last ) automatically due to the next function
         return args;
     }
