@@ -16,7 +16,7 @@ export class ASTOperatorPattern {
             return null;
 
         obj.operator = this.stream.pop();
-        obj.left = this.stream.peek(-1); // TODO: This is exactly equal to obj.operator
+        obj.left = obj.operator;
         obj.right = this.stream.pop();
 
         return obj;
