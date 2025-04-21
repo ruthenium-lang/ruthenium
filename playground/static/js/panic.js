@@ -21,7 +21,7 @@ export function panic(error, cursor, sourceLine, customMessage) {
     /* Display */
     let detailedMessage = "";
     {
-        detailedMessage += `\n Error[0x${codeToHex(code)}]: ${message}`;
+        detailedMessage += `\n ${phase} Error[0x${codeToHex(code)}]: ${message}`;
         if (customMessage)
             detailedMessage += `: ${customMessage}\n`;
 

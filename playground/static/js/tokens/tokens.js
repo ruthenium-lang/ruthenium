@@ -1,3 +1,3 @@
-export function Token(s) {
-    return s;
+export function Token(s, c) {
+    return { symbol: s, cursor: c };
 }

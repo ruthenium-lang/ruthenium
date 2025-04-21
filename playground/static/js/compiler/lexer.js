@@ -40,7 +40,7 @@ export function qrtTokenize(stream) {
             }
         }
 
-        tokens.push(Token(token));
+        tokens.push(Token(token, stream.cursor()));
         token = "";
     }
 
