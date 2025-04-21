@@ -37,47 +37,27 @@ export function panic(error, cursor, sourceLine, customMessage) {
 }
 
 function displayErrorPopup(detailedMessage) {
-    const params = {
-        scrollbars: false,
-        resizable: true,
-        status: false,
-        location: false,
-        toolbar: false,
-        width: 854,
-        height: 456,
-        left: -1000,
-        top: -1000
-    }
+    errorType = "Error"; // TODO: Get the actual error type
 
-    // { scrollbars: false } -> "scrollbars=false"
-    const fmtParams = Object.entries(params).map(a => `${a[0]}=${a[1]}`).join()
-    let error_popup = window.open('about:blank', "test", fmtParams);
-
-    error_popup.document.head.innerHTML =`
-        <title>Ruthenium Interpreter -> Error</title>
-        <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    const output = document.getElementById('output');
+    output.innerHTML = `
         <style>
-            * {
+            #output {
                 margin: 0;
-                padding: 0;
-                overflow: hidden;
-
-            }
-
-            body {
                 padding: 12px;
                 background-color: #222;
+                overflow: hidden;
             }
 
-            h1 {
+            #output h1 {
                 font-family: 'Tektur', sans-serif;
                 color: #0e0;
                 font-size: 26pt;
             }
 
-            textarea {
+            #output textarea {
                 outline: none;
+                float: top;
                 width: 100%;
                 height: 100%;
                 font-family: 'Space Mono', sans-serif;
@@ -87,9 +67,8 @@ function displayErrorPopup(detailedMessage) {
                 color: #fff;
             }
         </style>
+        <h1>${errorType}</h1><hr/><br/><textarea readonly="true">${detailedMessage}</textarea>
     `;
-
-    error_popup.document.body.innerHTML = `<h1>Ruthenium</h1><hr/><br/><textarea readonly="true">${detailedMessage}</textarea>`;
 }
 
 export const Errors = {
