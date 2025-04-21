@@ -1,8 +1,9 @@
 export class CodeStream {
 
     constructor(code) {
-        this.index = 0;
-        this.code  = code;
+        this.errors = [];
+        this.index  = 0;
+        this.code   = code;
     }
 
     peek(i = 0) {
