@@ -1,7 +1,7 @@
 import { Character } from './util/character.js'
 import { Token } from '../tokens/tokens.js'
 
-function equalsCanGoNext(c) {
+export function equalsCanGoNext(c) {
     if (!c)
         return false;
 
@@ -32,7 +32,7 @@ export function qrtTokenize(stream) {
                 stream.skip();
             }
         }
- 
+
         tokens.push(Token(token));
         token = "";
     }
@@ -42,3 +42,4 @@ export function qrtTokenize(stream) {
 }
 
 window.qrtTokenize = qrtTokenize;
+window.equalsCanGoNext = equalsCanGoNext;

@@ -1,3 +1,5 @@
+import { equalsCanGoNext } from "../../compiler/lexer.js";
+
 export class ASTOperatorPattern {
 
     constructor(stream) {
@@ -10,9 +12,7 @@ export class ASTOperatorPattern {
         }
 
         // Check if its an operator (+, -, *, /)
-        // TODO: FIXME IMMEDIATELY: Can import method
-        const operators = ["+", "-", "*", "/"];
-        if (!operators.includes(this.stream.peek()))
+        if (!equalsCanGoNext(this.stream.peek()))
             return null;
 
         obj.operator = this.stream.pop();
