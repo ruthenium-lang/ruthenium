@@ -4,6 +4,7 @@ export class TokenStream {
 
     constructor(tokens) {
         this.tokens = tokens;
+        this.errors = [];
         this.index = 0;
     }
 
@@ -24,6 +25,10 @@ export class TokenStream {
     
     peek(i = 0) {
         return this.tokens[this.index + i];
+    }
+
+    error(err) {
+        this.errors.push(err);
     }
 
     skip(i = 1) {
