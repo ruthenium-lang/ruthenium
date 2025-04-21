@@ -154,10 +154,5 @@ export const Errors = {
     },
 };
 
-
-function getMessage(phase, module, error) {
-    return errors[phase][error]
-}
-
 window.panic = panic;
 window.Errors = Errors;
