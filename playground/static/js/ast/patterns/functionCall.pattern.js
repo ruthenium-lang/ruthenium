@@ -16,7 +16,6 @@ export class ASTFunctionCallPattern {
         this.stream.skip(); // Skip the "("
         obj.args = this.parseArgs(this.stream);
 
-        console.log(`Semicolon present: ${this.stream.expect(';')}`); // TODO: remove (console.log)
         // TODO: error handling
         this.stream.expect(';');
 
@@ -29,7 +28,6 @@ export class ASTFunctionCallPattern {
         //       println(read()) -> println(read() ?
         while (!this.stream.next(")")) {
             let arg = this.stream.pop();
-            console.log("argument: ", arg); // TODO: remove
             args.push(arg);
 
             // TODO: Detect things like duplicated commas

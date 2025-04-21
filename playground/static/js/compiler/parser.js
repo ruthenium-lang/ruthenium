@@ -40,18 +40,13 @@ export class ASTParser {
     tokenEval() {
         // Check if its a function
         const func = new ASTFunctionCallPattern(this.stream).checkAndParse();
-        if (func) {
-            this.tree.push(func);
-            console.log("Function: ", func.name); // TODO: remove
-            return true;
-        }
+        if (func)
+            return this.tree.push(func), true;
 
         const operator = new ASTOperatorPattern(this.stream).checkAndParse();
-        if (operator) {
-            this.tree.push(operator);
-            console.log("Operator: ", operator.operator); // TODO: remove
-            return true;
-        }
+        if (operator)
+            return this.tree.push(operator), true;
+
         return false;
     }
 }
