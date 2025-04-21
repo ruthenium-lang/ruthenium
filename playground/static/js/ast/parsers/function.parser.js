@@ -14,12 +14,20 @@ export class ASTFunctionParser {
             ...fn
         };
 
-        if (this.stream.peek() !== "{") {
-            if (!this.stream.peekTypeEquals(["ID", "TYPE"]))
+        if (this.stream.peek() !== '{') {
+            if (!this.stream.peekTypeEquals(["ID", "TYPE"])) {
+                if (this.stream.peek(1) === '{') {
+                    return this.stream.error(
+                        Errors.TYPECHECK.NotIDTYPE_ReturnType,
+                        "Don't use keywords or undefined types" // Suggestion
+                    ), null;
+                }
+
                 return this.stream.error(
-                    Errors.AST.Invalid_ReturnType,
-                    "Don't use keywords or undefined types" // Custom message
+                    Errors.PARSER.Invalid_FuncBody,
+                    "Insert a open brace" // Suggestion
                 ), null;
+            }
 
 
             block.returnType = this.stream.pop();
@@ -33,8 +41,8 @@ export class ASTFunctionParser {
         let body = [];
         if (!this.stream.expect("{"))
             return this.stream.error(
-                Errors.AST.Invalid_FuncBody,
-                "Insert a open brace" // Custom message
+                Errors.PARSER.Invalid_FuncBody,
+                "Insert a open brace" // Suggestion
             ), null;
 
         while (!this.stream.next("}")
