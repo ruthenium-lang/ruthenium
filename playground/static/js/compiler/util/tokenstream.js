@@ -27,7 +27,7 @@ export class TokenStream {
 
     error(data, custom = null) {
         const cursor_pos = this.cursor();
-        const line_str = CodeStream.getLine(this.code, this.index);
+        const line_str = CodeStream.getLine(window.editor.getContent(), this.index);
 
         const e = {
             data: data,
