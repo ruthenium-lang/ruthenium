@@ -13,25 +13,22 @@ export class ASTParser {
     }
 
     parse() {
-        while (this.stream.remaining() >= 1) {// TODO: >= 1 == > 0 +readability
-            const keyword = this.stream.peek();
+        const keyword = this.stream.peek();
 
-            switch (keyword) {
-                case 'fn':
-                    this.funcParser.parse();
-                    break;
+        switch (keyword) {
+            case 'fn':
+                this.funcParser.parse();
+                break;
 
-                case 'let':
-                    this.varParser.parse();
-                    break;
+            case 'let':
+                this.varParser.parse();
+                break;
 
-                default:
-                    if (!this.tokenEval()) {
-                        console.warn("I don't know what to do with: ", keyword);
-                        this.stream.skip();
-                    }
-            }
-
+            default:
+                if (!this.tokenEval()) {
+                    console.warn("I don't know what to do with: ", keyword);
+                    this.stream.skip();
+                }
         }
 
         return this.tree;
