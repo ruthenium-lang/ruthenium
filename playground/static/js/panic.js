@@ -9,14 +9,13 @@ const phases = {
     0x5: "Interpreter"
 };
 
-export function panic(error, line, col, sourceLine) {
+export function panic(error, line, col, sourceLine, customMessage) {
     const { code, message } = error;
 
     const filepath = './src/main.rt';
     const phase    = phases[code >> 20] || "Unknown";
 
-    const suggestion = "Did you mean Gonorrea?";
-    const customMessage = null;
+    const suggestion = generateSuggestion(error);
 
     /* Display */
     let detailedMessage = "";
@@ -38,6 +37,28 @@ export function panic(error, line, col, sourceLine) {
 
     }
     displayErrorPopup(detailedMessage);
+}
+
+function generateSuggestion(error) {
+    if (error === Errors.LEXER.Unclosed_String)
+        return "Close the string with a quotation mark";
+
+    if (error === Errors.LEXER.Invalid_Char)
+        return "Use ASCII characters, not unicode";
+
+    if (error === Errors.AST.Duplicate_Declaration)
+        return "Remove the second reference";
+
+    if (error === Errors.AST.Missing_Identifier)
+        return "Add the name";
+
+    if (error === Errors.PARSER.Unclosed_Parentheses)
+        return "Add \")\"";
+
+    if (error === Errors.PARSER.Unexpected_Token)
+        return "Remove this token";
+
+    return null;
 }
 
 function displayErrorPopup(detailedMessage) {
