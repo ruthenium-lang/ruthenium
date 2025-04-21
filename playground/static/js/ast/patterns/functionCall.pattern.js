@@ -12,16 +12,17 @@ export class ASTFunctionCallPattern {
 
         
         // Check if its a function call (["name", "(", ... args ..., ")"])
-        if (this.stream.peek(1) == "(") {
-            obj.name = this.stream.pop();
-            this.stream.skip(); // Skip the "("
-            console.log(this.stream.peek());
-            obj.args = this.parseArgs(this.stream);
-            this.stream.skip(); // Skip the ")"
-            return obj;
-        } else {
+        if (this.stream.peek(1) !== "(")
             return null;
-        }
+
+        
+        obj.name = this.stream.pop();
+        this.stream.skip(); // Skip the "("
+        console.log(this.stream.peek());
+        obj.args = this.parseArgs(this.stream);
+        this.stream.skip(); // Skip the ")"
+        
+        return obj;
     }
 
     parseArgs(stream) {
