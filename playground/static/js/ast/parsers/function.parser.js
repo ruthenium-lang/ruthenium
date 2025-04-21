@@ -23,21 +23,19 @@ export class ASTFunctionParser {
             block.returnType = this.stream.pop();
         }
 
-        // TODO: PARSER ERROR: Maybe here is the problem of the parser not knowing what to do...
-
         block.body = this.parseBody();
         this.tree.push(block);
     }
 
     parseBody() {
         let body = [];
-        if (this.stream.peek() !== "{") {
+        if (!this.stream.expect("{")) {
             // TODO: error handling
             return console.error("Expected a valid return type"), block;
         }
 
         while (this.stream.peek() !== "}"
-            && this.stream.remaining() >= 1)
+            && this.stream.remaining() >= 1) // TODO: >= 1 == > 0 +readability
         {
             const parser = new ASTParser(this.stream);
             body = parser.parse();
