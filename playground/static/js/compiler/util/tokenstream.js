@@ -5,7 +5,7 @@ export class TokenStream {
     constructor(tokens) {
         this.tokens = tokens;
         this.errors = [];
-        this.index = 0;
+        this.index  = 0;
     }
 
     peekTypeEquals(type) {
