@@ -61,6 +61,7 @@
     <script src="static/js/editor.js"></script>
 
     <script>
+        let errorDisplayMode = 1; // 1 -> display one error, 0 -> no errors, -1 -> everything
         const editor = setupEditor();
         const astVisorDOM = document.getElementById("ast-visor-content");
         const tokenized = document.getElementById("tokenized");
@@ -72,8 +73,27 @@
         const output = document.getElementById("output");
 
         function tokenize() {
-            const tokens = qrtTokenize(new CodeStream(editor.getContent()));
+            const cs = new CodeStream(editor.getContent());
+            const tokens = qrtTokenize(cs);
             tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", " ")).join(", ");
+
+            if (cs.errors.length > 0)
+            {
+                cs.errors.forEach(e => {
+                    if (errorDisplayMode == 1)
+                        return;
+                });
+                for (let i = 0; i < cs.errors.length; i++) {
+                    if (errorDisplayMode == 0)
+                        break;
+
+                    const e = cs.errors[e];
+                    panic(e.data, e.cursor, e.line, e.custom);
+
+                    if (errorDisplayMode == 1)
+                        break;
+                }
+            }
 
             return tokens;
         }
