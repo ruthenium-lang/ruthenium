@@ -13,10 +13,8 @@ export class ASTFunctionCallParser {
             ...fn
         };
 
-        if (this.stream.peek() !== "(") {
-            // TODO: error handling
-            return console.error("Expected opening parenthesis for function call"), block;
-        }
+        if (this.stream.peek() !== "(")
+            return this.stream.error(Errors.AST.Fn_InvalidCall), block;
 
         block.arguments = this.parseArguments();
         this.tree.push(block);
@@ -24,10 +22,8 @@ export class ASTFunctionCallParser {
 
     parseArguments() {
         let args = [];
-        if (this.stream.expect("(")) {
-            // TODO: error handling
-            return console.error("Expected opening parenthesis"), args;
-        }
+        if (!this.stream.expect("("))
+            return this.stream.error(Errors.AST.Fn_InvalidCall), block;
 
         while (this.stream.next(")")
             && this.stream.remaining() >= 1)

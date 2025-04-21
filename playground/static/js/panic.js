@@ -1,14 +1,12 @@
-const sliceError = errno => [ getPhase(errno), getModule(errno), getRawError(errno) ];
 const codeToHex  = errno => errno.toString(16).padStart(6, "0");
 
 const phases = {
     0x1: "Stream",
     0x2: "Lexer",
     0x3: "AST",
-    0x4: "Parser",
-    0x5: "Semantic",
-    0x6: "Typecheck",
-    0x7: "Virtual Machine",
+    0x4: "Semantic",
+    0x5: "Typecheck",
+    0x6: "Virtual Machine",
 };
 
 export function panic(error, cursor, sourceLine, customMessage) {
@@ -95,66 +93,91 @@ function displayErrorPopup(detailedMessage) {
 }
 
 export const Errors = {
+    STREAMS: {
+        Unexpected_EOS: {
+            code: 0x100000,
+            message: "Unexpected end of stream",
+            hint: "Complete the statement"
+        }
+    },
     LEXER: {
-        Invalid_Char: {
-            code: 0x200001,
-            message: "Invalid character",
-            hint: "Use ASCII characters, not unicode",
-        },
         Unclosed_String: {
-            code: 0x200002,
+            code: 0x200000,
             message: "Unclosed string literal",
             hint: "Close the string with a quotation mark"
         }
     },
     AST: {
-        Malformed_Variable: {
-            code: 0x300001,
-            message: "Malformed variable",
-            hint: null
-        },
-        Duplicate_Declaration: {
-            code: 0x300002,
-            message: "Duplicate variable declaration",
-            hint: "Remove the second reference",
-        },
-    },
-    PARSER: {
-        Unexpected_Token: {
-            code: 0x400001,
-            message: "Unexpected token",
-            hint: "Remove this token",
-        },
-        Unclosed_Parentheses: {
-            code: 0x400002,
-            message: "Unclosed parentheses",
-            hint: "Add \")\"",
-        },
-        Missing_Identifier: {
-            code: 0x400003,
-            message: "Expected identifier",
-            hint: "Add the name"
-        },
-        Invalid_FuncBody: {
-            code: 0x410004,
+        Fn_InvalidBody: {
+            code: 0x300000,
             message: "Expected a valid function body",
-            hint: "Ensure the function has a valid body",
+            hint: "Insert an open brace",
         },
+        Fn_InvalidCall: {
+            code: 0x300001,
+            message: "Expected opening parentheses for function call",
+            hint: "Insert parentheses",
+        },
+        Statement_MissingEnd: {
+            code: 0x300002,
+            message: "Expected a semicolon at the end of the line",
+            hint: "Insert semicolon (;)",
+        },
+        Fn_MalformedDeclaration: {
+            code: 0x300003,
+            message: "Expected 'fn'",
+            hint: "Insert 'fn'",
+        },
+        Fn_MissingIdentifier: {
+            code: 0x300004,
+            message: "Didn't found a name for the funciton",
+            hint: "Insert the word `my_func` before the parentheses",
+        },
+        Fn_MalformedArgs: {
+            code: 0x300005,
+            message: "Expected opening parentheses for function declaration",
+            hint: "Insert parentheses",
+        },
+        Fn_InvalidArgName: {
+            code: 0x300006,
+            message: "Expected a valid name for the arguments",
+            hint: "Use a simple name without spaces",
+        },
+        Fn_MissingArgSeparator: {
+            code: 0x300007,
+            message: "Arguments aren't correctly separated",
+            hint: "Insert a comma (,) after each argument",
+        },
+        Let_MalformedDeclaration: {
+            code: 0x300008,
+            message: "Malformed variable",
+            hint: "Use the keyword `let`",
+        },
+        Let_MissingIdentifier: {
+            code: 0x300009,
+            message: "No variable name found",
+            hint: "Name it `my_var` by example",
+        }
+
     },
     TYPECHECK: {
-        NotIDTYPE_ReturnType: {
-            code: 0x610005,
+        Fn_InvalidReturnType: {
+            code: 0x500000,
             message: "Expected a valid return type",
-            hint: "Use the return type void or some type"
+            hint: "Leave it empty to declare a void function",
         },
-    },
-    STREAMS: {
-        Unexpected_EOS: {
-            code: 0x100001,
-            message: "Unexpected end of stream",
-            hint: "Complete the statement"
+        Fn_InvalidArgType: {
+            code: 0x500001,
+            message: "Expected a valid type for the arguments",
+            hint: "Use `int` for integers",
+        },
+        Let_InvalidType: {
+            code: 0x500002,
+            message: "Expected a valid type for the variable",
+            hint: "Use `int` for integers",
         }
-    }
+    },
+
 };
 
 window.panic = panic;

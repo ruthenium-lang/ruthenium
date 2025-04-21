@@ -3,44 +3,31 @@ export class ASTVariableTemplate {
     fill(stream) {
         let obj = {};
 
-        if (stream.pop() !== "let") {
-            // TODO: error handling
-            return console.error("Invalid variable declaration!"), obj;
-        }
+        if (!stream.expect('let'))
+            return stream.error(Errors.AST.Let_MalformedDeclaration);
 
-        if (!stream.peekTypeEquals("ID")) {
-            // TODO: error handling
-            return console.error("no variable name found"), obj;
-        }
+        if (!stream.peekTypeEquals('ID'))
+            return stream.error(Errors.AST.Let_MissingIdentifier);
 
         obj.name = stream.pop();
-
-        if (stream.peek() === ";") {
-            // End
+        if (stream.next(';'))
             return obj;
-        }
 
+        // Type declaration
         if (stream.next(':')) {
-            // Type declaration
-            if (!stream.peekTypeEquals("TYPE")) {
-                // TODO: error handling
-                return console.error("Invalid type declaration!"), obj;
-            }
+            if (!stream.peekTypeEquals("TYPE"))
+                return stream.error(Errors.TYPECHECK.Let_InvalidType);
 
             obj.varType = stream.pop();
         }
 
-        if (stream.next("=")) {
-            // Initialization
-            if (!stream.peekTypeEquals(["NUM_LITERAL", "STR_LITERAL"])) {
-                // TODO: error handling
-                return console.error("Invalid initialization!"), obj;
-            }
-
+        // Initialization
+        // TODO: We need mandatory a type for the variable so we need to detect it
+        if (stream.next("="))
             obj.value = stream.pop();
-        }
 
-        stream.expect(';'); // TODO: error handling
+        if (!stream.expect(';'))
+            return stream.error(Errors.AST.Statement_MissingEnd);
 
         return obj;
     }
