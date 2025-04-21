@@ -22,7 +22,7 @@ export class ASTFunctionParser {
 
         if (!this.stream.peekTypeEquals(["ID", "TYPE"])) {
             if (this.stream.peek(1) !== '{')
-                return this.stream.error(Errors.AST.Fn_InvalidBody, 2), null;
+                return this.stream.error(Errors.AST.Fn_InvalidBody, 3), null;
 
             return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType), null;
         }
