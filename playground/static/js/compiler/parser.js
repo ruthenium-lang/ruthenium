@@ -29,7 +29,6 @@ export class ASTParser {
                     if (!this.tokenEval()) {
                         console.warn("I don't know what to do with: ", keyword);
                         this.stream.skip();
-                        break; // TODO: FAST FIXING: remove useless
                     }
             }
 
