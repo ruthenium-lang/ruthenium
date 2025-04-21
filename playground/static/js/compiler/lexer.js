@@ -30,7 +30,7 @@ export function qrtTokenize(stream) {
             if (stream.next("=") && equalsCanGoNext(c))
                 token += '=';
         }
-
+ 
         tokens.push(Token(token));
         token = "";
     }

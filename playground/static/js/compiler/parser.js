@@ -27,9 +27,8 @@ export class ASTParser {
                     break;
                 
                 default:
-                    console.warn("I don't know what to do with: ", keyword);
                     if (!this.tokenEval()) {
-                        console.warn("I still don't know what to do.");
+                        console.warn("I don't know what to do with: ", keyword);
                         this.stream.skip();
                         break;
                     }
@@ -42,11 +41,17 @@ export class ASTParser {
 
     tokenEval() {
         // Check if its a function
-        console.log("Checking if its a function");
         const func = new ASTFunctionCallPattern(this.stream).checkAndParse();
         if (func) {
             this.tree.push(func);
             console.log("Function: ", func.name);
+            return true;
+        }
+
+        const operator = new ASTOperatorPattern(this.stream).checkAndParse();
+        if (operator) {
+            this.tree.push(operator);
+            console.log("Operator: ", operator.operator);
             return true;
         }
         return false;
