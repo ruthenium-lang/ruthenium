@@ -38,7 +38,7 @@ export function qrtTokenize(stream) {
                 token += '=';
         }
 
-        tokens.push(Token(token));
+        tokens.push(Token(token, stream.cursor()));
         token = "";
     }
 

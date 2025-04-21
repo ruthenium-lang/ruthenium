@@ -78,7 +78,7 @@ export class CodeStream {
 
     error(data, custom = null) {
         const cursor_pos = this.cursor();
-        const line_str = getLine();
+        const line_str = CodeStream.getLine(this.code, this.index);
 
         const e = {
             data: data,
@@ -88,20 +88,6 @@ export class CodeStream {
         };
 
         this.errors.push(e);
-    }
-
-    getLine() {
-        let line_start = this.index;
-        while (line_start > 0 && this.code[line_start - 1] !== '\n') {
-            line_start--;
-        }
-
-        let line_end = this.index;
-        while (line_end < this.code.length && this.code[line_end] !== '\n') {
-            line_end++;
-        }
-
-        return this.code.substring(line_start, line_end);
     }
 
     cursor() {
@@ -127,6 +113,20 @@ export class CodeStream {
 
     skip(i = 1) {
         this.index = Math.min(this.index + i, this.code.length);
+    }
+
+    static getLine(code, index) {
+        let line_start = index;
+        while (line_start > 0 && code[line_start - 1] !== '\n') {
+            line_start--;
+        }
+
+        let line_end = index;
+        while (line_end < code.length && code[line_end] !== '\n') {
+            line_end++;
+        }
+
+        return code.substring(line_start, line_end);
     }
 
 }

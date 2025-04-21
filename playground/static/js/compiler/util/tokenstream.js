@@ -1,11 +1,13 @@
-import { detectTokenType } from "../../tokens/types.js";
+import { detectTokenType } from '../../tokens/types.js'
+import { CodeStream } from './codestream.js'
 
 export class TokenStream {
 
     constructor(tokens) {
-        this.tokens = tokens;
-        this.errors = [];
-        this.index  = 0;
+        this.cursors = tokens.map(t => t.cursor);
+        this.tokens  = tokens.map(t => t.symbol);
+        this.errors  = [];
+        this.index   = 0;
     }
 
     peekTypeEquals(type) {
@@ -23,8 +25,22 @@ export class TokenStream {
         return this.tokens[this.index + i];
     }
 
-    error(err) {
-        this.errors.push(err);
+    error(data, custom = null) {
+        const cursor_pos = this.cursor();
+        const line_str = CodeStream.getLine(this.code, this.index);
+
+        const e = {
+            data: data,
+            cursor: cursor_pos,
+            line: line_str,
+            custom: custom
+        };
+
+        this.errors.push(e);
+    }
+
+    cursor() {
+        return this.cursors[this.index];
     }
 
     skip(i = 1) {
