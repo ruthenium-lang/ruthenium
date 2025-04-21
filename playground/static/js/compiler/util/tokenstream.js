@@ -19,10 +19,6 @@ export class TokenStream {
         return this.tokens[this.index++];
     }
 
-    peek() {
-        return this.tokens[this.index];
-    }
-    
     peek(i = 0) {
         return this.tokens[this.index + i];
     }
