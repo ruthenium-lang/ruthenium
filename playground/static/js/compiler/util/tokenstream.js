@@ -26,7 +26,7 @@ export class TokenStream {
     }
 
     error(data, custom = null, col_offset = 0) {
-        const [ line, col ] = this.cursor().split(':').map(s => parseInt(s));
+        let [ line, col ] = this.cursor().split(':').map(s => parseInt(s));
         const line_str = CodeStream.getLine(window.editor.getContent(), this.index);
 
         col += col_offset;
