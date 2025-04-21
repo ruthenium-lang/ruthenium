@@ -18,18 +18,22 @@
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
-    <div style="float: left;">
-    <div id="playground"></div>
-    <h3>Inner Steps<button id="caret"><i class="fa-solid fa-caret-down" id="displayMore"></i><i class="fa-solid fa-caret-right" id="displayLess"></i></button></h3>
-    <div id="innerSteps">
-        <div id="tokenized"></div>
-        <div id="ast"><pre id="ast-visor-content"></pre></div></div>
+    <div style="float: left; width: 100%;">
+        <div id="playground"></div>
+        <h3>Inner Steps<button id="caret"><i class="fa-solid fa-caret-down" id="displayMore"></i><i class="fa-solid fa-caret-right" id="displayLess"></i></button></h3>
+        <div id="innerSteps">
+            <div id="tokenized"></div>
+            <div id="ast"><pre id="ast-visor-content"></pre></div>
+        </div>
+        <div style="clear: both;"></div>
+        <h3>Output</h3>
+        <div id="output"></div>
     </div>
-    <div style="float: right;">
+    <div style="float: left;">
         <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
         <button id="parse"    class="codeBtn">Parse</button>
+        <button id="run"      class="codeBtn">Run</button>
     </div>
-
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
         type="text/javascript"
@@ -45,10 +49,11 @@
     <script type="module" src="static/js/compiler/util/codestream.js"></script>
     <script type="module" src="static/js/compiler/parser.js"></script>
     <script type="module" src="static/js/compiler/lexer.js"></script>
+    <script type="module" src="static/js/compiler/interpreter.js"></script>
 
     <script src="static/js/editor.js"></script>
 
-    <script>
+    <script type="module">
         const editor = setupEditor();
         const astVisorDOM = document.getElementById("ast-visor-content");
         const tokenized = document.getElementById("tokenized");
@@ -57,10 +62,11 @@
         const caret = document.getElementById("caret");
         const displayMore = document.getElementById("displayMore");
         const displayLess = document.getElementById("displayLess");
+        const output = document.getElementById("output");
 
         function tokenize() {
             const tokens = qrtTokenize(new CodeStream(editor.getContent()));
-            tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", "&nbsp;")).join(", ");
+            tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", " ")).join(", ");
 
             return tokens;
         }
@@ -71,6 +77,17 @@
             const parser = new ASTParser(stream);
             const ast = parser.parse();
             astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
+        });
+
+        document.getElementById("run").addEventListener("click", () => {
+            output.innerHTML = "";
+            const tokens = tokenize();
+            const stream = new TokenStream(tokens);
+            const parser = new ASTParser(stream);
+            const ast = parser.parse();
+            astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
+            const interpreter = new window.Interpreter(ast);
+            interpreter.run();
         });
 
         caret.addEventListener("click", () => {
@@ -84,6 +101,11 @@
                 expanded = true;
             }
         });
+
+        // Add global println function for interpreter
+        window.println = function(msg) {
+            output.innerHTML += msg + "<br>";
+        };
     </script>
 </body>
 </html>

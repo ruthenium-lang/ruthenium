@@ -14,3 +14,21 @@ body {
     width: 450px !important;
     padding: 8px;
 }
+
+#tokenized {
+    height: 350px !important;
+    width: 450px !important;
+    padding: 8px;
+}
+
+#output {
+    height: 350px !important;
+    width: 450px !important;
+    padding: 8px;
+}
+
+#ast {
+    height: 350px !important;
+    width: 450px !important;
+    padding: 8px;
+}

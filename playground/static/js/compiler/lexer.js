@@ -32,7 +32,7 @@ export function qrtTokenize(stream) {
                 stream.skip();
             }
         }
-
+ 
         tokens.push(Token(token));
         token = "";
     }
