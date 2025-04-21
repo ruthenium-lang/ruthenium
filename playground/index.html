@@ -62,7 +62,8 @@
 
     <script>
         let errorDisplayMode = 1; // 1 -> display one error, 0 -> no errors, -1 -> everything
-        const editor = setupEditor();
+        setupEditor();
+
         const astVisorDOM = document.getElementById("ast-visor-content");
         const tokenized = document.getElementById("tokenized");
         let expanded = true;
@@ -85,7 +86,7 @@
                 if (errorDisplayMode == 0)
                     break;
 
-                const e = cs.errors[e];
+                const e = cs.errors[i];
                 panic(e.data, e.cursor, e.line, e.custom);
 
                 if (errorDisplayMode == 1)
@@ -114,7 +115,7 @@
                 if (errorDisplayMode == 0)
                     break;
 
-                const e = ts.errors[e];
+                const e = ts.errors[i];
                 panic(e.data, e.cursor, e.line, e.custom);
 
                 if (errorDisplayMode == 1)

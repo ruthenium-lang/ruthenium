@@ -50,6 +50,9 @@ function generateSuggestion(error) {
     if (error === Errors.AST.Duplicate_Declaration)
         return "Remove the second reference";
 
+    if (error === Errors.AST.Invalid_FuncBody)
+        return "Ensure the function has a valid body";
+
     if (error === Errors.AST.Missing_Identifier)
         return "Add the name";
 
@@ -141,6 +144,14 @@ export const Errors = {
         Missing_Identifier: {
             code: 0x200003,
             message: "Expected identifier"
+        },
+        Invalid_FuncBody: {
+            code: 0x210004,
+            message: "Expected a valid function body"
+        },
+        Invalid_ReturnType: {
+            code: 0x210005,
+            message: "Expected a valid return type"
         }
     },
     PARSER: {
