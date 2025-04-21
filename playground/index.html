@@ -13,15 +13,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
     <div style="float: left;">
     <div id="playground"></div>
-    <div id="tokenized"></div>
-    <div id="ast"><pre id="ast-visor-content"></pre></div>
-
+    <h3>Inner Steps<button id="caret"><i class="fa-solid fa-caret-down" id="displayMore"></i><i class="fa-solid fa-caret-right" id="displayLess"></i></button></h3>
+    <div id="innerSteps">
+        <div id="tokenized"></div>
+        <div id="ast"><pre id="ast-visor-content"></pre></div></div>
     </div>
     <div style="float: right;">
         <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
@@ -50,6 +52,11 @@
         const editor = setupEditor();
         const astVisorDOM = document.getElementById("ast-visor-content");
         const tokenized = document.getElementById("tokenized");
+        let expanded = true;
+        const innerSteps = document.getElementById("innerSteps");
+        const caret = document.getElementById("caret");
+        const displayMore = document.getElementById("displayMore");
+        const displayLess = document.getElementById("displayLess");
 
         function tokenize() {
             const tokens = qrtTokenize(new CodeStream(editor.getContent()));
@@ -64,6 +71,18 @@
             const parser = new ASTParser(stream);
             const ast = parser.parse();
             astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
+        });
+
+        caret.addEventListener("click", () => {
+            if (expanded) {
+                innerSteps.style.display = "none";
+                caret.innerHTML = "<i class='fa-solid fa-caret-right'></i>";
+                expanded = false;
+            } else {
+                innerSteps.style.display = "block";
+                caret.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
+                expanded = true;
+            }
         });
     </script>
 </body>

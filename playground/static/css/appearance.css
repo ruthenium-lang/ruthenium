@@ -67,3 +67,12 @@
     color: #444;
     cursor: not-allowed;
 }
+
+#displayLess {
+    display: none;
+}
+
+#displayMore {
+    color: #23a521;
+    cursor: pointer;
+}
