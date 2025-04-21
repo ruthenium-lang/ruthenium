@@ -80,6 +80,7 @@ function displayErrorPopup(detailedMessage) {
 
     error_popup.document.head.innerHTML =`
         <title>Ruthenium Interpreter -> Error</title>
+        <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <style>
             * {
@@ -94,11 +95,16 @@ function displayErrorPopup(detailedMessage) {
                 background-color: #222;
             }
 
+            h1 {
+                font-family: 'Tektur', sans-serif;
+                color: #0e0;
+            }
+
             textarea {
                 outline: none;
                 width: 100%;
                 height: 100%;
-                font-family 'Space Mono', sans-serif;
+                font-family: 'Space Mono', sans-serif;
                 font-size: 12pt;
                 background: #222;
                 border: none;
@@ -107,7 +113,7 @@ function displayErrorPopup(detailedMessage) {
         </style>
     `;
 
-    error_popup.document.body.innerHTML = `<textarea readonly="true">${detailedMessage}</textarea>`;
+    error_popup.document.body.innerHTML = `<h1>Ruthenium</h1><hr/><br/><textarea readonly="true">${detailedMessage}</textarea>`;
 }
 
 export const Errors = {
