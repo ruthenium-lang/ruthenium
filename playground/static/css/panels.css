@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: sans-serif;
+    padding: 18px;
+}
+
+.container {
+    display: flex;
+    height: 85vh;
+    width: calc(100vw - 36px);
+
+}
+
+.panel {
+    height: 100%;
+    overflow: auto;
+    padding: 1rem;
+}
+
+.left {
+    width: 50%;
+    background: #1e1e1e;
+    color: white;
+}
+
+.right {
+    flex-grow: 1;
+    background: #f4f4f4;
+}
+
+.divider {
+    width: 6px;
+    cursor: col-resize;
+    background-color: #888;
+    transition: background 0.2s;
+}
+
+.divider:hover {
+    background-color: #555;
+}

@@ -3,15 +3,16 @@
 * {
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 body {
-    padding: 30px;
+    padding: 18px;
 }
 
 #playground {
-    height: 350px !important;
-    width: 450px !important;
+    width: 50vw !important;
+    height: 85vh !important;
     padding: 8px;
 }
 
@@ -22,8 +23,8 @@ body {
 }
 
 #output {
-    height: 350px !important;
-    width: 450px !important;
+    height: 85vh !important;
+    width: 44vw !important;
     padding: 8px;
 }
 

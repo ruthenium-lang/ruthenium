@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resizable Panels</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+      padding: 18px;
+    }
+
+    .container {
+      display: flex;
+      height: 85vh;
+      width: calc(100vw - 36px);
+
+    }
+
+    .panel {
+      height: 100%;
+      overflow: auto;
+      padding: 1rem;
+    }
+
+    .left {
+      width: 50%;
+      background: #1e1e1e;
+      color: white;
+    }
+
+    .right {
+      flex-grow: 1;
+      background: #f4f4f4;
+    }
+
+    .divider {
+      width: 6px;
+      cursor: col-resize;
+      background-color: #888;
+      transition: background 0.2s;
+    }
+
+    .divider:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left panel" contenteditable="true">
+      // Escribe tu código aquí
+    </div>
+    <div class="divider" id="divider"></div>
+    <div class="right panel">
+      Output aquí...
+    </div>
+  </div>
+
+  <script>
+    const divider = document.querySelector('#divider');
+    const leftPanel = document.querySelector('.left.panel');
+    let isResizing = false;
+
+    divider.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      document.body.style.cursor = 'col-resize';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+
+      const newWidth = e.clientX;
+      leftPanel.style.width = `${newWidth}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isResizing = false;
+      document.body.style.cursor = 'default';
+    });
+  </script>
+</body>
+</html>
