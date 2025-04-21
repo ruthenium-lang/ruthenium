@@ -34,7 +34,7 @@ export class TokenStream {
 
         const e = {
             data: data,
-            cursor: cursor_pos,
+            cursor: cursor,
             line: line_str,
             custom: custom
         };
