@@ -9,8 +9,9 @@ const phases = {
     0x5: "Interpreter"
 };
 
-export function panic(error, line, col, sourceLine, customMessage) {
+export function panic(error, cursor, sourceLine, customMessage) {
     const { code, message } = error;
+    const [ line, col ] = cursor.split(":").map(s => parseInt(s));
 
     const filepath = './src/main.rt';
     const phase    = phases[code >> 20] || "Unknown";
@@ -24,7 +25,7 @@ export function panic(error, line, col, sourceLine, customMessage) {
         if (customMessage)
             detailedMessage += `: ${customMessage}\n`;
 
-        detailedMessage += `\n     ┌─ ${filepath}:${line}:${col}`;
+        detailedMessage += `\n     ┌─ ${filepath}:${cursor}`;
         detailedMessage += `\n     │`;
 
         // This will prevent the digits from moving everything to the right
