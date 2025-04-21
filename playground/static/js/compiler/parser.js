@@ -1,5 +1,6 @@
 import { ASTFunctionParser } from '../ast/parsers/function.parser.js'
 import { ASTVariableParser } from '../ast/parsers/variable.parser.js'
+import { ASTFunctionCallPattern } from '../ast/patterns/functionCall.pattern.js';
 
 export class ASTParser {
 
@@ -26,17 +27,29 @@ export class ASTParser {
                     break;
                 
                 default:
-                    // Check if it's a function call
-                    
-
-                    console.warn("I don't know what to do: ", keyword);
-                    this.stream.skip();
-                    break;
+                    console.warn("I don't know what to do with: ", keyword);
+                    if (!this.tokenEval()) {
+                        console.warn("I still don't know what to do.");
+                        this.stream.skip();
+                        break;
+                    }
             }
 
         }
 
         return this.tree;
+    }
+
+    tokenEval() {
+        // Check if its a function
+        console.log("Checking if its a function");
+        const func = new ASTFunctionCallPattern(this.stream).checkAndParse();
+        if (func) {
+            this.tree.push(func);
+            console.log("Function: ", func.name);
+            return true;
+        }
+        return false;
     }
 }
 

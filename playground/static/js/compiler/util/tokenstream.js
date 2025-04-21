@@ -21,6 +21,10 @@ export class TokenStream {
     peek() {
         return this.tokens[this.index];
     }
+    
+    peek(i = 0) {
+        return this.tokens[this.index + i];
+    }
 
     skip(i = 1) {
         this.index = Math.min(this.index + i, this.tokens.length);
