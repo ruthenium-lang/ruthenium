@@ -35,123 +35,121 @@
         <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
         <button id="parse"    class="codeBtn" onclick="parse()">Parse</button>
         <button id="run"      class="codeBtn" onclick="run()">Run</button>
-    </div>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
-        type="text/javascript"
-        charset="utf-8"
-    ></script>
-
-    <!-- Error handler -->
-    <script type="module" src="static/js/panic.js"></script>
-
-    <!-- Utilities -->
-    <script type="module" src="static/js/ast/templates/function.template.js"></script>
-    <script type="module" src="static/js/ast/templates/variable.template.js"></script>
-    <script type="module" src="static/js/ast/patterns/functionCall.pattern.js"></script>
-    <script type="module" src="static/js/ast/patterns/operator.pattern.js"></script>
-
-    <!-- Stream utilities -->
-    <script type="module" src="static/js/compiler/util/tokenstream.js"></script>
-    <script type="module" src="static/js/compiler/util/codestream.js"></script>
-
-    <!-- Compiler section -->
-    <script type="module" src="static/js/compiler/parser.js"></script>
-    <script type="module" src="static/js/compiler/lexer.js"></script>
-    <script type="module" src="static/js/compiler/interpreter.js"></script>
-
-    <script src="static/js/editor.js"></script>
-
-    <script>
-        let errorDisplayMode = 1; // 1 -> display one error, 0 -> no errors, -1 -> everything
-        setupEditor();
-
-        const astVisorDOM = document.getElementById("ast-visor-content");
-        const tokenized = document.getElementById("tokenized");
-        let expanded = true;
-        const innerSteps = document.getElementById("innerSteps");
-        const caret = document.getElementById("caret");
-        const displayMore = document.getElementById("displayMore");
-        const displayLess = document.getElementById("displayLess");
-        const output = document.getElementById("output");
-
-        function tokenize() {
-            const cs = new CodeStream(editor.getContent());
-            const tokens = qrtTokenize(cs);
-            output.innerHTML = "";
-            tokenized.innerHTML = tokens.map(t => t.symbol).join(", ");
-
-            if (cs.errors.length === 0)
-                return tokens;
-
-            for (let i = 0; i < cs.errors.length; i++) {
-                if (errorDisplayMode == 0)
-                    break;
-
-                const e = cs.errors[i];
-                panic(e.data, e.cursor, e.line, e.custom);
-
-                if (errorDisplayMode == 1)
-                    break;
-            }
-
-            return undefined;
-        }
-
-        function parse() {
-            const tokens = tokenize();
-            if (!tokens)
-                return undefined;
-
-            const ts = new TokenStream(tokens);
-            const parser = new ASTParser(ts);
-            const tree = [];
-            while (ts.remaining() > 0)
-                tree.push(...parser.parse());
-
-            astVisorDOM.innerHTML = `${jsyaml.dump(tree)}`;
-            if (ts.errors.length === 0)
-                return tree;
-
-            for (let i = 0; i < ts.errors.length; i++) {
-                if (errorDisplayMode == 0)
-                    break;
-
-                const e = ts.errors[i];
-                panic(e.data, e.cursor, e.line, e.custom);
-
-                if (errorDisplayMode == 1)
-                    break;
-            }
-
-            return undefined;
-        }
-
-        function run() {
-            const tree = parse();
-            if (!tree)
-                return undefined;
-
-            const vm = new Interpreter(tree);
-            vm.run();
-        }
-
-        caret.addEventListener("click", () => {
-            if (expanded) {
-                innerSteps.style.display = "none";
-                caret.innerHTML = "<i class='fa-solid fa-caret-right'></i>";
-                expanded = false;
-            } else {
-                innerSteps.style.display = "block";
-                caret.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
-                expanded = true;
-            }
-        });
-
-        // Add global println function for interpreter
-        window.println = function(msg) {
-            output.innerHTML += msg + "<br>";
-        };
-    </script>
+    </div>-->
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Error handler -->
+<script type="module" src="static/js/panic.js"></script>
+
+<!-- Utilities -->
+<script type="module" src="static/js/ast/templates/function.template.js"></script>
+<script type="module" src="static/js/ast/templates/variable.template.js"></script>
+<script type="module" src="static/js/ast/patterns/functionCall.pattern.js"></script>
+<script type="module" src="static/js/ast/patterns/operator.pattern.js"></script>
+
+<!-- Stream utilities -->
+<script type="module" src="static/js/compiler/util/tokenstream.js"></script>
+<script type="module" src="static/js/compiler/util/codestream.js"></script>
+
+<!-- Compiler section -->
+<script type="module" src="static/js/compiler/parser.js"></script>
+<script type="module" src="static/js/compiler/lexer.js"></script>
+<script type="module" src="static/js/compiler/interpreter.js"></script>
+
+<script src="static/js/editor.js"></script>
+
+<script>
+    let errorDisplayMode = 1; // 1 -> display one error, 0 -> no errors, -1 -> everything
+    setupEditor();
+
+    const astVisorDOM = document.getElementById("ast-visor-content");
+    const tokenized = document.getElementById("tokenized");
+    let expanded = true;
+    const innerSteps = document.getElementById("innerSteps");
+    const caret = document.getElementById("caret");
+    const displayMore = document.getElementById("displayMore");
+    const displayLess = document.getElementById("displayLess");
+    const output = document.getElementById("output");
+
+    function tokenize() {
+        const cs = new CodeStream(editor.getContent());
+        const tokens = qrtTokenize(cs);
+        output.innerHTML = "";
+        tokenized.innerHTML = tokens.map(t => t.symbol).join(", ");
+
+        if (cs.errors.length === 0)
+            return tokens;
+
+        for (let i = 0; i < cs.errors.length; i++) {
+            if (errorDisplayMode == 0)
+                break;
+
+            const e = cs.errors[i];
+            panic(e.data, e.cursor, e.line, e.custom);
+
+            if (errorDisplayMode == 1)
+                break;
+        }
+
+        return undefined;
+    }
+
+    function parse() {
+        const tokens = tokenize();
+        if (!tokens)
+            return undefined;
+
+        const ts = new TokenStream(tokens);
+        const parser = new ASTParser(ts);
+        const tree = [];
+        while (ts.remaining() > 0)
+            tree.push(...parser.parse());
+
+        astVisorDOM.innerHTML = `${jsyaml.dump(tree)}`;
+        if (ts.errors.length === 0)
+            return tree;
+
+        for (let i = 0; i < ts.errors.length; i++) {
+            if (errorDisplayMode == 0)
+                break;
+
+            const e = ts.errors[i];
+            panic(e.data, e.cursor, e.line, e.custom);
+
+            if (errorDisplayMode == 1)
+                break;
+        }
+
+        return undefined;
+    }
+
+    function run() {
+        const tree = parse();
+        if (!tree)
+            return undefined;
+
+        const vm = new Interpreter(tree);
+        vm.run();
+    }
+
+    caret.addEventListener("click", () => {
+        if (expanded) {
+            innerSteps.style.display = "none";
+            caret.innerHTML = "<i class='fa-solid fa-caret-right'></i>";
+            expanded = false;
+        } else {
+            innerSteps.style.display = "block";
+            caret.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
+            expanded = true;
+        }
+    });
+
+    // Add global println function for interpreter
+    window.println = function (msg) {
+        output.innerHTML += msg + "<br>";
+    };
+</script>
+
 </html>
