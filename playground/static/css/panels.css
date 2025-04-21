@@ -1,23 +1,9 @@
 @charset "UTF-8";
 
-* {
-    box-sizing: border-box;
-
-}
-
-body {
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-    font-family: sans-serif;
-    padding: 18px;
-}
-
 .container {
     display: flex;
     height: 85vh;
     width: calc(100vw - 36px);
-
 }
 
 .panel {
