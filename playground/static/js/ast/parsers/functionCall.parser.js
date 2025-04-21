@@ -24,25 +24,18 @@ export class ASTFunctionCallParser {
 
     parseArguments() {
         let args = [];
-        if (this.stream.peek() !== "(") {
+        if (this.stream.expect("(")) {
             // TODO: error handling
             return console.error("Expected opening parenthesis"), args;
         }
 
-        this.stream.pop(); // consume (
-
-        while (this.stream.peek() !== ")"
+        while (this.stream.next(")")
             && this.stream.remaining() >= 1)
         {
             const parser = new ASTParser(this.stream);
             args.push(parser.parse());
-
-            if (this.stream.peek() === ",") {
-                this.stream.pop(); // consume comma
-            }
+            stream.expect(",");
         }
-
-        this.stream.pop(); // consume )
 
         return args;
     }

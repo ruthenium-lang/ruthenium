@@ -10,40 +10,61 @@
     <link rel="stylesheet" href="static/css/fonts.css" />
     <link rel="stylesheet" href="static/css/appearance.css" />
 
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</head>
 <body>
     <div style="float: left;">
     <div id="playground"></div>
+    <div id="tokenized"></div>
+    <div id="ast"><pre id="ast-visor-content"></pre></div>
 
     </div>
     <div style="float: right;">
-        <button>Tokenize</button>
-        <button disabled>Parse</button>
+        <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
+        <button id="parse"    class="codeBtn">Parse</button>
     </div>
 
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
+        type="text/javascript"
+        charset="utf-8"
+    ></script>
 
+
+    <script type="module" src="static/js/ast/templates/function.template.js"></script>
+    <script type="module" src="static/js/ast/templates/variable.template.js"></script>
+    <script type="module" src="static/js/ast/patterns/functionCall.pattern.js"></script>
+
+    <script type="module" src="static/js/compiler/util/tokenstream.js"></script>
+    <script type="module" src="static/js/compiler/util/codestream.js"></script>
+    <script type="module" src="static/js/compiler/parser.js"></script>
+    <script type="module" src="static/js/compiler/lexer.js"></script>
+
+    <script src="static/js/editor.js"></script>
+
+    <script>
+        const editor = setupEditor();
+        const astVisorDOM = document.getElementById("ast-visor-content");
+        const tokenized = document.getElementById("tokenized");
+
+        function tokenize() {
+            const tokens = qrtTokenize(new CodeStream(editor.getContent()));
+            tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", "&nbsp;")).join(", ");
+
+            return tokens;
+        }
+
+        document.getElementById("parse").addEventListener("click", () => {
+            const tokens = tokenize();
+            const stream = new TokenStream(tokens);
+            const parser = new ASTParser(stream);
+            const ast = parser.parse();
+            astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
+        });
+    </script>
 </body>
-
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
-    type="text/javascript"
-    charset="utf-8"
-></script>
-
-
-<script type="module" src="static/js/ast/templates.js"></script>
-<script type="module" src="static/js/compiler/lexer.js"></script>
-<script type="module" src="static/js/compiler/util/codestream.js"></script>
-<script type="module" src="static/js/tokens/TokenStream.js"></script>
-
-<script src="static/js/editor.js"></script>
-
-<script>
-    const editor = setupEditor();
-
-</script>
-
-
-
 </html>
