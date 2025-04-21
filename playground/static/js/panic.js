@@ -152,6 +152,12 @@ export const Errors = {
             message: "Unclosed parentheses"
         }
     },
+    STREAMS: {
+        Unexpected_EOS: {
+            code: 0x400001,
+            message: "Unexpected end of stream"
+        }
+    }
 };
 
 window.panic = panic;
