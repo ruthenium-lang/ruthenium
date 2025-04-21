@@ -68,8 +68,8 @@ function displayErrorPopup(detailedMessage) {
         status: false,
         location: false,
         toolbar: false,
-        width: 560,
-        height: 400,
+        width: 854,
+        height: 456,
         left: -1000,
         top: -1000
     }
@@ -98,6 +98,7 @@ function displayErrorPopup(detailedMessage) {
             h1 {
                 font-family: 'Tektur', sans-serif;
                 color: #0e0;
+                font-size: 26pt;
             }
 
             textarea {
