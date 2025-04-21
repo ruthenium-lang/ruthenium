@@ -6,16 +6,18 @@ export class ASTFunctionCallPattern {
     checkAndParse()  {
         let obj = {
             type: "FunctionCall"
-        }
-        
+        };
+
         // Check if its a function call (["name", "(", ... args ..., ")"])
         if (this.stream.peek(1) !== "(")
             return null;
-        
+
         obj.name = this.stream.pop();
         this.stream.skip(); // Skip the "("
         obj.args = this.parseArgs(this.stream);
-        
+
+        console.log(`Semicolon present: ${this.stream.expect(';')}`); // TODO: remove (console.log)
+
         return obj;
     }
 
@@ -25,19 +27,23 @@ export class ASTFunctionCallPattern {
             let arg = stream.pop();
             console.log("argument: ", arg); // TODO: remove
             args.push(arg);
-            
-            if (stream.peek() === ",") {
-                stream.skip();
+
+            // TODO: Detect things like duplicated commas
+            if (stream.next(","))
                 continue;
-            } // TODO: error handling
-            
+
+            // TODO: What if we call a function that returns something?
+            //       println(read()) -> println(read() ?
             if (stream.peek() === ")")
                 break;
+
             else if (stream.peek() === undefined) {
-                console.warn("Unexpected end of stream");
+                console.warn("Unexpected end of stream"); // TODO:
                 break;
             }
-        } // Skips the last ) automatically due to the next function
+        }
+
+        // Skips the last ) automatically due to the next function
         return args;
     }
 }

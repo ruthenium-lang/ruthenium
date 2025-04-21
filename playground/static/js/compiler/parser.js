@@ -13,11 +13,10 @@ export class ASTParser {
     }
 
     parse() {
-        while (this.stream.remaining() >= 1) {
+        while (this.stream.remaining() >= 1) {// TODO: >= 1 == > 0 +readability
             const keyword = this.stream.peek();
 
             switch (keyword) {
-
                 case 'fn':
                     this.funcParser.parse();
                     break;
@@ -25,12 +24,12 @@ export class ASTParser {
                 case 'let':
                     this.varParser.parse();
                     break;
-                
+
                 default:
                     if (!this.tokenEval()) {
                         console.warn("I don't know what to do with: ", keyword);
                         this.stream.skip();
-                        break;
+                        break; // TODO: FAST FIXING: remove useless
                     }
             }
 
@@ -44,14 +43,14 @@ export class ASTParser {
         const func = new ASTFunctionCallPattern(this.stream).checkAndParse();
         if (func) {
             this.tree.push(func);
-            console.log("Function: ", func.name);
+            console.log("Function: ", func.name); // TODO: remove
             return true;
         }
 
         const operator = new ASTOperatorPattern(this.stream).checkAndParse();
         if (operator) {
             this.tree.push(operator);
-            console.log("Operator: ", operator.operator);
+            console.log("Operator: ", operator.operator); // TODO: remove
             return true;
         }
         return false;

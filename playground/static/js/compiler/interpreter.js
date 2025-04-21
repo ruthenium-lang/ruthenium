@@ -1,8 +1,8 @@
 class Interpreter {
     constructor(objTree) {
-        this.objTree = objTree;
-        this.stack = [];
-        this.variables = {};
+        this.objTree = objTree; // TODO: objTree -> tree
+        this.stack = [];        // TODO: stack -> env.stack
+        this.variables = {};    // TODO: variables -> env.id
     }
 
     /*
@@ -47,6 +47,9 @@ class Interpreter {
         }
     }
 
+    // TODO: Add process function
+    //       trust me, its gonna change everything
+
     executeNode(node) {
         switch (node.type) {
             case 'VariableDeclaration':
@@ -64,8 +67,8 @@ class Interpreter {
             case 'FunctionCall':
                 if (node.name === 'println') {
                     const output = document.getElementById('output');
-                    const value = node.args[0].startsWith('"') ? 
-                        node.args[0].slice(1, -1) : 
+                    const value = node.args[0].startsWith('"') ?
+                        node.args[0].slice(1, -1) :
                         this.variables[node.args[0]];
                     output.innerHTML += value + '\n';
                 }
