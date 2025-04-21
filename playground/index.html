@@ -80,7 +80,10 @@
             const tokens = tokenize();
             const stream = new TokenStream(tokens);
             const parser = new ASTParser(stream);
-            const ast = parser.parse();
+            const ast = [];
+            while (stream.remaining() > 0)
+                ast.push(...parser.parse());
+
             astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
         });
 
@@ -89,7 +92,10 @@
             const tokens = tokenize();
             const stream = new TokenStream(tokens);
             const parser = new ASTParser(stream);
-            const ast = parser.parse();
+            const ast = [];
+            while (stream.remaining() > 0)
+                ast.push(...parser.parse());
+
             astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
             const interpreter = new window.Interpreter(ast);
             interpreter.run();
