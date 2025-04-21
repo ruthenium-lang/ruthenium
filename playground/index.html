@@ -31,8 +31,8 @@
     </div>
     <div style="float: left;">
         <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
-        <button id="parse"    class="codeBtn">Parse</button>
-        <button id="run"      class="codeBtn">Run</button>
+        <button id="parse"    class="codeBtn" onclick="parse()">Parse</button>
+        <button id="run"      class="codeBtn" onclick="run()">Run</button>
     </div>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
@@ -75,53 +75,63 @@
         function tokenize() {
             const cs = new CodeStream(editor.getContent());
             const tokens = qrtTokenize(cs);
-            tokenized.innerHTML = tokens.map(t => t.toString().replace(" ", " ")).join(", ");
+            output.innerHTML = "";
+            tokenized.innerHTML = tokens.map(t => t.symbol).join(", ");
 
-            if (cs.errors.length > 0)
-            {
-                cs.errors.forEach(e => {
-                    if (errorDisplayMode == 1)
-                        return;
-                });
-                for (let i = 0; i < cs.errors.length; i++) {
-                    if (errorDisplayMode == 0)
-                        break;
+            if (cs.errors.length === 0)
+                return tokens;
 
-                    const e = cs.errors[e];
-                    panic(e.data, e.cursor, e.line, e.custom);
+            for (let i = 0; i < cs.errors.length; i++) {
+                if (errorDisplayMode == 0)
+                    break;
 
-                    if (errorDisplayMode == 1)
-                        break;
-                }
+                const e = cs.errors[e];
+                panic(e.data, e.cursor, e.line, e.custom);
+
+                if (errorDisplayMode == 1)
+                    break;
             }
 
-            return tokens;
+            return undefined;
         }
 
-        document.getElementById("parse").addEventListener("click", () => {
+        function parse() {
             const tokens = tokenize();
-            const stream = new TokenStream(tokens);
-            const parser = new ASTParser(stream);
-            const ast = [];
-            while (stream.remaining() > 0)
-                ast.push(...parser.parse());
+            if (!tokens)
+                return undefined;
 
-            astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
-        });
+            const ts = new TokenStream(tokens);
+            const parser = new ASTParser(ts);
+            const tree = [];
+            while (ts.remaining() > 0)
+                tree.push(...parser.parse());
 
-        document.getElementById("run").addEventListener("click", () => {
-            output.innerHTML = "";
-            const tokens = tokenize();
-            const stream = new TokenStream(tokens);
-            const parser = new ASTParser(stream);
-            const ast = [];
-            while (stream.remaining() > 0)
-                ast.push(...parser.parse());
+            astVisorDOM.innerHTML = `${jsyaml.dump(tree)}`;
+            if (ts.errors.length === 0)
+                return tree;
 
-            astVisorDOM.innerHTML = `${jsyaml.dump(ast)}`;
-            const interpreter = new window.Interpreter(ast);
-            interpreter.run();
-        });
+            for (let i = 0; i < ts.errors.length; i++) {
+                if (errorDisplayMode == 0)
+                    break;
+
+                const e = ts.errors[e];
+                panic(e.data, e.cursor, e.line, e.custom);
+
+                if (errorDisplayMode == 1)
+                    break;
+            }
+
+            return undefined;
+        }
+
+        function run() {
+            const tree = parse();
+            if (!tree)
+                return undefined;
+
+            const vm = new Interpreter(tree);
+            vm.run();
+        }
 
         caret.addEventListener("click", () => {
             if (expanded) {
