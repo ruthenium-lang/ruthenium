@@ -11,7 +11,12 @@ class Interpreter {
         };
     }
 
+    init() {
+
+    }
+
     run() {
+        this.init();
         for (const statement of this.tree) {
             this.evaluate(statement);
         }
@@ -22,12 +27,14 @@ class Interpreter {
 
     evaluate(statement) {
         switch (statement.type) {
+
             case 'VariableDeclaration':
                 if (statement.value) {
                     // TODO: Assuming int?? This should change ASAP
                     this.env.id[statement.name] = parseInt(statement.value);
                 }
                 break;
+
             case 'FunctionDeclaration':
                 if (statement.name === 'main') {
                     for (const bodyNode of statement.body) {
@@ -35,6 +42,7 @@ class Interpreter {
                     }
                 }
                 break;
+
             case 'FunctionCall':
                 // TODO: importStd()
                 if (statement.name === 'println') {
@@ -45,6 +53,7 @@ class Interpreter {
                     output.innerHTML += value + '\n';
                 }
                 break;
+
         }
     }
 }
