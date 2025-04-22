@@ -1,7 +1,7 @@
 class Interpreter {
 
-    constructor(objTree) {
-        this.objTree = objTree; // TODO: objTree -> tree
+    constructor(tree) {
+        this.tree = tree;
         this.stack = [];        // TODO: stack -> env.stack
 
         // Necessary to define the environment of the
@@ -13,7 +13,7 @@ class Interpreter {
 
     run() {
         // TODO: node -> statement
-        for (const node of this.objTree) {
+        for (const node of this.tree) {
             this.executeNode(node); // TODO: Refactor to evaluate
         }
     }
