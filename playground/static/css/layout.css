@@ -4,16 +4,14 @@
     padding: 0;
     margin: 0;
     overflow: hidden;
+
+    box-sizing: border-box;
 }
 
 body {
     padding: 18px;
-}
-
-#playground {
-    width: 50vw !important;
-    height: 85vh !important;
-    padding: 8px;
+    width: 100vw;
+    height: 100vh;
 }
 
 #tokenized {
@@ -22,14 +20,11 @@ body {
     padding: 8px;
 }
 
-#output {
-    height: 85vh !important;
-    width: 44vw !important;
-    padding: 8px;
-}
-
 #ast {
     height: 350px !important;
     width: 450px !important;
     padding: 8px;
+}
+.footer {
+    padding: 15px;
 }
