@@ -1,33 +1,34 @@
 @charset "UTF-8";
 
 .container {
-    display: flex;
-    height: 85vh;
-    width: calc(100vw - 36px);
+    border-radius: 5px;
+    display:       flex;
+    height:        85vh;
+    width:         calc(100vw - 36px);
 }
 
 .panel {
-    height: 100%;
     overflow: auto;
-    padding: 1rem;
+    padding:  1rem;
+    height:   100%;
 }
 
 .left {
-    width: 50%;
     background: #1e1e1e;
-    color: white;
+    width:      50%;
+    color:      white;
 }
 
 .right {
-    flex-grow: 1;
     background: #f4f4f4;
+    flex-grow:  1;
 }
 
 .divider {
-    width: 6px;
-    cursor: col-resize;
-    background-color: #888;
-    transition: background 0.2s;
+    background-color: #039b31;
+    transition:       background 0.2s;
+    cursor:           col-resize;
+    width:            6px;
 }
 
 .divider:hover {

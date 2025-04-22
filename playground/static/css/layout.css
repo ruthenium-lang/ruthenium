@@ -1,30 +1,33 @@
 @charset "UTF-8";
 
 * {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-
     box-sizing: border-box;
+    overflow:   hidden;
+    padding:    0;
+    margin:     0;
 }
 
 body {
     padding: 18px;
-    width: 100vw;
-    height: 100vh;
+    height:  100vh;
+    width:   100vw;
 }
 
-#tokenized {
-    height: 350px !important;
-    width: 450px !important;
-    padding: 8px;
-}
-
-#ast {
-    height: 350px !important;
-    width: 450px !important;
-    padding: 8px;
-}
 .footer {
     padding: 15px;
+}
+
+#output {
+    overflow-wrap: break-word;
+    white-space:   pre-wrap;
+    word-wrap:     break-word;
+    overflow:      auto;
+    padding:       8px;
+}
+
+button {
+    text-transform: uppercase;
+    border-radius:  4px;
+    padding:        10px 16px;
+    margin:         3px 0;
 }
