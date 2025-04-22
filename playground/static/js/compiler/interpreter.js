@@ -12,9 +12,8 @@ class Interpreter {
     }
 
     run() {
-        // TODO: node -> statement
-        for (const node of this.tree) {
-            this.executeNode(node); // TODO: Refactor to evaluate
+        for (const statement of this.tree) {
+            this.executeNode(statement); // TODO: Refactor to evaluate
         }
     }
 
