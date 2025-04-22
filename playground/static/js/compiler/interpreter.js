@@ -27,9 +27,6 @@ class Interpreter {
         }
     }
 
-    // TODO: Add process function
-    //       trust me, its gonna change everything
-
     evaluate(statement) {
         switch (statement.type) {
 
