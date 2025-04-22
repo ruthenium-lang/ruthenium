@@ -10,7 +10,7 @@ divider.addEventListener('mousedown', (e) => {
 document.addEventListener('mousemove', (e) => {
   if (!isResizing) return;
 
-  const newWidth = e.clientX;
+  const newWidth = e.clientX - 20;
   leftPanel.style.width = `${newWidth}px`;
 });
 
