@@ -19,7 +19,7 @@ body {
     color:            white;
 }
 
-#output :focus,
+#output:focus,
 #playground.focused {
     border-color: #556d55;
 }
@@ -31,12 +31,12 @@ button {
     color:            #111;
 }
 
-button :hover {
+button:hover {
     background-color: #24d15d;
     cursor:           pointer;
 }
 
-button :disabled {
+button:disabled {
     background-color: #5f5e54;
     cursor:           not-allowed;
     color:            #ddd;
