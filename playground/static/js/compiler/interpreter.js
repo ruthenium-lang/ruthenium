@@ -4,6 +4,10 @@ class Interpreter {
         this.objTree = objTree; // TODO: objTree -> tree
         this.stack = [];        // TODO: stack -> env.stack
         this.variables = {};    // TODO: variables -> env.id
+
+        // Necessary to define the environment of the
+        // Ruthenium Virtual Machine (RVM)
+        this.env = {};
     }
 
     run() {
