@@ -3,16 +3,18 @@ class Interpreter {
     constructor(objTree) {
         this.objTree = objTree; // TODO: objTree -> tree
         this.stack = [];        // TODO: stack -> env.stack
-        this.variables = {};    // TODO: variables -> env.id
 
         // Necessary to define the environment of the
         // Ruthenium Virtual Machine (RVM)
-        this.env = {};
+        this.env = {
+            id: {}
+        };
     }
 
     run() {
+        // TODO: node -> statement
         for (const node of this.objTree) {
-            this.executeNode(node);
+            this.executeNode(node); // TODO: Refactor to evaluate
         }
     }
 
@@ -23,7 +25,8 @@ class Interpreter {
         switch (node.type) {
             case 'VariableDeclaration':
                 if (node.value) {
-                    this.variables[node.name] = parseInt(node.value);
+                    // TODO: Assuming int?? This should change ASAP
+                    this.env.id[node.name] = parseInt(node.value);
                 }
                 break;
             case 'FunctionDeclaration':
@@ -34,11 +37,12 @@ class Interpreter {
                 }
                 break;
             case 'FunctionCall':
+                // TODO: importStd()
                 if (node.name === 'println') {
                     const output = document.getElementById('output');
                     const value = node.args[0].startsWith('"') ?
                         node.args[0].slice(1, -1) :
-                        this.variables[node.args[0]];
+                        this.env.id[node.args[0]];
                     output.innerHTML += value + '\n';
                 }
                 break;
