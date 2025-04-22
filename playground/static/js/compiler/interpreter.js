@@ -12,7 +12,12 @@ class Interpreter {
     }
 
     init() {
+        /* --- Crash tutorial on how to initialize the RVM --- */
 
+        // 1. Include standard libraries
+        this.importStd();
+
+        // That's it. This will eventually be a bit more complex.
     }
 
     run() {
@@ -44,7 +49,6 @@ class Interpreter {
                 break;
 
             case 'FunctionCall':
-                // TODO: importStd()
                 if (statement.name === 'println') {
                     const output = document.getElementById('output');
                     const value = statement.args[0].startsWith('"') ?
@@ -56,6 +60,16 @@ class Interpreter {
 
         }
     }
+
+    importStd() {
+        const output = document.querySelector("#output");
+
+        // TODO: Implement function signatures like println_S
+        this.env.id.println = function(msg) {
+            output.innerHTML += msg + "<br>";
+        };
+    }
+
 }
 
 window.Interpreter = Interpreter;
