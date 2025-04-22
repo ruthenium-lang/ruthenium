@@ -13,14 +13,14 @@ class Interpreter {
 
     run() {
         for (const statement of this.tree) {
-            this.executeNode(statement); // TODO: Refactor to evaluate
+            this.evaluate(statement);
         }
     }
 
     // TODO: Add process function
     //       trust me, its gonna change everything
 
-    executeNode(node) {
+    evaluate(node) {
         switch (node.type) {
             case 'VariableDeclaration':
                 if (node.value) {
@@ -31,7 +31,7 @@ class Interpreter {
             case 'FunctionDeclaration':
                 if (node.name === 'main') {
                     for (const bodyNode of node.body) {
-                        this.executeNode(bodyNode);
+                        this.evaluate(bodyNode);
                     }
                 }
                 break;
