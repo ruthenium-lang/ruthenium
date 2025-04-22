@@ -1,5 +1,17 @@
 const playgroundDOM = document.querySelector("#playground");
 
+playgroundDOM.addEventListener('mousedown', () => {
+    playgroundDOM.classList.add('focused');
+});
+
+document.addEventListener('mousedown', (e) => {
+    if (playgroundDOM.contains(e.target))
+        return;
+
+    playgroundDOM.classList.remove('focused');
+});
+
+
 function setupEditor() {
     playgroundDOM.innerHTML = `fn main() {
     let a: uint;
