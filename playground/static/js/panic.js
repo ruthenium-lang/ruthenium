@@ -51,7 +51,7 @@ function displayErrorPopup(detailedMessage) {
 
             #output h1 {
                 font-family: 'Tektur', sans-serif;
-                color: #0e0;
+                color: #e00;
                 font-size: 26pt;
             }
 
