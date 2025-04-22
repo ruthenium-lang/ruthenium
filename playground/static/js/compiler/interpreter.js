@@ -1,45 +1,10 @@
 class Interpreter {
+
     constructor(objTree) {
         this.objTree = objTree; // TODO: objTree -> tree
         this.stack = [];        // TODO: stack -> env.stack
         this.variables = {};    // TODO: variables -> env.id
     }
-
-    /*
-    Hello world interpreter (able to run basic code)
-    let a = 3;
-    let b = 4;
-
-    fn main() {
-        println("Hello World!");
-        let c = a + b;
-        c = a * c + b;
-        println(c);
-    }
-
-    YAML from that:
-    - type: VariableDeclaration
-    name: a
-    value: '3'
-    - type: VariableDeclaration
-    name: b
-    value: '4'
-    - type: FunctionDeclaration
-    returnType: void
-    body:
-        - type: FunctionCall
-        name: println
-        args:
-            - '"Hello World!"'
-        - type: VariableDeclaration
-        name: c
-        - type: FunctionCall
-        name: println
-        args:
-            - c
-    params: []
-    name: main
-    */
 
     run() {
         for (const node of this.objTree) {
