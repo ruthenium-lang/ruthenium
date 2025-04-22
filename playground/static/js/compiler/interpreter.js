@@ -20,28 +20,28 @@ class Interpreter {
     // TODO: Add process function
     //       trust me, its gonna change everything
 
-    evaluate(node) {
-        switch (node.type) {
+    evaluate(statement) {
+        switch (statement.type) {
             case 'VariableDeclaration':
-                if (node.value) {
+                if (statement.value) {
                     // TODO: Assuming int?? This should change ASAP
-                    this.env.id[node.name] = parseInt(node.value);
+                    this.env.id[statement.name] = parseInt(statement.value);
                 }
                 break;
             case 'FunctionDeclaration':
-                if (node.name === 'main') {
-                    for (const bodyNode of node.body) {
+                if (statement.name === 'main') {
+                    for (const bodyNode of statement.body) {
                         this.evaluate(bodyNode);
                     }
                 }
                 break;
             case 'FunctionCall':
                 // TODO: importStd()
-                if (node.name === 'println') {
+                if (statement.name === 'println') {
                     const output = document.getElementById('output');
-                    const value = node.args[0].startsWith('"') ?
-                        node.args[0].slice(1, -1) :
-                        this.env.id[node.args[0]];
+                    const value = statement.args[0].startsWith('"') ?
+                        statement.args[0].slice(1, -1) :
+                        this.env.id[statement.args[0]];
                     output.innerHTML += value + '\n';
                 }
                 break;
