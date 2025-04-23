@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
+#output {
+    font-optical-sizing: auto;
+    font-family:         'Hermit', monospace;
+    font-weight:         400;
+    font-style:          normal;
+    font-size:           12pt;
+}
+
+button {
+    font-optical-sizing: auto;
+    font-family:         'Space Grotesk', sans-serif;
+    font-weight:         bold;
+    font-style:          normal;
+    font-size:           12pt;
+}
+
 @font-face {
     font-family: 'Hermit';
     font-weight: 400;

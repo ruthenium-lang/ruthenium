@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.container {
+    border-radius: 5px;
+    display:       flex;
+    height:        85vh;
+    width:         calc(100vw - 36px);
+}
+
+.panel {
+    overflow: auto;
+    padding:  1rem;
+    height:   100%;
+}
+
+.left {
+    background: #1e1e1e;
+    width:      50%;
+    color:      white;
+}
+
+.right {
+    background: #f4f4f4;
+    flex-grow:  1;
+}
+
+.divider {
+    background-color: #039b31;
+    transition:       background 0.2s;
+    cursor:           col-resize;
+    width:            6px;
+}
+
+.divider:hover {
+    background-color: #555;
+}

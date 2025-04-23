@@ -9,38 +9,34 @@
     <link rel="stylesheet" href="static/css/layout.css" />
     <link rel="stylesheet" href="static/css/fonts.css" />
     <link rel="stylesheet" href="static/css/appearance.css" />
-    
+
+    <link rel="stylesheet" href="static/css/panels.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inconsolata:wght@200..900&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js" type="text/javascript" charset="utf-8"></script>
 </head>
+
 <body>
-    <div style="float: left; width: 100%;">
-        <div id="playground"></div>
-        <h3>Inner Steps<button id="caret"><i class="fa-solid fa-caret-down" id="displayMore"></i><i class="fa-solid fa-caret-right" id="displayLess"></i></button></h3>
-        <div id="innerSteps">
-            <div id="tokenized"></div>
-            <div id="ast"><pre id="ast-visor-content"></pre></div>
-        </div>
-        <div style="clear: both;"></div>
-        <h3>Output</h3>
-        <div id="output"></div>
+    <div class="container">
+        <div id="playground" tabindex="0" class="left panel"></div>
+        <div class="divider" id="divider"></div>
+        <div id="output" tabindex="0" class="right panel"></div>
     </div>
-    <div style="float: left;">
-        <button id="tokenize" class="codeBtn" onclick="tokenize()">Tokenize</button>
-        <button id="parse"    class="codeBtn" onclick="parse()">Parse</button>
-        <button id="run"      class="codeBtn" onclick="run()">Run</button>
+
+    <div class="footer">
+        <button id="run" onclick="run()">Run</button>
+        <!-- TODO add more buttons -->
     </div>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.js"
-        type="text/javascript"
-        charset="utf-8"
-    ></script>
+
+</body>
 
     <!-- Error handler -->
     <script type="module" src="static/js/panic.js"></script>
@@ -61,25 +57,19 @@
     <script type="module" src="static/js/compiler/interpreter.js"></script>
 
     <script src="static/js/editor.js"></script>
+    <script src="static/js/layout.js"></script>
 
     <script>
         let errorDisplayMode = 1; // 1 -> display one error, 0 -> no errors, -1 -> everything
         setupEditor();
 
-        const astVisorDOM = document.getElementById("ast-visor-content");
-        const tokenized = document.getElementById("tokenized");
         let expanded = true;
-        const innerSteps = document.getElementById("innerSteps");
-        const caret = document.getElementById("caret");
-        const displayMore = document.getElementById("displayMore");
-        const displayLess = document.getElementById("displayLess");
         const output = document.getElementById("output");
 
         function tokenize() {
-            const cs = new CodeStream(editor.getContent());
+            const cs = new CodeStream(editor.getValue());
             const tokens = qrtTokenize(cs);
             output.innerHTML = "";
-            tokenized.innerHTML = tokens.map(t => t.symbol).join(", ");
 
             if (cs.errors.length === 0)
                 return tokens;
@@ -109,7 +99,6 @@
             while (ts.remaining() > 0)
                 tree.push(...parser.parse());
 
-            astVisorDOM.innerHTML = `${jsyaml.dump(tree)}`;
             if (ts.errors.length === 0)
                 return tree;
 
@@ -135,18 +124,6 @@
             const vm = new Interpreter(tree);
             vm.run();
         }
-
-        caret.addEventListener("click", () => {
-            if (expanded) {
-                innerSteps.style.display = "none";
-                caret.innerHTML = "<i class='fa-solid fa-caret-right'></i>";
-                expanded = false;
-            } else {
-                innerSteps.style.display = "block";
-                caret.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
-                expanded = true;
-            }
-        });
     </script>
-</body>
+    </body>
 </html>

@@ -1,96 +1,43 @@
 @charset "UTF-8";
 
-#playground {
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #ddd;
+body {
+    background-color: #1e1f1e;
+    background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
-#tokenized {
-    border-radius: 5px;
+#playground,
+#output {
     outline: none;
-    border: 1px solid #ddd;
-    background-color: #222;
-    color: #23a521;
-    font-family: "Hermit", monospace;
-    font-size: 16px;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    padding: 8px;
-    overflow: auto;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-
-#ast {
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #ddd;
-    background-color: #222;
-    color: #23a521;
-    font-family: "Hermit", monospace;
-    font-size: 16px;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    padding: 8px;
-    overflow: auto;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    border:  4px solid #1c351c;
 }
 
 #output {
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #ddd;
     background-color: #222;
-    color: #23a521;
-    font-family: "Hermit", monospace;
-    font-size: 16px;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    padding: 8px;
-    overflow: auto;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
+    color:            white;
 }
 
-.codeBtn {
-    color: white;
-    border-radius: 4px;
-    background-color: rgb(64, 104, 92);
-    border: 1px solid #000;
-    width: 100%;
-    padding: 10px 16px;
-    margin: 3px 0;
-    transition: background-color 0.2s;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-family: "Space Grotesk", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
-    font-style: normal;
+#output:focus,
+#playground.focused {
+    border-color: #556d55;
 }
 
-.codeBtn:hover {
-    background-color: #46a537;
-    cursor: pointer;
+button {
+    background-color: #5fc88f;
+    transition:       background-color 0.2s;
+    border:           1px solid #000;
+    color:            #111;
 }
 
-.codeBtn:disabled {
-    background-color: #ddd;
-    color: #444;
-    cursor: not-allowed;
+button:hover {
+    background-color: #24d15d;
+    cursor:           pointer;
 }
 
-#displayLess {
-    display: none;
-}
-
-#displayMore {
-    color: #23a521;
-    cursor: pointer;
+button:disabled {
+    background-color: #5f5e54;
+    cursor:           not-allowed;
+    color:            #ddd;
 }
