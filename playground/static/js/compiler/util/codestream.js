@@ -91,12 +91,12 @@ export class CodeStream {
 
     cursor() {
         let line = 1;
-        let col  = 1;
+        let col  = 0;
 
         for (let i = 0; i < this.index; i++) {
             if (this.code[i] === '\n') {
                 line++;
-                col = 1;
+                col = 0;
                 continue;
             }
 
