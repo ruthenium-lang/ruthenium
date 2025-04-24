@@ -28,6 +28,9 @@ export class ASTFunctionParser {
         }
 
         block.returnType = this.stream.pop();
+
+        // TODO: insert the body declaration
+
         return this.tree;
     }
 

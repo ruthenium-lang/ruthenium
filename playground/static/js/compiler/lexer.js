@@ -15,6 +15,7 @@ export function qrtTokenize(stream) {
     while (stream.remaining() > 0) {
         const c = stream.peek();
 
+        // TODO: nahhh... everything wrong with this
         if (stream.peek(1) === "/" && stream.peek() === "/") {
             while (stream.remaining() > 0 && !Character.isLineTerminator(stream.peek())) {
                 stream.skip();
