@@ -1,7 +1,12 @@
 export class ASTFunctionTemplate {
 
     fill(stream) {
-        let obj = { params: [] };
+        let obj = {
+            params: [],
+            returnType: "void",
+        };
+
+        // TODO: why this would be the case anyways?
         if (!stream.expect('fn'))
             return stream.error(Errors.AST.Fn_MalformedDeclaration);
 

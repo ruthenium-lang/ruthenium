@@ -9,7 +9,6 @@ export class ASTFunctionParser {
         const fn = new ASTFunctionTemplate().fill(this.stream);
         let block = {
             type: "FunctionDeclaration",
-            returnType: "void",
             body: [],
             ...fn
         };
