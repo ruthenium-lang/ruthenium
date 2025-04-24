@@ -31,7 +31,7 @@ export class TokenStream {
 
         col += col_offset;
         if (line_str.length < col)
-            line_str += " ".repeat(col_offset - 1);
+            line_str += " ".repeat(Math.max(0, col_offset - 1));
 
         const cursor = `${line}:${col}`;
         const e = {

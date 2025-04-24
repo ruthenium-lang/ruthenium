@@ -24,7 +24,7 @@ export class ASTFunctionParser {
             if (this.stream.peek(1) !== '{')
                 return this.stream.error(Errors.AST.Fn_InvalidBody, 3), null;
 
-            return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType), null;
+            return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType, 3), null;
         }
 
         block.returnType = this.stream.pop();
@@ -34,7 +34,7 @@ export class ASTFunctionParser {
     parseBody() {
         let body = [];
         if (!this.stream.expect("{"))
-            return this.stream.error(Errors.AST.Fn_InvalidBody, 2), null;
+            return this.stream.error(Errors.AST.Fn_InvalidBody, 3), null;
 
         while (!this.stream.next("}")
             && this.stream.remaining() > 0)

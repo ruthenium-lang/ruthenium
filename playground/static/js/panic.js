@@ -37,7 +37,7 @@ export function panic(error, cursor, sourceLine, customMessage) {
 }
 
 function displayErrorPopup(detailedMessage) {
-    errorType = "Error"; // TODO: Get the actual error type
+    const errorType = "Error"; // TODO: Get the actual error type
 
     const output = document.getElementById('output');
     output.innerHTML = `
@@ -51,7 +51,7 @@ function displayErrorPopup(detailedMessage) {
 
             #output h1 {
                 font-family: 'Tektur', sans-serif;
-                color: #0e0;
+                color: #e00;
                 font-size: 26pt;
             }
 
