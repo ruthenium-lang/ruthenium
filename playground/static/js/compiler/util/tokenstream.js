@@ -30,8 +30,7 @@ export class TokenStream {
         let strLine = CodeStream.getLine(window.editor.getContent(), this.index);
 
         col += col_offset;
-        if (strLine.length < col)
-            strLine += " ".repeat(Math.max(0, col_offset - 1));
+        strLine = strLine.padEnd(col);
 
         const cursor = `${line}:${col}`;
         const e = {
