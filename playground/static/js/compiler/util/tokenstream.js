@@ -27,17 +27,17 @@ export class TokenStream {
 
     error(data, col_offset = 0) {
         let [ line, col ] = this.cursor().split(':').map(s => parseInt(s));
-        let line_str = CodeStream.getLine(window.editor.getContent(), this.index);
+        let strLine = CodeStream.getLine(window.editor.getContent(), this.index);
 
         col += col_offset;
-        if (line_str.length < col)
-            line_str += " ".repeat(Math.max(0, col_offset - 1));
+        if (strLine.length < col)
+            strLine += " ".repeat(Math.max(0, col_offset - 1));
 
         const cursor = `${line}:${col}`;
         const e = {
             data: data,
             cursor: cursor,
-            line: line_str
+            line: strLine
         };
 
         this.errors.push(e);
