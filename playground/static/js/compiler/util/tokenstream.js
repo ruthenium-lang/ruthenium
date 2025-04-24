@@ -40,8 +40,6 @@ export class TokenStream {
             line: line_str
         };
 
-        console.error(data.message);
-        console.trace();
         this.errors.push(e);
         return null;
     }
