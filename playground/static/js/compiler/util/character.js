@@ -5,7 +5,7 @@ export class Character {
     }
 
     static isNotLineTerminator(c) {
-        c = toChar(c);
+        c = Character.toChar(c);
         const carriageReturn = c === '\r';
         const lineFeed       = c === '\n';
 
@@ -13,12 +13,12 @@ export class Character {
     }
 
     static isDoubleQuotes(c) {
-        c = toChar(c);
+        c = Character.toChar(c);
         return c === '"';
     }
 
     static isWhitespace(c) {
-        c = toChar(c);
+        c = Character.toChar(c);
         // Everything below ' ' (x20) is considered a ASCII Control Character
         // which is not displayed, so I consider it also a whitespace.
         // And ' ' is also a whitespace, so we gotta use the <= operator.
@@ -26,7 +26,7 @@ export class Character {
     }
 
     static isLetter(c) {
-        c = toChar(c);
+        c = Character.toChar(c);
 
         // Lowercase
         if (c >= 'a' && c <= 'z')
@@ -40,7 +40,7 @@ export class Character {
     }
 
     static isDigit(c) {
-        c = toChar(c);
+        c = Character.toChar(c);
         return c >= '0' && c <= '9'
     }
 
