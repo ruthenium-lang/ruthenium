@@ -61,13 +61,14 @@ export class CodeStream {
         }
     }
 
-    unwrap(wrapch) {
-        if (!this.expect(wrapch))
-            console.warn("The first character is not " + wrapch + "!");
+    unwrap(delimiter1) {
+        // TODO: Use stream.error
+        if (!this.expect(delimiter1))
+            console.warn("The first character is not " + delimiter1 + "!");
 
         let i = this.index;
         for (; i < this.code.length; i++)
-            if (this.code[i] === wrapch) break;
+            if (this.code[i] === delimiter1) break;
 
         if (i === this.code.length)
             return this.error(Errors.AST.Unclosed_String);
