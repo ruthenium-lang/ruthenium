@@ -51,14 +51,6 @@ export class TokenStream {
         this.index = Math.min(this.index + i, this.tokens.length);
     }
 
-    discardIf(condition) {
-        while (this.remaining() > 0
-            && condition(this.peek()))
-        {
-            this.skip();
-        }
-    }
-
     back(i = 1) {
         this.index = Math.max(this.index - i, 0)
         return this.peek();

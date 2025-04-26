@@ -43,6 +43,7 @@ export class CodeStream {
         return false;
     }
 
+    // TODO: Can be refactored
     readWhile(condition) {
         let str = "";
 
@@ -54,6 +55,14 @@ export class CodeStream {
             this.back(); // The last character doesn't belong to the string
 
         return str;
+    }
+
+    discardIf(condition) {
+        while (this.remaining() > 0
+            && condition(this.peek()))
+        {
+            this.skip();
+        }
     }
 
     unwrap(wrapch) {
