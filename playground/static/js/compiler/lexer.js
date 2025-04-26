@@ -15,13 +15,8 @@ export function qrtTokenize(stream) {
     while (stream.remaining() > 0) {
         const c = stream.peek();
 
-        // TODO: nahhh... everything wrong with this
-        if (stream.peek(1) === "/" && stream.peek() === "/") {
-            while (stream.remaining() > 0 && !Character.isLineTerminator(stream.peek())) {
-                stream.skip();
-            }
-            continue;
-        }
+        if (stream.next("//"))
+            stream.discardIf(Character.isNotLineTerminator);
 
         if (Character.isDoubleQuotes(c))
             token += `"${stream.unwrap('"')}"`; // Surrond by quotation marks
