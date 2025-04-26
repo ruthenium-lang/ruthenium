@@ -109,7 +109,7 @@ export const Errors = {
         },
         Fn_MissingIdentifier: {
             code: 0x300004,
-            message: "Didn't found a name for the funciton",
+            message: "Didn't found a name for the funciton", // TODO: INCORRECTOU
             hint: "Insert the word `my_func` before the parentheses",
         },
         Fn_MalformedArgs: {
