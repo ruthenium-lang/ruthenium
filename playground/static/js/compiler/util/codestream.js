@@ -53,8 +53,9 @@ export class CodeStream {
     }
 
     discardIf(condition) {
+        let str = "";
         while (this.remaining() > 0
-            && condition(this.peek()))
+            && condition(str += this.peek()))
         {
             this.skip();
         }
