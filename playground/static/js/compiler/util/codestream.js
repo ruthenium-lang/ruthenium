@@ -43,16 +43,11 @@ export class CodeStream {
         return false;
     }
 
-    // TODO: Can be refactored
     readWhile(condition) {
         let str = "";
 
-        let c;
-        while (this.remaining() > 0 && condition(c = this.pop()))
-            str += c;
-
-        if (this.remaining() > 0)
-            this.back(); // The last character doesn't belong to the string
+        while (this.remaining() > 0 && condition(str + this.peek()))
+            str += this.pop();
 
         return str;
     }
