@@ -20,8 +20,8 @@ export function qrtTokenize(stream) {
 
         if (Character.isDoubleQuotes(c))
             token += `"${stream.unwrap('"', '\\')}"`; // Surrond by quotation marks
-        else if (Character.isLetter(c))
-            token += stream.readWhile(Character.isLetter);
+        else if (String.isIdentifier(c))
+            token += stream.readWhile(String.isIdentifier);
         else if (Character.isDigit(c))
             token += stream.readWhile(Character.isDigit);
         else {
