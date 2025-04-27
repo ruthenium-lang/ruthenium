@@ -1,3 +1,5 @@
+import { Character } from "./character.js";
+
 export class CodeStream {
 
     constructor(code) {
@@ -61,20 +63,28 @@ export class CodeStream {
         }
     }
 
-    unwrap(delimiter1) {
+    unwrap(delimiterStart, escapeCh = "", delimiterEnd = null) {
+        if (delimiterEnd === null)
+            delimiterEnd = delimiterStart; // Retrocompatible
+
         // TODO: Use stream.error
-        if (!this.expect(delimiter1))
-            console.warn("The first character is not " + delimiter1 + "!");
+        if (!this.expect(delimiterStart))
+            console.warn(`The first character is not '${delimiterStart}'`);
 
-        let i = this.index;
-        for (; i < this.code.length; i++)
-            if (this.code[i] === delimiter1) break;
+        let unwrapped = "";
+        while (this.remaining() > 0
+            && !this.next(delimiterEnd))
+        {
+            const c = this.pop();
+            if (c === escapeCh)
+                this.skip();
+            else
+                unwrapped += c;
+        }
 
-        if (i === this.code.length)
-            return this.error(Errors.AST.Unclosed_String);
+        if (this.remaining() < 1) // We reached the EOF
+            return this.error(Errors.LEXER.Unclosed_String);
 
-        let unwrapped = this.code.substring(this.index, this.index = i);
-        this.skip(); // Skip the last quotation mark
         return unwrapped;
     }
 
