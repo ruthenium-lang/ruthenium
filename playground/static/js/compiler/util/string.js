@@ -6,3 +6,7 @@ String.isIdentifier = input => {
 String.prototype.unwrap = function () {
     return this.slice(1, -1);
 }
+
+String.prototype.isSurroundedBy = function (c) {
+    return (this[0] === c) && (this[this.length - 1] === c);
+}
