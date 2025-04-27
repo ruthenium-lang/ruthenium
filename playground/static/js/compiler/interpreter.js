@@ -32,8 +32,18 @@ class Interpreter {
 
             case 'VariableDeclaration':
                 if (statement.value) {
-                    // TODO: Assuming int?? This should change ASAP
-                    this.env.id[statement.name] = parseInt(statement.value);
+                    let contains = "<RT_UNDEFINED>" /*, valueType*/;
+                    if (statement.value.isSurroundedBy('"')) {
+                        //valueType = 'STR_LITERAL';
+                        contains = statement.value.unwrap();
+
+                    } else {
+                        //valueType = 'NUM_LITERAL';
+                        contains = parseInt(statement.value);
+                    }
+                    console.log(contains);
+                    this.env.id[statement.name] = contains;
+
                 }
                 break;
 
@@ -48,8 +58,8 @@ class Interpreter {
             case 'FunctionCall':
                 if (statement.name === 'println') {
                     const output = document.getElementById('output');
-                    const value = statement.args[0].startsWith('"') ?
-                        statement.args[0].slice(1, -1) :
+                    const value = statement.args[0].isSurroundedBy('"') ?
+                        statement.args[0].unwrap() :
                         this.env.id[statement.args[0]];
                     output.innerHTML += value + '\n';
                 }
