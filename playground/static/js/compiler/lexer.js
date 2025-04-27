@@ -19,7 +19,7 @@ export function qrtTokenize(stream) {
             stream.discardIf(Character.isNotLineTerminator);
 
         if (Character.isDoubleQuotes(c))
-            token += `"${stream.unwrap('"')}"`; // Surrond by quotation marks
+            token += `"${stream.unwrap('"', '\\')}"`; // Surrond by quotation marks
         else if (Character.isLetter(c))
             token += stream.readWhile(Character.isLetter);
         else if (Character.isDigit(c))
