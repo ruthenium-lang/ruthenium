@@ -10,13 +10,6 @@ export class TokenStream {
         this.index   = 0;
     }
 
-    peekTypeEquals(type) {
-        if (!Array.isArray(type))
-            return qrtTypeOf(this.peek()) === type;
-
-        return type.some(t => this.peekTypeEquals(t));
-    }
-
     pop() {
         return this.tokens[this.index++];
     }

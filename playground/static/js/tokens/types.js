@@ -58,3 +58,5 @@ export function qrtTypeOf(s) {
     return t;
 }
 
+window.qrtTypeOf = qrtTypeOf;
+

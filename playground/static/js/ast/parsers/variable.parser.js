@@ -16,7 +16,7 @@ export class ASTVariableParser {
         if (!this.stream.expect('let'))
             return this.stream.error(Errors.AST.Let_MalformedDeclaration);
 
-        if (!this.stream.peekTypeEquals('ID'))
+        if (qrtTypeOf(this.stream.peek()) !== 'ID')
             return this.stream.error(Errors.AST.Let_MissingIdentifier);
 
         variable.name = this.stream.pop();
@@ -25,7 +25,7 @@ export class ASTVariableParser {
 
         // Type declaration
         if (this.stream.next(':')) {
-            if (!this.stream.peekTypeEquals("TYPE"))
+            if (qrtTypeOf(this.stream.peek()) !== 'TYPE')
                 return this.stream.error(Errors.TYPECHECK.Let_InvalidType);
 
             variable.varType = this.stream.pop();
