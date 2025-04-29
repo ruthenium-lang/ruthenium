@@ -14,6 +14,15 @@ export function RTExpression(content) {
     this.content = content;
 }
 
+export function RTVariable(name, value, constant = false) {
+    this.type = 'Variable';
+    this.name = name;
+    this.constant = constant;
+    this.value = value ?? new RTValue();
+
+    // TODO: Add declaration and initialization
+}
+
 function inferType(value) {
     if (!isNaN(value)) {
         let possibleTypes = ['uint', 'int'];
@@ -35,3 +44,4 @@ function inferType(value) {
 
 window.RTValue = RTValue;
 window.RTExpression = RTExpression;
+window.RTVariable = RTVariable;
