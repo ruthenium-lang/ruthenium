@@ -9,5 +9,11 @@ export function RTValue(content, type) {
     else this.valType = type ?? inferType(content);
 }
 
+export function RTExpression(content) {
+    this.type = 'Expression';
+    this.content = content;
+}
+
 
 window.RTValue = RTValue;
+window.RTExpression = RTExpression;
