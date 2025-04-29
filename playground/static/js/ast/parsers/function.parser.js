@@ -16,7 +16,7 @@ export class ASTFunctionParser {
         if (this.stream.peek() === '{') {
             block.body = this.parseBody();
             this.tree.push(block);
-            return this.tree;
+            return;
         }
 
         if (!this.stream.peekTypeEquals(["ID", "TYPE"])) {
@@ -31,10 +31,8 @@ export class ASTFunctionParser {
         if (this.stream.peek() === '{') {
             block.body = this.parseBody();
             this.tree.push(block);
-            return this.tree;
+            return;
         }
-
-        return this.tree;
     }
 
     parseBody() {
