@@ -6,9 +6,7 @@ export class ASTFunctionTemplate {
             returnType: "void",
         };
 
-        // TODO: why this would be the case anyways?
-        if (!stream.expect('fn'))
-            return stream.error(Errors.AST.Fn_MalformedDeclaration);
+        stream.expect('fn');
 
         if (!stream.peekTypeEquals("ID"))
             return stream.error(Errors.AST.Fn_MissingIdentifier);
