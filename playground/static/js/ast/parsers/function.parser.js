@@ -28,7 +28,7 @@ export class ASTFunctionParser {
 
         this.stream.expect('fn');
 
-        if (!this.stream.peekTypeEquals("ID"))
+        if (qrtTypeOf(this.stream.peek()) !== "ID")
             return this.stream.error(Errors.AST.Fn_MissingIdentifier);
 
         func.name = this.stream.pop();
@@ -42,11 +42,12 @@ export class ASTFunctionParser {
             return this.stream.error(Errors.AST.Fn_MalformedArgs);
 
         while (!this.stream.next(")")) {
-            if (!this.stream.peekTypeEquals(["TYPE", "ID"]))
+            if (qrtTypeOf(this.stream.peek()) !== 'TYPE'
+                && qrtTypeOf(this.stream.peek()) !== 'ID')
                 return this.stream.error(Errors.TYPECHECK.Fn_InvalidArgType);
 
             const name = this.stream.pop();
-            if (!this.stream.peekTypeEquals("ID"))
+            if (qrtTypeOf(this.stream.peek()) !== 'ID')
                 return this.stream.error(Errors.AST.Fn_InvalidArgName);
 
             const value = this.stream.pop();
@@ -58,7 +59,9 @@ export class ASTFunctionParser {
     }
 
     parseReturnType(func) {
-        if (this.stream.peekTypeEquals(["ID", "TYPE"])) { // TODO: use RTTypeOf
+        if (qrtTypeOf(this.stream.peek()) === 'TYPE'
+                || qrtTypeOf(this.stream.peek()) === 'ID')
+        {
             func.returnType = this.stream.pop();
             return true;
         }

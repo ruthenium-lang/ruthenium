@@ -1,4 +1,4 @@
-import { detectTokenType } from '../../tokens/types.js'
+import { qrtTypeOf } from '../../tokens/types.js'
 import { CodeStream } from './codestream.js'
 
 export class TokenStream {
@@ -8,13 +8,6 @@ export class TokenStream {
         this.tokens  = tokens.map(t => t.symbol);
         this.errors  = [];
         this.index   = 0;
-    }
-
-    peekTypeEquals(type) {
-        if (!Array.isArray(type))
-            return detectTokenType(this.peek()) === type;
-
-        return type.some(t => this.peekTypeEquals(t));
     }
 
     pop() {
