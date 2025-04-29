@@ -14,6 +14,15 @@ export function RTExpression(content) {
     this.content = content;
 }
 
+function inferType(value) {
+    if (!isNaN(value))
+        return 'NUM_LITERAL'; // Number
+
+    if (value.isSurroundedBy('"'))
+        return 'STR_LITERAL';
+
+    return 'ID';
+}
 
 window.RTValue = RTValue;
 window.RTExpression = RTExpression;
