@@ -2,11 +2,24 @@ export class ASTFunctionParser {
 
     constructor(tree, stream) {
         this.stream = stream;
-        this.tree = tree;
+        this.tree   = tree;
+    }
+
+    parse() {
+        let func = this.parseStructure();
+        if (!this.next('fn.body'))
+            this.parseReturnType(func);
+
+        if (!this.next('fn.body')) {
+            // TODO: error handling
+        }
+
+        func.body = this.parseBody();
+        this.tree.push(func);
     }
 
     parseStructure() {
-        let obj = {
+        let func = {
             type: "FunctionDeclaration",
             params: [],
             returnType: "void",
@@ -18,7 +31,13 @@ export class ASTFunctionParser {
         if (!this.stream.peekTypeEquals("ID"))
             return this.stream.error(Errors.AST.Fn_MissingIdentifier);
 
-        obj.name = this.stream.pop();
+        func.name = this.stream.pop();
+        this.parseArguments(func);
+
+        return func;
+    }
+
+    parseArguments(func) {
         if (!this.stream.expect('('))
             return this.stream.error(Errors.AST.Fn_MalformedArgs);
 
@@ -34,44 +53,28 @@ export class ASTFunctionParser {
             if (!this.stream.expect(','))
                 return this.stream.error(Errors.AST.Fn_MissingArgSeparator);
 
-            obj.params.push({ name: name, value: value });
+            func.params.push({ name: name, value: value });
         }
-
-        if (this.stream.peekTypeEquals("ID"))
-            obj.returnType = this.stream.pop();
-
-        return obj;
     }
 
-    parse() {
-        let block = this.parseStructure();
-
-        if (this.stream.peek() === '{') {
-            block.body = this.parseBody();
-            this.tree.push(block);
-            return;
+    parseReturnType(func) {
+        if (this.stream.peekTypeEquals(["ID", "TYPE"])) { // TODO: use RTTypeOf
+            func.returnType = this.stream.pop();
+            return true;
         }
 
-        if (!this.stream.peekTypeEquals(["ID", "TYPE"])) {
-            if (this.stream.peek(1) !== '{')
-                return this.stream.error(Errors.AST.Fn_InvalidBody, 3), null;
+        this.stream.skip(); // To match with the brace position
+        if (this.stream.peek() === '{')
+            return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType, 0), null;
 
-            return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType, 3), null;
-        }
-
-        block.returnType = this.stream.pop();
-
-        if (this.stream.peek() === '{') {
-            block.body = this.parseBody();
-            this.tree.push(block);
-            return;
-        }
+        return this.stream.error(Errors.AST.Fn_InvalidBody, 2), null;
     }
 
     parseBody() {
-        let body = [];
         if (!this.stream.expect("{"))
             return this.stream.error(Errors.AST.Fn_InvalidBody, 3), null;
+
+        let body = [];
 
         while (!this.stream.next("}")
             && this.stream.remaining() > 0) {
@@ -82,6 +85,13 @@ export class ASTFunctionParser {
         // No leaking '}', consumed due to the next function
 
         return body;
+    }
+
+    next(section) {
+        if (section !== 'fn.body')
+            return false; // Unknown section
+
+        return this.stream.peek() === '{';
     }
 
 }
