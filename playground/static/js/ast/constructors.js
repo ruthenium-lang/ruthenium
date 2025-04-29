@@ -20,7 +20,17 @@ export function RTVariable(name, value, constant = false) {
     this.constant = constant;
     this.value = value ?? new RTValue();
 
-    // TODO: Add declaration and initialization
+    // TODO: Add initialization
+    this.declaration = () => {
+        let obj = {
+            ...this,
+            type: 'VariableDeclaration',
+            varType: this.value.valType
+        };
+        delete obj['declaration'];
+        delete obj['value'];
+        return obj;
+    };
 }
 
 function inferType(value) {
