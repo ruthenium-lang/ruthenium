@@ -15,8 +15,17 @@ export function RTExpression(content) {
 }
 
 function inferType(value) {
-    if (!isNaN(value))
-        return 'uint';
+    if (!isNaN(value)) {
+        let possibleTypes = ['uint', 'int'];
+        const number = parseInt(value);
+        if (number < 0)
+            possibleTypes.splice(0, 1); // It's not possible to be unsigned
+
+        if (possibleTypes.length === 0)
+            return false; // TODO: error handling
+
+        return possibleTypes[0];
+    }
 
     if (value.isSurroundedBy('"'))
         return 'String';
