@@ -19,7 +19,7 @@ function inferType(value) {
         return 'NUM_LITERAL'; // Number
 
     if (value.isSurroundedBy('"'))
-        return 'STR_LITERAL';
+        return 'String';
 
     return 'ID';
 }
