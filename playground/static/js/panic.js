@@ -102,38 +102,33 @@ export const Errors = {
             message: "Expected a semicolon at the end of the line",
             hint: "Insert semicolon (;)",
         },
-        Fn_MalformedDeclaration: {
-            code: 0x300003,
-            message: "Expected 'fn'",
-            hint: "Insert 'fn'",
-        },
         Fn_MissingIdentifier: {
-            code: 0x300004,
+            code: 0x300003,
             message: "Didn't found a name for the function",
             hint: "Insert the word `my_func` before the parentheses",
         },
         Fn_MalformedArgs: {
-            code: 0x300005,
+            code: 0x300004,
             message: "Expected opening parentheses for function declaration",
             hint: "Insert parentheses",
         },
         Fn_InvalidArgName: {
-            code: 0x300006,
+            code: 0x300005,
             message: "Expected a valid name for the arguments",
             hint: "Use a simple name without spaces",
         },
         Fn_MissingArgSeparator: {
-            code: 0x300007,
+            code: 0x300006,
             message: "Arguments aren't correctly separated",
             hint: "Insert a comma (,) after each argument",
         },
         Let_MalformedDeclaration: {
-            code: 0x300008,
+            code: 0x300007,
             message: "Malformed variable",
             hint: "Use the keyword `let`",
         },
         Let_MissingIdentifier: {
-            code: 0x300009,
+            code: 0x300008,
             message: "No variable name found",
             hint: "Name it `my_var` by example",
         }
