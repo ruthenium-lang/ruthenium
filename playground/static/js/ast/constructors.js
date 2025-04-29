@@ -16,7 +16,7 @@ export function RTExpression(content) {
 
 function inferType(value) {
     if (!isNaN(value))
-        return 'NUM_LITERAL'; // Number
+        return 'uint';
 
     if (value.isSurroundedBy('"'))
         return 'String';
