@@ -33,6 +33,24 @@ export function RTVariable(name, value, constant = false) {
     };
 }
 
+export function RTAssignment(targetVar, value) {
+    if (targetVar.constant)
+        return /*panic(),*/ false;
+
+    return {
+        eval: () => { targetVar.value = value; },
+        initialization: () => {
+            let obj = {
+                targetVar: targetVar.declaration(),
+                value
+            }
+
+            delete obj['targetVar']['type'];
+            return obj;
+        }
+    };
+}
+
 function inferType(value) {
     if (!isNaN(value)) {
         let possibleTypes = ['uint', 'int'];
@@ -55,3 +73,4 @@ function inferType(value) {
 window.RTValue = RTValue;
 window.RTExpression = RTExpression;
 window.RTVariable = RTVariable;
+window.RTAssignment = RTAssignment;
