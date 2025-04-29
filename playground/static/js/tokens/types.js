@@ -37,10 +37,10 @@ const types = {
 
 }
 
-export function detectTokenType(s) {
+export function qrtTypeOf(s) {
     let t = "ID";
 
-    if (s[0] === '"') 
+    if (s[0] === '"')
     {
         t = "STR_LITERAL";
     } else if (!(isNaN(parseInt(s)) && isNaN(parseFloat(s)))) {
