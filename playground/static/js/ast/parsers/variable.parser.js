@@ -13,8 +13,7 @@ export class ASTVariableParser {
     parseStructure() {
         let variable = {};
 
-        if (!this.stream.expect('let'))
-            return this.stream.error(Errors.AST.Let_MalformedDeclaration);
+        this.stream.expect('let');
 
         if (qrtTypeOf(this.stream.peek()) !== 'ID')
             return this.stream.error(Errors.AST.Let_MissingIdentifier);
