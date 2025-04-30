@@ -39,7 +39,7 @@ export function panic(error, cursor, sourceLine, customMessage) {
 }
 
 function displayErrorPopup(detailedMessage) {
-    const errorType = "Error"; // TODO: Get the actual error type
+    const errorType = "Error";
 
     const output = document.getElementById('output');
     output.innerHTML = `

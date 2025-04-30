@@ -2,7 +2,7 @@ class Interpreter {
 
     constructor(ast) {
         this.ast = ast;
-        this.stack = [];        // TODO: stack -> env.stack
+        this.stack = [];
 
         // Necessary to define the environment of the
         // Ruthenium Virtual Machine (RVM)
@@ -71,7 +71,6 @@ class Interpreter {
     importStd() {
         const output = document.querySelector("#output");
 
-        // TODO: Implement function signatures like println_S
         this.env.id.println = function(msg) {
             output.innerHTML += msg + "<br>";
         };
