@@ -25,13 +25,10 @@ export class ASTFunctionCallPattern {
 
     parseArgs() {
         const args = [];
-        // TODO: What if we call a function that returns something?
-        //       println(read()) -> println(read() ?
         while (!this.stream.next(")")) {
             let arg = this.stream.pop();
             args.push(arg);
 
-            // TODO: Detect things like duplicated commas
             if (this.stream.next(","))
                 continue;
 

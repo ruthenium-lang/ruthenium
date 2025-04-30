@@ -1,7 +1,3 @@
-
-
-
-
 export function RTAssignment(targetVar, value) {
     if (targetVar.constant)
         return /*panic(),*/ false;
@@ -20,6 +16,4 @@ export function RTAssignment(targetVar, value) {
     };
 }
 
-window.RTExpression = RTExpression;
-window.RTVariable = RTVariable;
 window.RTAssignment = RTAssignment;

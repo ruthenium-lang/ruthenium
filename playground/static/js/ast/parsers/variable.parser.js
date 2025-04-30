@@ -1,4 +1,5 @@
-import { RTValue, RTVariable } from "../constructors.js";
+import { RTValue } from "../constructors/value.constructor.js";
+import { RTVariable } from "../constructors/variable.constructor.js"
 
 export class ASTVariableParser {
 

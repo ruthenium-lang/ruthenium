@@ -11,7 +11,6 @@ export class ASTFunctionParser {
             this.parseReturnType(func);
 
         if (!this.next('fn.body')) {
-            // TODO: error handling
         }
 
         func.body = this.parseBody();
