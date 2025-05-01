@@ -73,6 +73,13 @@ export function qrtHasImplicitCast(typeA, typeB) {
     return false;
 }
 
-window.qrtTypeOf = qrtTypeOf;
-window.qrtHasImplicitCast = qrtHasImplicitCast;
+export function qrtToLiteral(s) {
+    if (s.isSurroundedBy('"'))
+        return s.unwrap();
 
+    return s;
+}
+
+window.qrtTypeOf = qrtTypeOf;
+window.qrtToLiteral = qrtToLiteral;
+window.qrtHasImplicitCast = qrtHasImplicitCast;
