@@ -1,5 +1,3 @@
-import { Character } from "./character.js";
-
 export class CodeStream {
 
     constructor(code) {
