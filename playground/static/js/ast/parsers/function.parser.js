@@ -72,10 +72,10 @@ export class ASTFunctionParser {
 
         let body = [];
 
+        const parser = new ASTParser(body, this.stream);
         while (!this.stream.next("}")
             && this.stream.remaining() > 0) {
-            const parser = new ASTParser(this.stream);
-            body.push(...parser.parse());
+            parser.parse();
         }
 
         // No leaking '}', consumed due to the next function

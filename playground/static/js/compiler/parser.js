@@ -4,9 +4,9 @@ import { ASTFunctionCallPattern } from '../ast/patterns/functionCall.pattern.js'
 
 export class ASTParser {
 
-    constructor(stream) {
+    constructor(tree, stream) {
         this.stream = stream;
-        this.tree   = [];
+        this.tree   = tree;
 
         this.funcParser = new ASTFunctionParser(this.tree, stream);
         this.varParser  = new ASTVariableParser(this.tree, stream);
@@ -30,8 +30,6 @@ export class ASTParser {
                     this.stream.skip();
                 }
         }
-
-        return this.tree;
     }
 
     tokenEval() {
