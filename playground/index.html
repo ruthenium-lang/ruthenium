@@ -114,10 +114,10 @@
                 return undefined;
 
             const ts = new TokenStream(tokens);
-            const parser = new ASTParser(ts);
             const tree = [];
+            const parser = new ASTParser(tree, ts);
             while (ts.remaining() > 0)
-                tree.push(...parser.parse());
+                parser.parse();
 
             if (ts.errors.length === 0)
                 return tree;
