@@ -13,6 +13,7 @@ export class ASTVariableParser {
         const variable = new RTVariable(name, new RTValue(value, varType), false);
 
         this.tree.push(variable.declaration());
+        this.tree.push(variable.initialization());
     }
 
     parseStructure() {

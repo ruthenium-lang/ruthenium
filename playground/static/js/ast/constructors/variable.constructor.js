@@ -1,3 +1,5 @@
+import { RTAssignment } from "./assignment.constructor.js";
+
 export function RTVariable(name, value, constant = false) {
     this.type = 'Variable';
     this.name = name;
@@ -14,6 +16,8 @@ export function RTVariable(name, value, constant = false) {
         delete obj['value'];
         return obj;
     };
+
+    this.initialization = () => RTAssignment(this, value).initialization();
 }
 
 window.RTVariable = RTVariable;
