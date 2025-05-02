@@ -100,10 +100,10 @@
             if (!tokens) return undefined;
 
             const ts = new TokenStream(tokens);
-            const parser = new ASTParser(ts);
             const ast = [];
+            const parser = new ASTParser(ast, ts);
             while (ts.remaining() > 0)
-                ast.push(...parser.parse());
+                parser.parse();
 
             if (ts.errors.length === 0)
                 return ast;
