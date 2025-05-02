@@ -1,3 +1,5 @@
+import { RTFuncParameter, RTFunction } from '../constructors/function.constructor.js';
+
 export class ASTFunctionParser {
 
     constructor(ast, stream) {
@@ -6,7 +8,8 @@ export class ASTFunctionParser {
     }
 
     parse() {
-        let func = this.parseStructure();
+        let func = new RTFunction();
+        this.parseStructure(func);
         if (!this.next('fn.body'))
             this.parseReturnType(func);
 
@@ -17,14 +20,7 @@ export class ASTFunctionParser {
         this.ast.push(func);
     }
 
-    parseStructure() {
-        let func = {
-            type: "FunctionDeclaration",
-            params: [],
-            returnType: "void",
-            body: []
-        };
-
+    parseStructure(func) {
         this.stream.expect('fn');
 
         if (qrtTypeOf(this.stream.peek()) !== "ID")
@@ -32,8 +28,6 @@ export class ASTFunctionParser {
 
         func.name = this.stream.pop();
         this.parseArguments(func);
-
-        return func;
     }
 
     parseArguments(func) {
@@ -45,15 +39,15 @@ export class ASTFunctionParser {
                 && qrtTypeOf(this.stream.peek()) !== 'ID')
                 return this.stream.error(Errors.TYPECHECK.Fn_InvalidArgType);
 
-            const name = this.stream.pop();
+            const type = this.stream.pop();
             if (qrtTypeOf(this.stream.peek()) !== 'ID')
                 return this.stream.error(Errors.AST.Fn_InvalidArgName);
 
-            const value = this.stream.pop();
+            const name = this.stream.pop();
             if (!this.stream.expect(','))
                 return this.stream.error(Errors.AST.Fn_MissingArgSeparator);
 
-            func.params.push({ name: name, value: value });
+            func.params.push(new RTFuncParameter(type, name));
         }
     }
 
