@@ -71,7 +71,7 @@ class Interpreter {
     importStd() {
         const output = document.querySelector("#output");
 
-        this.env.id.println = function(msg) {
+        this.env.id.println = function(...msg) {
             output.innerHTML += msg + "<br>";
         };
     }
