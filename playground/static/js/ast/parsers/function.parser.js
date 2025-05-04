@@ -63,12 +63,12 @@ export class ASTFunctionParser {
         if (this.stream.peek() === '{')
             return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType, 0), null;
 
-        return this.stream.error(Errors.AST.Fn_InvalidBody, 2), null;
+        return this.stream.error(Errors.AST.Fn_BodyExpected, 2), null;
     }
 
     parseBody() {
         if (!this.stream.expect("{"))
-            return this.stream.error(Errors.AST.Fn_InvalidBody, 3), null;
+            return this.stream.error(Errors.AST.Fn_BodyExpected, 3), null;
 
         let body = [];
 
