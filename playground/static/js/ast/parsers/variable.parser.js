@@ -9,8 +9,9 @@ export class ASTVariableParser {
     }
 
     parse() {
+        const cursor = this.stream.cursor();
         const { name, value, varType } = this.parseStructure();
-        const variable = new RTVariable(name, new RTValue(value, varType), false);
+        const variable = new RTVariable(cursor, name, new RTValue(value, varType), false);
 
         this.tree.push(variable.declaration());
         this.tree.push(variable.initialization());
