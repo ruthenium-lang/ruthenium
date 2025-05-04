@@ -1,14 +1,13 @@
+import { qrtToLiteral } from "../tokens/types.js";
+
 class Interpreter {
 
     constructor(tree) {
         this.tree = tree;
-        this.stack = [];
+        this.scopes = [];
 
-        // Necessary to define the environment of the
-        // Ruthenium Virtual Machine (RVM)
-        this.env = {
-            id: {}
-        };
+        // Initialize global scope
+        this.global = { id: {} };
     }
 
     init() {
@@ -44,35 +43,44 @@ class Interpreter {
                 }
 
                 console.log(contains);
-                this.env.id[statement.name] = contains;
+                this.global.id[statement.name] = contains;
                 break;
 
             case 'FunctionDeclaration':
                 if (statement.name !== 'main')
                     break;
 
+                this.scopes.push({});
                 for (const bodyNode of statement.body) {
                     this.evaluate(bodyNode);
                 }
+                this.scopes.pop();
                 break;
 
             case 'FunctionCall':
-                if (statement.name !== 'println')
-                    break;
-
-                const output = document.getElementById('output');
-                const value = statement.args[0].isSurroundedBy('"') ?
-                    statement.args[0].unwrap() :
-                    this.env.id[statement.args[0]];
-                output.innerHTML += value + '\n';
+                const func = this.global.id[statement.name];
+                if (func === undefined)
+                    return false; // TODO: error handling
+                func(this, statement.args);
         }
     }
 
     importStd() {
         const output = document.querySelector("#output");
+        this.global.id.println = function(vm, args) {
+            try {
+                let msg = "qRTError ) This message is an error, if you see it report it at GitHub";
+                if (args[0].isSurroundedBy('"'))
+                    msg = args[0].unwrap();
+                else if (!isNaN(args[0]))
+                    msg = parseInt(args[0]);
+                else msg = vm.global.id[args[0]];
 
-        this.env.id.println = function(...msg) {
-            output.innerHTML += msg + "<br>";
+                output.innerHTML += msg + "<br>";
+            } catch (e) {
+                console.error(`rvm::RuntimeException @ println(...) -> ${e}`);
+                console.trace();
+            }
         };
     }
 

@@ -77,6 +77,9 @@ export function qrtToLiteral(s) {
     if (s.isSurroundedBy('"'))
         return s.unwrap();
 
+    if (!isNaN(s))
+        return parseInt(s);
+
     return s;
 }
 
