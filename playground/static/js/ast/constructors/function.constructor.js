@@ -4,7 +4,7 @@ export function RTFunction(cursor) {
     this.cursor = cursor;
     this.body = [];
     this.name = undefined;
-    this.returnType = 'void';
+    this.returnType = 'void'; // TODO: Use TokenTypes.VOID
 }
 
 export function RTFuncParameter(type, name) {

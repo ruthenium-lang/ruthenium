@@ -4,7 +4,7 @@ import { RTValue } from "./value.constructor.js";
 export function RTVariable(cursor, name, value, constant = false) {
     this.type = 'Variable';
     this.name = name;
-    this.constant = constant;
+    this.constant = constant; // TODO: move constant to the type
     this.value = value ?? new RTValue();
     this.cursor = cursor;
 
