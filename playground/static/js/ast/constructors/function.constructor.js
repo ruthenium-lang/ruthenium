@@ -1,6 +1,7 @@
-export function RTFunction() {
+export function RTFunction(cursor) {
     this.type = 'FunctionDeclaration';
     this.params = [];
+    this.cursor = cursor;
     this.body = [];
     this.name = undefined;
     this.returnType = 'void';
@@ -11,9 +12,10 @@ export function RTFuncParameter(type, name) {
     this.name = name;
 }
 
-export function RTFunctionCall() {
+export function RTFunctionCall(cursor) {
     this.type = 'FunctionCall';
     this.target = undefined;
+    this.cursor = cursor;
     this.args = [];
     this.evalReturnType = true;
 }

@@ -1,6 +1,6 @@
 import { qrtHasImplicitCast } from "../../tokens/types.js";
 
-export function RTAssignment(targetVar, value) {
+export function RTAssignment(cursor, targetVar, value) {
     if (targetVar.constant || targetVar.type === 'Constant')
         return /*panic(),*/ false;
 
@@ -9,6 +9,7 @@ export function RTAssignment(targetVar, value) {
 
     return {
         type: 'AssignmentOperation',
+        cursor: cursor,
         eval: () => { targetVar.value = value; },
         initialization: () => {
             let obj = {

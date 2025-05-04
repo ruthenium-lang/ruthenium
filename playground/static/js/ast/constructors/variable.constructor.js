@@ -1,10 +1,12 @@
 import { RTAssignment } from "./assignment.constructor.js";
+import { RTValue } from "./value.constructor.js";
 
-export function RTVariable(name, value, constant = false) {
+export function RTVariable(cursor, name, value, constant = false) {
     this.type = 'Variable';
     this.name = name;
     this.constant = constant;
     this.value = value ?? new RTValue();
+    this.cursor = cursor;
 
     this.declaration = () => {
         let obj = {
@@ -17,7 +19,7 @@ export function RTVariable(name, value, constant = false) {
         return obj;
     };
 
-    this.initialization = () => RTAssignment(this, value).initialization();
+    this.initialization = () => RTAssignment(cursor, this, value).initialization();
 }
 
 window.RTVariable = RTVariable;
