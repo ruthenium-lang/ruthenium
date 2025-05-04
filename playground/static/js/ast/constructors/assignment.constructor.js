@@ -1,8 +1,10 @@
+import { qrtHasImplicitCast } from "../../tokens/types.js";
+
 export function RTAssignment(targetVar, value) {
-    if (targetVar.constant)
+    if (targetVar.constant || targetVar.type === 'Constant')
         return /*panic(),*/ false;
 
-    if (targetVar.varType !== value.valType) // TODO: qrtHasImplicitCast
+    if (!qrtHasImplicitCast(targetVar.varType, value.valType))
         return /*panic(),*/ false;
 
     return {
