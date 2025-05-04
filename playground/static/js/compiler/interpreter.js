@@ -36,10 +36,10 @@ class Interpreter {
 
                 let contains = "<RT_UNDEFINED>" /*, valueType*/;
                 if (statement.value.isSurroundedBy('"')) {
-                    //valueType = 'STR_LITERAL';
+                    //valueType = 'string';
                     contains = statement.value.unwrap();
                 } else {
-                    //valueType = 'NUM_LITERAL';
+                    //valueType = 'number';
                     contains = parseInt(statement.value);
                 }
 
