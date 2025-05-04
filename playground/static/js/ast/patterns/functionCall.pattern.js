@@ -7,7 +7,7 @@ export class ASTFunctionCallPattern {
     }
 
     checkAndParse()  {
-        let callData = new RTFunctionCall();
+        let callData = new RTFunctionCall(this.stream.cursor());
         if (this.stream.peek(1) !== "(")
             return null; // TODO: error handling
 

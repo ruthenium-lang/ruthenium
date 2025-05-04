@@ -8,13 +8,12 @@ export class ASTFunctionParser {
     }
 
     parse() {
-        let func = new RTFunction();
+        let func = new RTFunction(this.stream.cursor());
         this.parseStructure(func);
-        if (!this.next('fn.body'))
-            this.parseReturnType(func);
+        this.parseReturnType(func);
 
-        if (!this.next('fn.body')) {
-        }
+        if (!this.next('fn.body'))
+            return this.stream.error(Errors.AST.Fn_BodyExpected);
 
         func.body = this.parseBody();
         this.ast.push(func);
@@ -52,6 +51,9 @@ export class ASTFunctionParser {
     }
 
     parseReturnType(func) {
+        if (this.next('fn.body'))
+            return;
+
         if (qrtTypeOf(this.stream.peek()) === 'TYPE'
                 || qrtTypeOf(this.stream.peek()) === 'ID')
         {
