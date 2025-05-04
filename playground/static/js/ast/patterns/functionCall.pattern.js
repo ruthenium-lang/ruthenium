@@ -18,7 +18,7 @@ export class ASTFunctionCallPattern {
         if (this.stream.expect(';'))
             return callData;
 
-        return this.stream.error(Errors.AST.Statement_MissingEnd), block;
+        return this.stream.error(Errors.AST.Statement_MissingEnd), callData;
     }
 
     parseArgs() {
