@@ -42,9 +42,9 @@ export function qrtTypeOf(s) {
 
     if (s[0] === '"')
     {
-        t = "STR_LITERAL";
+        t = 'string';
     } else if (!(isNaN(parseInt(s)) && isNaN(parseFloat(s)))) {
-        t = "NUM_LITERAL";
+        t = 'number';
     } else if (s === 'uint' || s === 'int') {
         t = "TYPE";
     } else {
@@ -58,5 +58,21 @@ export function qrtTypeOf(s) {
     return t;
 }
 
+export function qrtHasImplicitCast(typeA, typeB) {
+    if (typeA === typeB)
+        return true;
+
+    if (typeA === undefined || typeB === undefined)
+        return true;
+
+    const typeOfA = qrtTypeOf(typeA);
+    const typeOfB = qrtTypeOf(typeB);
+    if (typeOfA !== 'ID' && typeOfB !== 'ID')
+        return typeOfA === typeOfB;
+
+    return false;
+}
+
 window.qrtTypeOf = qrtTypeOf;
+window.qrtHasImplicitCast = qrtHasImplicitCast;
 
