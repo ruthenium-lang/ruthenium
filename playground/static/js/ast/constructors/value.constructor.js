@@ -11,7 +11,7 @@ function qrtInferType(value) {
     if (value === undefined)
         return '?'; // Null
 
-    if (!isNaN(value)) {
+    if (!isNaN(value)) { // TODO: move to some lookup table
         let possibleTypes = ['uint', 'int'];
         const number = parseInt(value);
         if (number < 0)
@@ -24,7 +24,7 @@ function qrtInferType(value) {
     }
 
     if (value.isSurroundedBy('"'))
-        return 'String';
+        return 'string';
 
     return 'ID';
 }

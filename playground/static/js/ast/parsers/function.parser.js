@@ -3,7 +3,7 @@ import { RTFuncParameter, RTFunction } from '../constructors/function.constructo
 export class ASTFunctionParser {
 
     constructor(tree, stream) {
-        this.stream = stream;
+        this.stream = stream; // TODO: Rename to ts
         this.tree   = tree;
     }
 
