@@ -92,7 +92,7 @@ export const Errors = {
         }
     },
     AST: {
-        Fn_InvalidBody: {
+        Fn_BodyExpected: {
             code: 0x300000,
             message: "Expected a valid function body",
             hint: "Insert an open brace",
