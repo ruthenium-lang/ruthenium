@@ -1,5 +1,3 @@
-import { Character } from "./character.js";
-
 export class CodeStream {
 
     constructor(code) {
@@ -67,7 +65,6 @@ export class CodeStream {
         if (delimiterEnd === null)
             delimiterEnd = delimiterStart; // Retrocompatible
 
-        // TODO: Use stream.error
         if (!this.expect(delimiterStart))
             console.warn(`The first character is not '${delimiterStart}'`);
 

@@ -7,7 +7,7 @@ export class ASTOperatorPattern {
     }
 
     checkAndParse() {
-        let obj = {
+        let obj = { // TODO: ast constructors
             type: "Operator"
         }
 
