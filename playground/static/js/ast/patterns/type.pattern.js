@@ -1,6 +1,6 @@
 export class TypePattern {
 
-    static check(str) {
+    static test(str) {
         const types = ['int', 'uint', 'float'];
         return types.indexOf(str) !== -1;
     }

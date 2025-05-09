@@ -40,17 +40,18 @@ const types = {
 export function qrtTypeOf(s) {
     let t = "ID";
 
-    if (s[0] === '"')
-    {
+    if (StrPattern.test(s))
         t = "STR_LITERAL";
-    } else if (!(isNaN(parseInt(s)) && isNaN(parseFloat(s)))) {
+
+    else if (NumPattern.test(s))
         t = "NUM_LITERAL";
-    } else if (s === 'uint' || s === 'int') {
+
+    else if (TypePattern.test(s))
         t = "TYPE";
-    } else {
+
+    else {
         Object.entries(types).forEach(entry => {
             if (entry[0] !== s) { return; }
-
             t = entry[1];
         });
     }

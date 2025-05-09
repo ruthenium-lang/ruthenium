@@ -1,6 +1,6 @@
 export class IdentPattern {
 
-    static check(str) {
+    static test(str) {
         const regex = /^[A-Za-z_][A-Za-z0-9_]*$/;
         return regex.test(str);
     }
