@@ -1,6 +1,9 @@
 class NumPattern {
 
     static test(str) {
+        if (str.length === 0)
+            return false;
+
         return !isNaN(str);
     }
 
