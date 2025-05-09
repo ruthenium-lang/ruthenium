@@ -1,4 +1,4 @@
-class StrPattern {
+export class StrPattern {
 
     static test(str) {
         return str.isSurroundedBy('"');

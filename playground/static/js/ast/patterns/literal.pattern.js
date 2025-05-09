@@ -1,4 +1,4 @@
-class LitPattern {
+export class LitPattern {
 
     static test(str) {
         return StrPattern.test(str) || NumPattern.test(str);

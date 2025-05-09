@@ -1,4 +1,4 @@
-class NumPattern {
+export class NumPattern {
 
     static test(str) {
         if (str.length === 0)

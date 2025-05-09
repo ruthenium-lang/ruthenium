@@ -1,4 +1,4 @@
-class TypePattern {
+export class TypePattern {
 
     static check(str) {
         const types = ['int', 'uint', 'float'];

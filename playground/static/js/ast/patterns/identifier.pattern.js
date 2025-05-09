@@ -1,4 +1,4 @@
-class IdentPattern {
+export class IdentPattern {
 
     static check(str) {
         const regex = /^[A-Za-z_][A-Za-z0-9_]*$/;
