@@ -37,13 +37,14 @@
         </button>
         <button id="clear" onclick="editor.setValue('')">
             <i class="fa-solid fa-broom"></i> Clear
-        </button> 
+        </button>
         <!-- TODO add more buttons -->
     </div>
 
 </body>
 
     <!-- Tweaks to JavaScript library -->
+    <script src="static/js/compiler/util/is-number.js"></script>
     <script src="static/js/compiler/util/string.js"></script>
 
     <!-- Error handler -->
@@ -69,14 +70,10 @@
     <script type="module" src="static/js/compiler/lexer.js"></script>
     <script type="module" src="static/js/compiler/interpreter.js"></script>
 
-    <!-- Patterns -->
-    <script type="module" src="static/js/ast/patterns/pattern.js"></script>
-
-    <script type="module" src="static/js/ast/patterns/type.pattern.js"></script>
-    <script type="module" src="static/js/ast/patterns/identifier.pattern.js"></script>
-    <script type="module" src="static/js/ast/patterns/number.pattern.js"></script>
-    <script type="module" src="static/js/ast/patterns/string.pattern.js"></script>
-    <script type="module" src="static/js/ast/patterns/literal.pattern.js"></script>
+    <!-- Checkers -->
+    <script type="module" src="static/js/ast/checkers/type.checker.js"></script>
+    <script type="module" src="static/js/ast/checkers/name.checker.js"></script>
+    <script type="module" src="static/js/ast/checkers/number.checker.js"></script>
 
     <script src="static/js/editor.js"></script>
     <script src="static/js/layout.js"></script>

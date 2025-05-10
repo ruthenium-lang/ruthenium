@@ -40,13 +40,13 @@ const types = {
 export function qrtTypeOf(s) {
     let t = "ID";
 
-    if (StrPattern.test(s))
+    if (s.isSurroundedBy('"'))
         t = "STR_LITERAL";
 
-    else if (NumPattern.test(s))
+    else if (isNumber(s))
         t = "NUM_LITERAL";
 
-    else if (TypePattern.test(s))
+    else if (TypeChecker.test(s))
         t = "TYPE";
 
     else {
