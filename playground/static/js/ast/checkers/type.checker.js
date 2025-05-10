@@ -1,4 +1,4 @@
-export class TypePattern {
+export class TypeChecker {
 
     static test(str) {
         const types = [
@@ -14,4 +14,4 @@ export class TypePattern {
 
 }
 
-window.TypePattern = TypePattern;
+window.TypeChecker = TypeChecker;
