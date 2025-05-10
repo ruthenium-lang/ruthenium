@@ -9,7 +9,7 @@ export class LitPattern {
             return 'string';
 
         if (isNumber(str))
-            return NumPattern.detect(str);
+            return NumberType.detect(str);
 
         if (IdentPattern.test(str))
             return 'ID';
