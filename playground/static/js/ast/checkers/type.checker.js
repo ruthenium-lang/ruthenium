@@ -1,7 +1,14 @@
 export class TypePattern {
 
     static test(str) {
-        const types = ['int', 'uint', 'float'];
+        const types = [
+            'void', 'float', 'double',
+            'ulong', 'long',
+            'uint', 'int',
+            'ushort', 'short',
+            'ubyte', 'byte'
+        ];
+
         return types.indexOf(str) !== -1;
     }
 
