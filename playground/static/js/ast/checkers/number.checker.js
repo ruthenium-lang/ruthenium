@@ -1,7 +1,7 @@
 export class NumberType {
 
     static detect(n) {
-        if (!this.test(n))
+        if (!isNumber(n))
             return console.trace(), undefined;
 
         n = parseFloat(n); // String to number
