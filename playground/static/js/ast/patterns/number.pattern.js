@@ -4,7 +4,9 @@ export class NumPattern {
         if (str.length === 0)
             return false;
 
-        return !isNaN(str);
+        const isInteger = !isNaN(parseInt(str));
+        const isDecimal = !isNaN(parseFloat(str));
+        return isInteger || isDecimal;
     }
 
     static inferType(str) {
