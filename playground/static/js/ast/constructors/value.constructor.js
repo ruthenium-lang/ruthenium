@@ -17,7 +17,7 @@ function inferType(str) {
     if (isNumber(str))
         return NumberType.detect(str);
 
-    if (NameChecker.accepts(str))
+    if (NameChecker.test(str))
         return 'ID';
 
     // TODO: error handling
