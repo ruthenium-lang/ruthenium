@@ -12,9 +12,8 @@ export function qrtTokenize(stream) {
     const tokens = [];
     let token = "";
 
-    let openBraces = 0, openParen = 0;
-    let last_unmatched_cursor = "";
-    
+    const parens = [], braces = [];
+
     while (stream.remaining() > 0) {
         const c = stream.peek();
 
@@ -32,6 +31,16 @@ export function qrtTokenize(stream) {
             if (Character.isWhitespace(c))
                 continue;
 
+            if (c === '{')
+                braces.push(stream.index);
+            else if (c === '}')
+                braces.pop();
+
+            if (c === '(')
+                parens.push(stream.index);
+            else if (c === ')')
+                parens.pop();
+
             token += c;
             if (stream.next("=") && equalsCanGoNext(c))
                 token += '=';
@@ -40,6 +49,14 @@ export function qrtTokenize(stream) {
         tokens.push(Token(token, stream.cursor()));
         token = "";
     }
+
+    stream.index = parens[0] || braces[0] || 0;
+
+    if (parens.length > 0)
+        return stream.error(Errors.LEXER.Unclosed_Paren), undefined;
+
+    if (braces.length > 0)
+        return stream.error(Errors.LEXER.Unclosed_Brace), undefined;
 
     return tokens;
 
