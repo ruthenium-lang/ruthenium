@@ -1,14 +1,14 @@
 export class LitPattern {
 
     static test(str) {
-        return StrPattern.test(str) || NumPattern.test(str);
+        return StrPattern.test(str) || isNumber(str);
     }
 
     static inferType(str) {
         if (StrPattern.test(str))
             return 'string';
 
-        if (NumPattern.test(str))
+        if (isNumber(str))
             return NumPattern.detect(str);
 
         if (IdentPattern.test(str))
