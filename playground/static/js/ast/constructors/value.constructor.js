@@ -1,5 +1,4 @@
 import { NameChecker } from "../checkers/name.checker.js";
-import { StrPattern } from "../checkers/string.checker.js";
 import { NumberType } from "../checkers/number.checker.js";
 
 export function RTValue(content, type) {
@@ -12,7 +11,7 @@ export function RTValue(content, type) {
 }
 
 function inferType(str) {
-    if (StrPattern.test(str))
+    if (str.isSurroundedBy('"'))
         return 'string';
 
     if (isNumber(str))
