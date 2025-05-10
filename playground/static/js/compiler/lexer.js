@@ -12,6 +12,9 @@ export function qrtTokenize(stream) {
     const tokens = [];
     let token = "";
 
+    let openBraces = 0, openParen = 0;
+    let last_unmatched_cursor = "";
+    
     while (stream.remaining() > 0) {
         const c = stream.peek();
 
