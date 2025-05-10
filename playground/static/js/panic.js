@@ -87,7 +87,17 @@ export const Errors = {
             code: 0x200000,
             message: "Unclosed string literal",
             hint: "Close the string with a quotation mark"
-        }
+        },
+        Unclosed_Brace: {
+            code: 0x200001,
+            message: "Unclosed braces",
+            hint: "Close the brace with (})"
+        },
+        Unclosed_Paren: {
+            code: 0x200002,
+            message: "Unclosed parentheses",
+            hint: "Close the parenthesis with ')'"
+        },
     },
     AST: {
         Fn_BodyExpected: {
