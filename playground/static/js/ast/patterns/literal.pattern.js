@@ -15,6 +15,7 @@ export class LitPattern {
             return 'ID';
 
         // TODO: error handling
+        return console.trace(), undefined;
     }
 
 }
