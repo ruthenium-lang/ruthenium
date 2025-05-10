@@ -10,10 +10,10 @@ function setupEditor() {
     editor.setTheme("ace/theme/merbivore_soft");
     editor.session.setMode("ace/mode/rust");
 
-    editor.setOption("fontFamily", "'Hermit'");
-    editor.setOption("fontSize", 18);
+    editor.setOption("fontFamily", "'Fira Code'");
+    editor.setOption("fontSize", 17);
+    playgroundDOM.style.lineHeight = "1.66";
 
-    playgroundDOM.style.lineHeight = "26px";
     window.aceContentDOM = document.querySelector(".ace_content");
     editor.getContent = () => aceContentDOM.innerText;
 }

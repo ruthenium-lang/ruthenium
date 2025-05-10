@@ -1,8 +1,11 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
 
 #output {
     font-optical-sizing: auto;
-    font-family:         'Hermit', monospace;
+    font-family:         'JetBrains Mono', monospace;
     font-weight:         400;
     font-style:          normal;
     font-size:           12pt;
@@ -15,46 +18,3 @@ button {
     font-style:          normal;
     font-size:           12pt;
 }
-
-@font-face {
-    font-family: 'Hermit';
-    font-weight: 400;
-    font-style: normal;
-    src: url('../fonts/hermit/Hermit-Regular.woff2');
-}
-
-@font-face {
-    font-family: 'Hermit';
-    font-weight: 400;
-    font-style: italic;
-    src: url('../fonts/hermit/Hermit-Regular.woff2');
-}
-
-@font-face {
-    font-family: 'Hermit';
-    font-weight: bold;
-    font-style: normal;
-    src: url('../fonts/hermit/Hermit-Bold.woff2');
-}
-
-@font-face {
-    font-family: 'Hermit';
-    font-weight: bold;
-    font-style: italic;
-    src: url('../fonts/hermit/Hermit-BoldItalic.woff2');
-}
-
-@font-face {
-    font-family: 'Hermit';
-    font-weight: lighter;
-    font-style: normal;
-    src: url('../fonts/hermit/Hermit-Light.woff2');
-}
-
-@font-face {
-    font-family: 'Hermit';
-    font-weight: lighter;
-    font-style: italic;
-    src: url('../fonts/hermit/Hermit-LightItalic.woff2');
-}
-
