@@ -1,4 +1,4 @@
-export class NumPattern {
+export class NumberType {
 
     static detect(n) {
         if (!this.test(n))
@@ -38,4 +38,4 @@ export class NumPattern {
 
 }
 
-window.NumPattern = NumPattern;
+window.NumberType = NumberType;
