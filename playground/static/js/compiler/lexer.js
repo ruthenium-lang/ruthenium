@@ -22,8 +22,8 @@ export function qrtTokenize(stream) {
             token += `"${stream.unwrap('"', '\\')}"`; // Surrond by quotation marks
         else if (IdentPattern.test(c))
             token += stream.readWhile(IdentPattern.test);
-        else if (NumPattern.test(c))
-            token += stream.readWhile(NumPattern.test);
+        else if (isNumber(c))
+            token += stream.readWhile(isNumber);
         else {
             stream.skip();
             if (Character.isWhitespace(c))

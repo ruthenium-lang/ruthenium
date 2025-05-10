@@ -1,14 +1,5 @@
 export class NumPattern {
 
-    static test(str) {
-        if (str.length === 0)
-            return false;
-
-        const isInteger = !isNaN(parseInt(str));
-        const isDecimal = !isNaN(parseFloat(str));
-        return isInteger || isDecimal;
-    }
-
     static detect(n) {
         if (!this.test(n))
             return console.trace(), undefined;

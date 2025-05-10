@@ -43,7 +43,7 @@ export function qrtTypeOf(s) {
     if (StrPattern.test(s))
         t = "STR_LITERAL";
 
-    else if (NumPattern.test(s))
+    else if (isNumber(s))
         t = "NUM_LITERAL";
 
     else if (TypePattern.test(s))
