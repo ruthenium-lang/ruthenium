@@ -12,7 +12,7 @@ export function qrtTokenize(stream) {
     const tokens = [];
     let token = "";
 
-    const parens = [], braces = [];
+    const dc = new DelimiterCounter(stream, true);
 
     while (stream.remaining() > 0) {
         const c = stream.peek();
@@ -31,16 +31,7 @@ export function qrtTokenize(stream) {
             if (Character.isWhitespace(c))
                 continue;
 
-            if (c === '{')
-                braces.push(stream.index);
-            else if (c === '}')
-                braces.pop();
-
-            if (c === '(')
-                parens.push(stream.index);
-            else if (c === ')')
-                parens.pop();
-
+            dc.check(c);
             token += c;
             if (stream.next("=") && equalsCanGoNext(c))
                 token += '=';
@@ -50,13 +41,7 @@ export function qrtTokenize(stream) {
         token = "";
     }
 
-    stream.index = parens[0] || braces[0] || 0;
-
-    if (parens.length > 0)
-        return stream.error(Errors.LEXER.Unclosed_Paren), undefined;
-
-    if (braces.length > 0)
-        return stream.error(Errors.LEXER.Unclosed_Brace), undefined;
+    dc.stop();
 
     return tokens;
 
