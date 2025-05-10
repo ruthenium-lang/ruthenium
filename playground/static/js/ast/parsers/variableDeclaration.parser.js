@@ -1,3 +1,6 @@
+import { RTValue } from "../constructors/value.constructor.js";
+import { RTVariable } from "../constructors/variable.constructor.js"
+
 export class ASTVariableParser {
 
     constructor(tree, stream) {
@@ -6,39 +9,43 @@ export class ASTVariableParser {
     }
 
     parse() {
-        const variable = this.parseStructure();
-        this.tree.push({ type: "VariableDeclaration", ...variable });
+        const cursor = this.stream.cursor();
+        const { name, value, varType } = this.parseStructure();
+        const variable = new RTVariable(cursor, name, new RTValue(value, varType), false);
+
+        this.tree.push(variable.declaration());
+        this.tree.push(variable.initialization());
     }
 
     parseStructure() {
-        let variable = {};
+        let data = {};
+        data.varType = '?';
 
-        if (!this.stream.expect('let'))
-            return this.stream.error(Errors.AST.Let_MalformedDeclaration);
+        this.stream.expect('let');
 
         if (qrtTypeOf(this.stream.peek()) !== 'ID')
             return this.stream.error(Errors.AST.Let_MissingIdentifier);
 
-        variable.name = this.stream.pop();
+        data.name = this.stream.pop();
         if (this.stream.next(';'))
-            return variable;
+            return data;
 
         // Type declaration
         if (this.stream.next(':')) {
             if (qrtTypeOf(this.stream.peek()) !== 'TYPE')
                 return this.stream.error(Errors.TYPECHECK.Let_InvalidType);
 
-            variable.varType = this.stream.pop();
+            data.varType = this.stream.pop();
         }
 
         // Initialization
         if (this.stream.next("="))
-            variable.value = this.stream.pop();
+            data.value = this.stream.pop();
 
         if (!this.stream.expect(';'))
             return this.stream.error(Errors.AST.Statement_MissingEnd);
 
-        return variable;
+        return data;
     }
 
 }

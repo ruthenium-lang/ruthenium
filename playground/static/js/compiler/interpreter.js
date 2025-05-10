@@ -2,7 +2,7 @@ class Interpreter {
 
     constructor(tree) {
         this.tree = tree;
-        this.stack = [];        // TODO: stack -> env.stack
+        this.stack = [];
 
         // Necessary to define the environment of the
         // Ruthenium Virtual Machine (RVM)
@@ -36,10 +36,10 @@ class Interpreter {
 
                 let contains = "<RT_UNDEFINED>" /*, valueType*/;
                 if (statement.value.isSurroundedBy('"')) {
-                    //valueType = 'STR_LITERAL';
+                    //valueType = 'string';
                     contains = statement.value.unwrap();
                 } else {
-                    //valueType = 'NUM_LITERAL';
+                    //valueType = 'number';
                     contains = parseInt(statement.value);
                 }
 
@@ -71,7 +71,6 @@ class Interpreter {
     importStd() {
         const output = document.querySelector("#output");
 
-        // TODO: Implement function signatures like println_S
         this.env.id.println = function(msg) {
             output.innerHTML += msg + "<br>";
         };

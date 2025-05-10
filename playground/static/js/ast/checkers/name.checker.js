@@ -1,4 +1,4 @@
-export class IdentPattern {
+export class NameChecker {
 
     static test(str) {
         const regex = /^[A-Za-z_][A-Za-z0-9_]*$/;
@@ -7,4 +7,4 @@ export class IdentPattern {
 
 }
 
-window.IdentPattern = IdentPattern;
+window.NameChecker = NameChecker;

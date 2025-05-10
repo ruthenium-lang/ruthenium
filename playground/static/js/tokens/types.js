@@ -40,13 +40,13 @@ const types = {
 export function qrtTypeOf(s) {
     let t = "ID";
 
-    if (StrPattern.test(s))
+    if (s.isSurroundedBy('"'))
         t = "STR_LITERAL";
 
-    else if (NumPattern.test(s))
+    else if (isNumber(s))
         t = "NUM_LITERAL";
 
-    else if (TypePattern.test(s))
+    else if (TypeChecker.test(s))
         t = "TYPE";
 
     else {
@@ -59,5 +59,21 @@ export function qrtTypeOf(s) {
     return t;
 }
 
+export function qrtHasImplicitCast(typeA, typeB) {
+    if (typeA === typeB)
+        return true;
+
+    if (typeA === undefined || typeB === undefined)
+        return true;
+
+    const typeOfA = qrtTypeOf(typeA);
+    const typeOfB = qrtTypeOf(typeB);
+    if (typeOfA !== 'ID' && typeOfB !== 'ID')
+        return typeOfA === typeOfB;
+
+    return false;
+}
+
 window.qrtTypeOf = qrtTypeOf;
+window.qrtHasImplicitCast = qrtHasImplicitCast;
 

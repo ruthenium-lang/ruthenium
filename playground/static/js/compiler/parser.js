@@ -1,12 +1,13 @@
 import { ASTFunctionParser } from '../ast/parsers/function.parser.js'
-import { ASTVariableParser } from '../ast/parsers/variable.parser.js'
+import { ASTVariableParser } from '../ast/parsers/variableDeclaration.parser.js';
+import { ASTVariableAssignmentPattern } from '../ast/patterns/variableAssignment.pattern.js';
 import { ASTFunctionCallPattern } from '../ast/patterns/functionCall.pattern.js';
 
 export class ASTParser {
 
-    constructor(stream) {
+    constructor(tree, stream) {
         this.stream = stream;
-        this.tree   = [];
+        this.tree   = tree;
 
         this.funcParser = new ASTFunctionParser(this.tree, stream);
         this.varParser  = new ASTVariableParser(this.tree, stream);
@@ -30,10 +31,7 @@ export class ASTParser {
                     this.stream.skip();
                 }
         }
-
-        return this.tree;
     }
-
     tokenEval() {
         // Check if its a function
         const func = new ASTFunctionCallPattern(this.stream).checkAndParse();
@@ -43,6 +41,11 @@ export class ASTParser {
         const operator = new ASTOperatorPattern(this.stream).checkAndParse();
         if (operator)
             return this.tree.push(operator), true;
+        
+        // Check if its a variable assignment
+        const variable = new ASTVariableAssignmentPattern(this.stream).checkAndParse();
+        if (variable)
+            return this.tree.push(variable), true;
 
         return false;
     }

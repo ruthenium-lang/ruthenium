@@ -1,31 +1,25 @@
+import { RTFuncParameter, RTFunction } from '../constructors/function.constructor.js';
+
 export class ASTFunctionParser {
 
     constructor(tree, stream) {
-        this.stream = stream;
+        this.stream = stream; // TODO: Rename to ts
         this.tree   = tree;
     }
 
     parse() {
-        let func = this.parseStructure();
-        if (!this.next('fn.body'))
-            this.parseReturnType(func);
+        let func = new RTFunction(this.stream.cursor());
+        this.parseStructure(func);
+        this.parseReturnType(func);
 
-        if (!this.next('fn.body')) {
-            // TODO: error handling
-        }
+        if (!this.next('fn.body'))
+            return this.stream.error(Errors.AST.Fn_BodyExpected);
 
         func.body = this.parseBody();
         this.tree.push(func);
     }
 
-    parseStructure() {
-        let func = {
-            type: "FunctionDeclaration",
-            params: [],
-            returnType: "void",
-            body: []
-        };
-
+    parseStructure(func) {
         this.stream.expect('fn');
 
         if (qrtTypeOf(this.stream.peek()) !== "ID")
@@ -33,8 +27,6 @@ export class ASTFunctionParser {
 
         func.name = this.stream.pop();
         this.parseArguments(func);
-
-        return func;
     }
 
     parseArguments(func) {
@@ -46,19 +38,22 @@ export class ASTFunctionParser {
                 && qrtTypeOf(this.stream.peek()) !== 'ID')
                 return this.stream.error(Errors.TYPECHECK.Fn_InvalidArgType);
 
-            const name = this.stream.pop();
+            const type = this.stream.pop();
             if (qrtTypeOf(this.stream.peek()) !== 'ID')
                 return this.stream.error(Errors.AST.Fn_InvalidArgName);
 
-            const value = this.stream.pop();
+            const name = this.stream.pop();
             if (!this.stream.expect(','))
                 return this.stream.error(Errors.AST.Fn_MissingArgSeparator);
 
-            func.params.push({ name: name, value: value });
+            func.params.push(new RTFuncParameter(type, name));
         }
     }
 
     parseReturnType(func) {
+        if (this.next('fn.body'))
+            return;
+
         if (qrtTypeOf(this.stream.peek()) === 'TYPE'
                 || qrtTypeOf(this.stream.peek()) === 'ID')
         {
@@ -70,19 +65,19 @@ export class ASTFunctionParser {
         if (this.stream.peek() === '{')
             return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType, 0), null;
 
-        return this.stream.error(Errors.AST.Fn_InvalidBody, 2), null;
+        return this.stream.error(Errors.AST.Fn_BodyExpected, 2), null;
     }
 
     parseBody() {
         if (!this.stream.expect("{"))
-            return this.stream.error(Errors.AST.Fn_InvalidBody, 3), null;
+            return this.stream.error(Errors.AST.Fn_BodyExpected, 3), null;
 
         let body = [];
 
+        const parser = new ASTParser(body, this.stream);
         while (!this.stream.next("}")
             && this.stream.remaining() > 0) {
-            const parser = new ASTParser(this.stream);
-            body.push(...parser.parse());
+            parser.parse();
         }
 
         // No leaking '}', consumed due to the next function
