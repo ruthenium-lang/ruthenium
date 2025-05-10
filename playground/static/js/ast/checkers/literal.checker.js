@@ -1,3 +1,7 @@
+import { NameChecker } from "./name.checker.js";
+import { StrPattern } from "./string.checker.js";
+import { NumberType } from "./number.checker.js";
+
 export class LitPattern {
 
     static test(str) {
@@ -11,7 +15,7 @@ export class LitPattern {
         if (isNumber(str))
             return NumberType.detect(str);
 
-        if (IdentPattern.test(str))
+        if (NameChecker.accepts(str))
             return 'ID';
 
         // TODO: error handling
