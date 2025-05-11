@@ -1,0 +1,46 @@
+fn main() {
+    let a = 5;
+    let b = 10;
+
+    if (a > b):
+        println("a is bigger than b");
+    else if (a < b):
+        println("a is smaller than b");
+    else {
+        println("a is equal to b");
+        println("wow");
+    }
+
+    try_switch(a, b);
+    try_match(a);
+}
+
+fn try_switch(int a, int b) {
+    switch {
+        case (a > b):
+            println("a is bigger than b");
+
+        case (a < b):
+            println("a is smaller than b");
+
+        else:
+            println("a is equal to b");
+    }
+}
+
+fn try_match(int a) {
+    match {
+        case (a > 0):
+            println("a is positive");
+
+        case (a < 0):
+            println("a is negative");
+
+        case (a == 5):
+            println("a is 5");
+    }
+
+    // Expected result:
+    // a is positive
+    // a is 5
+}
