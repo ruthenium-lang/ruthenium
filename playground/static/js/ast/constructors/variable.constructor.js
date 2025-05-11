@@ -18,6 +18,8 @@ export function RTVariableDeclaration(cursor, name, varType) {
     this.varType = varType;
     this.constant = false; // TODO: remove
     this.cursor = cursor;
+
+    this.toVariable = () => new RTVariable(this.cursor, this.name, new RTValue(), this.constant);
 }
 
 window.RTVariable = RTVariable;
