@@ -8,18 +8,17 @@ export function RTVariable(cursor, name, value, constant = false) {
     this.value = value ?? new RTValue();
     this.cursor = cursor;
 
-    this.declaration = () => {
-        let obj = {
-            ...this,
-            type: 'VariableDeclaration',
-            varType: this.value.valType
-        };
-        delete obj['declaration'];
-        delete obj['value'];
-        return obj;
-    };
-
+    this.declaration = () => new RTVariableDeclaration(cursor, this.name, value.valType);
     this.initialization = () => RTAssignment(cursor, this, value);
 }
 
+export function RTVariableDeclaration(cursor, name, varType) {
+    this.type = 'VariableDeclaration';
+    this.name = name;
+    this.varType = varType;
+    this.constant = false; // TODO: remove
+    this.cursor = cursor;
+}
+
 window.RTVariable = RTVariable;
+window.RTVariableDeclaration = RTVariableDeclaration;
