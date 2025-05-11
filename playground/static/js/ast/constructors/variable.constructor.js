@@ -19,7 +19,7 @@ export function RTVariable(cursor, name, value, constant = false) {
         return obj;
     };
 
-    this.initialization = () => RTAssignment(cursor, this, value).initialization();
+    this.initialization = () => RTAssignment(cursor, this, value);
 }
 
 window.RTVariable = RTVariable;
