@@ -7,7 +7,7 @@ function setupEditor() {
 }\n`;
 
     window.editor = ace.edit("playground");
-    editor.setTheme("ace/theme/merbivore_soft");
+    editor.setTheme("ace/theme/dracula");
     editor.session.setMode("ace/mode/rust");
 
     editor.setOption("fontFamily", "'Fira Code'");
