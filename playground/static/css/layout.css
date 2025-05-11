@@ -14,6 +14,8 @@ body {
 }
 
 .footer {
+    display: flex;
+    gap: 5px;
     padding: 15px;
 }
 
@@ -28,6 +30,30 @@ body {
 button {
     text-transform: uppercase;
     border-radius:  4px;
+    align-items:    center;
+    transition:     all 0.2s ease;
+    overflow:       hidden;
     padding:        10px 16px;
+    display:        inline-flex;
     margin:         3px 0;
+    height:         40px;
+    gap:            0px;
+}
+
+button:hover {
+    transform: scale(1.05);
+    gap:       10px;
+}
+
+button > span {
+    white-space: nowrap;
+    transition:  all 0.2s ease;
+    max-width:   0;
+    overflow:    hidden;
+    opacity:     0;
+}
+
+button:hover > span {
+    max-width: 200px;
+    opacity:   1;
 }

@@ -26,7 +26,6 @@ body {
 
 button {
     background-color: #5fc88f;
-    transition:       background-color 0.2s;
     border:           1px solid #000;
     color:            #111;
 }

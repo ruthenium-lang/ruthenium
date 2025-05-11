@@ -21,14 +21,14 @@ export function panic(error, cursor, sourceLine, customMessage) {
     {
         detailedMessage += `\n ${phase} Error[0x${codeToHex(code)}]: ${message}`;
 
-        detailedMessage += `\n     ┌─ ${filepath}:${cursor}`;
+        detailedMessage += `\n     ╭─ ${filepath}:${cursor}`;
         detailedMessage += `\n     │`;
 
         // This will prevent the digits from moving everything to the right
         detailedMessage += `\n ${line.toString().padStart(3, ' ')} │ ${sourceLine}`;
 
-        // Wait until the wrong part and repeat '^' until the end of the line
-        detailedMessage += `\n     │${' '.repeat(col)}${'^'.repeat(sourceLine.length - col + 1)} `;
+        // Wait until the wrong part and then draw a line until the end of the line
+        detailedMessage += `\n     │${' '.repeat(col)}╰${'─'.repeat(sourceLine.length - col + 1)} `;
         if (hint)
             detailedMessage += hint; // ^^^^^ Did you mean...?
 
@@ -42,6 +42,8 @@ function displayErrorPopup(detailedMessage) {
     const output = document.getElementById('output');
     output.innerHTML = `
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Tektur&display=swap');
+
             #output {
                 margin: 0;
                 padding: 12px;
@@ -60,7 +62,8 @@ function displayErrorPopup(detailedMessage) {
                 float: top;
                 width: 100%;
                 height: 100%;
-                font-family: 'Space Mono', sans-serif;
+                font-family: 'IBM Plex Mono', sans-serif;
+                line-height: 1.7em;
                 font-size: 12pt;
                 background: #222;
                 border: none;
