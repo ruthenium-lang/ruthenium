@@ -31,7 +31,7 @@ export class NumberType {
 
         // Types in computers usually start from 8 bits
         // So we need to shift the index by 3
-        i -= 3;
+        i = Math.max(i - 3, 0);
 
         return types[i] || 'bigint';
     }
