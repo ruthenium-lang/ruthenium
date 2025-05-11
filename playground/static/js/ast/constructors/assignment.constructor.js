@@ -9,18 +9,10 @@ export function RTAssignment(cursor, targetVar, value) {
 
     return {
         type: 'AssignmentOperation',
+        targetVar: targetVar.declaration(),
         cursor: cursor,
         eval: () => { targetVar.value = value; },
-        initialization: () => {
-            let obj = {
-                type: 'AssignmentOperation',
-                targetVar: targetVar.declaration(),
-                value
-            }
-
-            delete obj['targetVar']['type'];
-            return obj;
-        }
+        value,
     };
 }
 
