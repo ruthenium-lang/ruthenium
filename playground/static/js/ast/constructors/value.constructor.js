@@ -10,6 +10,8 @@ export function RTValue(content, type) {
     this.valType = type ?? inferType(content);
 }
 
+RTValue.empty = () => new RTValue();
+
 function inferType(str) {
     if (str == undefined)
         return undefined;
