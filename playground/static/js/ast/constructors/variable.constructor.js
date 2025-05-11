@@ -5,7 +5,7 @@ export function RTVariable(cursor, name, value, constant = false) {
     this.type = 'Variable';
     this.name = name;
     this.constant = constant; // TODO: move constant to the type
-    this.value = value ?? new RTValue();
+    this.value = value ?? RTValue.empty();
     this.cursor = cursor;
 
     this.declaration = () => new RTVariableDeclaration(cursor, this.name, value.valType);
@@ -19,7 +19,7 @@ export function RTVariableDeclaration(cursor, name, varType) {
     this.constant = false; // TODO: remove
     this.cursor = cursor;
 
-    this.toVariable = () => new RTVariable(this.cursor, this.name, new RTValue(), this.constant);
+    this.toVariable = () => new RTVariable(this.cursor, this.name, RTValue.empty(), this.constant);
 }
 
 window.RTVariable = RTVariable;
