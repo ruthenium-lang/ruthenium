@@ -11,6 +11,9 @@ export function RTValue(content, type) {
 }
 
 function inferType(str) {
+    if (str == undefined)
+        return undefined;
+
     if (str.isSurroundedBy('"'))
         return 'string';
 
