@@ -1,0 +1,9 @@
+fn main() {
+    for (let i = 0; i < 10; i++):
+        println("i is {d}", i);
+
+    range(10).forEach(i -> println("i is {d}", i));
+
+    for (let i in range(10)):
+        println("i is {d}", i);
+}
