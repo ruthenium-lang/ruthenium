@@ -5,12 +5,12 @@ import { ASTFunctionCallPattern } from '../ast/patterns/functionCall.pattern.js'
 
 export class ASTParser {
 
-    constructor(tree, stream) {
+    constructor(ast, stream) {
         this.stream = stream;
-        this.tree   = tree;
+        this.ast   = ast;
 
-        this.funcParser = new ASTFunctionParser(this.tree, stream);
-        this.varParser  = new ASTVariableParser(this.tree, stream);
+        this.funcParser = new ASTFunctionParser(this.ast, stream);
+        this.varParser  = new ASTVariableParser(this.ast, stream);
     }
 
     parse() {
@@ -36,16 +36,16 @@ export class ASTParser {
         // Check if its a function
         const func = new ASTFunctionCallPattern(this.stream).checkAndParse();
         if (func)
-            return this.tree.push(func), true;
+            return this.ast.push(func), true;
 
         const operator = new ASTOperatorPattern(this.stream).checkAndParse();
         if (operator)
-            return this.tree.push(operator), true;
-        
+            return this.ast.push(operator), true;
+
         // Check if its a variable assignment
         const variable = new ASTVariableAssignmentPattern(this.stream).checkAndParse();
         if (variable)
-            return this.tree.push(variable), true;
+            return this.ast.push(variable), true;
 
         return false;
     }

@@ -3,9 +3,9 @@ import { RTVariable } from "../constructors/variable.constructor.js"
 
 export class ASTVariableParser {
 
-    constructor(tree, stream) {
+    constructor(ast, stream) {
         this.stream = stream;
-        this.tree   = tree;
+        this.ast    = ast;
     }
 
     parse() {
@@ -13,8 +13,8 @@ export class ASTVariableParser {
         const { name, value, varType } = this.parseStructure();
         const variable = new RTVariable(cursor, name, new RTValue(value, varType), false);
 
-        this.tree.push(variable.declaration());
-        this.tree.push(variable.initialization());
+        this.ast.push(variable.declaration());
+        this.ast.push(variable.initialization());
     }
 
     parseStructure() {

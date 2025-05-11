@@ -2,9 +2,9 @@ import { RTFuncParameter, RTFunction } from '../constructors/function.constructo
 
 export class ASTFunctionParser {
 
-    constructor(tree, stream) {
+    constructor(ast, stream) {
         this.stream = stream; // TODO: Rename to ts
-        this.tree   = tree;
+        this.ast    = ast;
     }
 
     parse() {
@@ -16,7 +16,7 @@ export class ASTFunctionParser {
             return this.stream.error(Errors.AST.Fn_BodyExpected);
 
         func.body = this.parseBody();
-        this.tree.push(func);
+        this.ast.push(func);
     }
 
     parseStructure(func) {

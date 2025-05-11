@@ -1,8 +1,8 @@
 class Interpreter {
 
-    constructor(tree) {
-        this.tree = tree;
+    constructor(ast) {
         this.stack = [];
+        this.ast   = ast;
 
         // Necessary to define the environment of the
         // Ruthenium Virtual Machine (RVM)
@@ -22,48 +22,48 @@ class Interpreter {
 
     run() {
         this.init();
-        for (const statement of this.tree) {
+        for (const statement of this.ast) {
             this.evaluate(statement);
         }
     }
 
-    evaluate(statement) {
-        switch (statement.type) {
+    evaluate(node) {
+        switch (node.type) {
 
             case 'VariableDeclaration':
-                if (!statement.value)
+                if (!node.value)
                     break;
 
                 let contains = "<RT_UNDEFINED>" /*, valueType*/;
-                if (statement.value.isSurroundedBy('"')) {
+                if (node.value.isSurroundedBy('"')) {
                     //valueType = 'string';
-                    contains = statement.value.unwrap();
+                    contains = node.value.unwrap();
                 } else {
                     //valueType = 'number';
-                    contains = parseInt(statement.value);
+                    contains = parseInt(node.value);
                 }
 
                 console.log(contains);
-                this.env.id[statement.name] = contains;
+                this.env.id[node.name] = contains;
                 break;
 
             case 'FunctionDeclaration':
-                if (statement.name !== 'main')
+                if (node.name !== 'main')
                     break;
 
-                for (const bodyNode of statement.body) {
+                for (const bodyNode of node.body) {
                     this.evaluate(bodyNode);
                 }
                 break;
 
             case 'FunctionCall':
-                if (statement.name !== 'println')
+                if (node.name !== 'println')
                     break;
 
                 const output = document.getElementById('output');
-                const value = statement.args[0].isSurroundedBy('"') ?
-                    statement.args[0].unwrap() :
-                    this.env.id[statement.args[0]];
+                const value = node.args[0].isSurroundedBy('"') ?
+                    node.args[0].unwrap() :
+                    this.env.id[node.args[0]];
                 output.innerHTML += value + '\n';
         }
     }
