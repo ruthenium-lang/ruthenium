@@ -31,10 +31,8 @@ export class ASTFunctionCallPattern {
             if (this.stream.next(","))
                 continue;
 
-            if (this.stream.remaining() < 0) {
-                this.stream.error(Errors.STREAMS.Unexpected_EOS);
-                break;
-            }
+            if (this.stream.remaining() < 0)
+                return this.stream.error(Errors.STREAMS.Unexpected_EOS), args;
         } // Skips the last ) automatically due to the next function
 
         return args;
