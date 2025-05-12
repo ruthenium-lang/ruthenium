@@ -21,14 +21,14 @@ String.prototype.isSurroundedBy = function(c) {
  * @returns True if the string has spaces at the start or end
  */
 String.prototype.hasSpaces = function() {
-    return this.trim() !== this;
+    return this.trim() != this;
 }
 
 /**
  * @returns True if the string is empty or full of whitespaces
  */
 String.prototype.isBlank = function() {
-    return this.trim() === '';
+    return this.trim() == '';
 }
 
 // Polyfill
