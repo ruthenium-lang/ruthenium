@@ -13,7 +13,7 @@ export class ASTFunctionParser {
         this.parseReturnType(func);
 
         if (!this.next('fn.body'))
-            return this.stream.error(Errors.AST.Fn_BodyExpected);
+            return this.stream.error(Errors.AST.Fn_BodyExpected), func;
 
         func.body = this.parseBody();
         this.ast.push(func);
@@ -52,7 +52,7 @@ export class ASTFunctionParser {
 
     parseReturnType(func) {
         if (this.next('fn.body'))
-            return;
+            return false;
 
         if (qrtTypeOf(this.stream.peek()) === 'TYPE'
                 || qrtTypeOf(this.stream.peek()) === 'ID')
@@ -63,16 +63,15 @@ export class ASTFunctionParser {
 
         this.stream.skip(); // To match with the brace position
         if (this.stream.peek() === '{')
-            return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType, 0), null;
+            return this.stream.error(Errors.TYPECHECK.Fn_InvalidReturnType, 0), false;
 
-        return this.stream.error(Errors.AST.Fn_BodyExpected, 2), null;
+        return this.stream.error(Errors.AST.Fn_BodyExpected, 2), false;
     }
 
     parseBody() {
-        if (!this.stream.expect("{"))
-            return this.stream.error(Errors.AST.Fn_BodyExpected, 3), null;
-
         let body = [];
+        if (!this.stream.expect("{"))
+            return this.stream.error(Errors.AST.Fn_BodyExpected, 3), body;
 
         const parser = new ASTParser(body, this.stream);
         while (!this.stream.next("}")
@@ -81,7 +80,6 @@ export class ASTFunctionParser {
         }
 
         // No leaking '}', consumed due to the next function
-
         return body;
     }
 
