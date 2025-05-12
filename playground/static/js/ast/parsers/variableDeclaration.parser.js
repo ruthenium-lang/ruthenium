@@ -24,7 +24,7 @@ export class ASTVariableParser {
         this.stream.expect('let');
 
         if (qrtTypeOf(this.stream.peek()) !== 'ID')
-            return this.stream.error(Errors.AST.Let_MissingIdentifier);
+            return this.stream.error(Errors.AST.Let_MissingIdentifier), data;
 
         data.name = this.stream.pop();
         if (this.stream.next(';'))
@@ -33,7 +33,7 @@ export class ASTVariableParser {
         // Type declaration
         if (this.stream.next(':')) {
             if (qrtTypeOf(this.stream.peek()) !== 'TYPE')
-                return this.stream.error(Errors.TYPECHECK.Let_InvalidType);
+                return this.stream.error(Errors.TYPECHECK.Let_InvalidType), data;
 
             data.varType = this.stream.pop();
         }
@@ -43,7 +43,7 @@ export class ASTVariableParser {
             data.value = this.stream.pop();
 
         if (!this.stream.expect(';'))
-            return this.stream.error(Errors.AST.Statement_MissingEnd);
+            return this.stream.error(Errors.AST.Statement_MissingEnd), data;
 
         return data;
     }
