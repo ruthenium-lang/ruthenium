@@ -34,6 +34,8 @@ export function panic(error, cursor, sourceLine, customMessage) {
 
     }
     displayErrorPopup(detailedMessage);
+
+    return null;
 }
 
 function displayErrorPopup(detailedMessage) {
