@@ -72,11 +72,11 @@ export class CodeStream {
         while (this.remaining() > 0
             && !this.next(delimiterEnd))
         {
-            const c = this.pop();
+            let c = this.pop();
             if (c === escapeCh)
-                this.skip();
-            else
-                unwrapped += c;
+                c = this.pop();
+
+            unwrapped += c;
         }
 
         if (this.remaining() < 1) // We reached the EOF
