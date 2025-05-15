@@ -6,10 +6,10 @@ export class ASTParser {
 
     constructor(stream) {
         this.stream = stream;
-        this.tree   = [];
+        this.ast   = [];
 
-        this.funcParser = new ASTFunctionParser(this.tree, stream);
-        this.varParser  = new ASTVariableParser(this.tree, stream);
+        this.funcParser = new ASTFunctionParser(this.ast, stream);
+        this.varParser  = new ASTVariableParser(this.ast, stream);
     }
 
     parse() {
@@ -31,18 +31,18 @@ export class ASTParser {
                 }
         }
 
-        return this.tree;
+        return this.ast;
     }
 
     tokenEval() {
         // Check if its a function
         const func = new ASTFunctionCallPattern(this.stream).checkAndParse();
         if (func)
-            return this.tree.push(func), true;
+            return this.ast.push(func), true;
 
         const operator = new ASTOperatorPattern(this.stream).checkAndParse();
         if (operator)
-            return this.tree.push(operator), true;
+            return this.ast.push(operator), true;
 
         return false;
     }

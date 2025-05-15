@@ -1,20 +1,19 @@
 export class ASTVariableParser {
 
-    constructor(tree, stream) {
+    constructor(ast, stream) {
         this.stream = stream;
-        this.tree   = tree;
+        this.ast   = ast;
     }
 
     parse() {
         const variable = this.parseStructure();
-        this.tree.push({ type: "VariableDeclaration", ...variable });
+        this.ast.push({ type: "VariableDeclaration", ...variable });
     }
 
     parseStructure() {
         let variable = {};
 
-        if (!this.stream.expect('let'))
-            return this.stream.error(Errors.AST.Let_MalformedDeclaration);
+        this.stream.expect('let');
 
         if (qrtTypeOf(this.stream.peek()) !== 'ID')
             return this.stream.error(Errors.AST.Let_MissingIdentifier);

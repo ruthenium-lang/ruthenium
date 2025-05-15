@@ -34,6 +34,8 @@ export function panic(error, cursor, sourceLine, customMessage) {
 
     }
     displayErrorPopup(detailedMessage);
+
+    return null;
 }
 
 function displayErrorPopup(detailedMessage) {
@@ -125,13 +127,8 @@ export const Errors = {
             message: "Arguments aren't correctly separated",
             hint: "Insert a comma (,) after each argument",
         },
-        Let_MalformedDeclaration: {
-            code: 0x300007,
-            message: "Malformed variable",
-            hint: "Use the keyword `let`",
-        },
         Let_MissingIdentifier: {
-            code: 0x300008,
+            code: 0x300007,
             message: "No variable name found",
             hint: "Name it `my_var` by example",
         }

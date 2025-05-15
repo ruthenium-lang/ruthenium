@@ -1,7 +1,7 @@
 class Interpreter {
 
-    constructor(tree) {
-        this.tree = tree;
+    constructor(ast) {
+        this.ast = ast;
         this.stack = [];        // TODO: stack -> env.stack
 
         // Necessary to define the environment of the
@@ -22,7 +22,7 @@ class Interpreter {
 
     run() {
         this.init();
-        for (const statement of this.tree) {
+        for (const statement of this.ast) {
             this.evaluate(statement);
         }
     }
