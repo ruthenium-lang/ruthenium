@@ -74,11 +74,8 @@
     <script src="static/js/layout.js"></script>
 
     <script>
-        let errorDisplayMode = 1; // 1 -> display one error, 0 -> no errors, -1 -> everything
-        setupEditor();
-
-        let expanded = true;
         const output = document.getElementById("output");
+        setupEditor();
 
         function tokenize() {
             const cs = new CodeStream(editor.getValue());
@@ -88,24 +85,13 @@
             if (cs.errors.length === 0)
                 return tokens;
 
-            for (let i = 0; i < cs.errors.length; i++) {
-                if (errorDisplayMode == 0)
-                    break;
-
-                const e = cs.errors[i];
-                panic(e.data, e.cursor, e.line, e.custom);
-
-                if (errorDisplayMode == 1)
-                    break;
-            }
-
-            return undefined;
+            const { data, cursor, line, custom } = cs.errors.shift();
+            return panic(data, cursor, line, custom);
         }
 
         function parse() {
             const tokens = tokenize();
-            if (!tokens)
-                return undefined;
+            if (!tokens) return undefined;
 
             const ts = new TokenStream(tokens);
             const parser = new ASTParser(ts);
@@ -116,24 +102,13 @@
             if (ts.errors.length === 0)
                 return tree;
 
-            for (let i = 0; i < ts.errors.length; i++) {
-                if (errorDisplayMode == 0)
-                    break;
-
-                const e = ts.errors[i];
-                panic(e.data, e.cursor, e.line, e.custom);
-
-                if (errorDisplayMode == 1)
-                    break;
-            }
-
-            return undefined;
+            const { data, cursor, line, custom } = ts.errors.shift();
+            return panic(data, cursor, line, custom);
         }
 
         function run() {
-            const tree = parse();
-            if (!tree)
-                return undefined;
+            const ast = parse();
+            if (!ast) return undefined;
 
             const vm = new Interpreter(tree);
             vm.run();
