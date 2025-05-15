@@ -1,8 +1,8 @@
 export class ASTFunctionParser {
 
-    constructor(tree, stream) {
+    constructor(ast, stream) {
         this.stream = stream;
-        this.tree   = tree;
+        this.ast   = ast;
     }
 
     parse() {
@@ -15,7 +15,7 @@ export class ASTFunctionParser {
         }
 
         func.body = this.parseBody();
-        this.tree.push(func);
+        this.ast.push(func);
     }
 
     parseStructure() {

@@ -95,12 +95,12 @@
 
             const ts = new TokenStream(tokens);
             const parser = new ASTParser(ts);
-            const tree = [];
+            const ast = [];
             while (ts.remaining() > 0)
-                tree.push(...parser.parse());
+                ast.push(...parser.parse());
 
             if (ts.errors.length === 0)
-                return tree;
+                return ast;
 
             const { data, cursor, line, custom } = ts.errors.shift();
             return panic(data, cursor, line, custom);
@@ -110,7 +110,7 @@
             const ast = parse();
             if (!ast) return undefined;
 
-            const vm = new Interpreter(tree);
+            const vm = new Interpreter(ast);
             vm.run();
         }
     </script>

@@ -1,8 +1,8 @@
 export class ASTFunctionCallParser {
 
-    constructor(tree, stream) {
+    constructor(ast, stream) {
         this.stream = stream;
-        this.tree   = tree;
+        this.ast   = ast;
     }
 
     parse() {
@@ -17,7 +17,7 @@ export class ASTFunctionCallParser {
             return this.stream.error(Errors.AST.Fn_InvalidCall), block;
 
         block.arguments = this.parseArguments();
-        this.tree.push(block);
+        this.ast.push(block);
     }
 
     parseArguments() {

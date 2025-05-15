@@ -1,13 +1,13 @@
 export class ASTVariableParser {
 
-    constructor(tree, stream) {
+    constructor(ast, stream) {
         this.stream = stream;
-        this.tree   = tree;
+        this.ast   = ast;
     }
 
     parse() {
         const variable = this.parseStructure();
-        this.tree.push({ type: "VariableDeclaration", ...variable });
+        this.ast.push({ type: "VariableDeclaration", ...variable });
     }
 
     parseStructure() {
