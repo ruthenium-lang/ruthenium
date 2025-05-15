@@ -1,14 +1,11 @@
 class Interpreter {
 
     constructor(ast) {
-        this.ast = ast;
-        this.stack = [];
+        this.scopes = [];
+        this.ast    = ast;
 
-        // Necessary to define the environment of the
-        // Ruthenium Virtual Machine (RVM)
-        this.env = {
-            id: {}
-        };
+        // The global scope
+        this.global = { id: {} };
     }
 
     init() {
@@ -44,16 +41,21 @@ class Interpreter {
                 }
 
                 console.log(contains);
-                this.env.id[statement.name] = contains;
+                this.global.id[statement.name] = contains; // TODO: use scopes
                 break;
 
             case 'FunctionDeclaration':
                 if (statement.name !== 'main')
                     break;
 
-                for (const bodyNode of statement.body) {
-                    this.evaluate(bodyNode);
+                this.scopes.push({});
+                {
+                    // Scope lifetime
+                    for (const bodyNode of statement.body)
+                        this.evaluate(bodyNode);
                 }
+                this.scopes.pop();
+
                 break;
 
             case 'FunctionCall':
@@ -63,7 +65,7 @@ class Interpreter {
                 const output = document.getElementById('output');
                 const value = statement.args[0].isSurroundedBy('"') ?
                     statement.args[0].unwrap() :
-                    this.env.id[statement.args[0]];
+                    this.global.id[statement.args[0]];
                 output.innerHTML += value + '\n';
         }
     }
@@ -71,7 +73,7 @@ class Interpreter {
     importStd() {
         const output = document.querySelector("#output");
 
-        this.env.id.println = function(msg) {
+        this.global.id.println = function(msg) {
             output.innerHTML += msg + "<br>";
         };
     }
