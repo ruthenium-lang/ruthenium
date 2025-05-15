@@ -72,11 +72,11 @@ export class CodeStream {
         while (this.remaining() > 0
             && !this.next(delimiterEnd))
         {
-            const c = this.pop();
+            let c = this.pop();
             if (c === escapeCh)
-                this.skip();
-            else
-                unwrapped += c;
+                c = translateEscapeChar(this.pop());
+
+            unwrapped += c;
         }
 
         if (this.remaining() < 1) // We reached the EOF
@@ -142,5 +142,19 @@ export class CodeStream {
     }
 
 }
+
+function translateEscapeChar(char) {
+    switch (char) {
+        case 'n':  return '\n';   // Line feed
+        case 'r':  return '\r';   // Carriage return
+        case 't':  return '\t';   // Tab
+        case 'b':  return '\b';   // Backspace
+        case 'f':  return '\f';   // Form feed
+        case 'v':  return '\v';   // Vertical tab
+        case '0':  return '\0';   // Null character
+        default:   return char;   // Return the same char
+    }
+}
+
 
 window.CodeStream = CodeStream;
