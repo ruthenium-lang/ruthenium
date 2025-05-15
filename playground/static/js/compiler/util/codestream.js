@@ -74,7 +74,7 @@ export class CodeStream {
         {
             let c = this.pop();
             if (c === escapeCh)
-                c = this.pop();
+                c = translateEscapeChar(this.pop());
 
             unwrapped += c;
         }
@@ -142,5 +142,19 @@ export class CodeStream {
     }
 
 }
+
+function translateEscapeChar(char) {
+    switch (char) {
+        case 'n':  return '\n';   // Line feed
+        case 'r':  return '\r';   // Carriage return
+        case 't':  return '\t';   // Tab
+        case 'b':  return '\b';   // Backspace
+        case 'f':  return '\f';   // Form feed
+        case 'v':  return '\v';   // Vertical tab
+        case '0':  return '\0';   // Null character
+        default:   return char;   // Return the same char
+    }
+}
+
 
 window.CodeStream = CodeStream;
