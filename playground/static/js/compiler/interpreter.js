@@ -61,14 +61,11 @@ class Interpreter {
                 break;
 
             case 'FunctionCall':
-                if (statement.name !== 'println')
-                    break;
+                const func = this.global.id[statement.name];
+                if (func === undefined)
+                    return false; // TODO: error handling
 
-                const output = document.getElementById('output');
-                const value = statement.args[0].isSurroundedBy('"') ?
-                    statement.args[0].unwrap() :
-                    this.global.id[statement.args[0]];
-                output.innerHTML += value + '\n';
+                func(this, statement.args);
         }
     }
 
