@@ -79,13 +79,24 @@ class Interpreter {
                 if (NameChecker.test(arg))   return vm.global.id[arg]; });
         }
 
-        this.global.id.println = function(vm, args) {
-            stdout.innerHTML += parseArguments(vm, args).join(' ') + "<br />";
-        };
+        function consume_error(func) {
+            return (vm, args) => {
+                try { func(vm, args); }
 
-        this.global.id.alert = function(vm, args) {
-            window.alert(parseArguments(vm, args).join(' '));
+                catch (e) {
+                    console.error(`rvm::RuntimeException -> ${e}`);
+                    console.trace();
+                }
+            }
         }
+
+        this.global.id.println = consume_error((vm, args) => {
+            stdout.innerHTML += parseArguments(vm, args).join(' ') + "<br />";
+        });
+
+        this.global.id.alert = consume_error((vm, args) => {
+            window.alert(parseArguments(vm, args).join(' '));
+        });
     }
 
 }
