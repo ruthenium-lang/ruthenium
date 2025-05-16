@@ -14,7 +14,7 @@ String.prototype.unwrap = function() {
  * @returns A boolean value, whether or not that string is wrapped
  */
 String.prototype.isSurroundedBy = function(c) {
-    return (this[0] === c) && (this[this.length - 1] === c);
+    return (this.at(0) === c) && (this.at(-1) === c);
 }
 
 /**

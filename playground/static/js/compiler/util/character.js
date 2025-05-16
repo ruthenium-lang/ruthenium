@@ -1,7 +1,7 @@
 export class Character {
 
     static toChar(c) {
-        return c[c.length - 1];
+        return c.at(-1);
     }
 
     static isNotLineTerminator(c) {
