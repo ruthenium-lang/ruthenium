@@ -82,6 +82,10 @@ class Interpreter {
         this.global.id.println = function(vm, args) {
             stdout.innerHTML += parseArguments(vm, args).join(' ') + "<br />";
         };
+
+        this.global.id.alert = function(vm, args) {
+            window.alert(parseArguments(vm, args).join(' '));
+        }
     }
 
 }
