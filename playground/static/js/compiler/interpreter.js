@@ -1,3 +1,5 @@
+import { NameChecker } from '../ast/checkers/name.checker.js';
+
 class Interpreter {
 
     constructor(ast) {
@@ -71,10 +73,17 @@ class Interpreter {
     }
 
     importStd() {
-        const output = document.querySelector("#output");
+        const stdout = document.querySelector("#output");
 
-        this.global.id.println = function(msg) {
-            output.innerHTML += msg + "<br>";
+        function parseArguments(vm, args) {
+            return args.map(arg => {
+                if (arg.isSurroundedBy('"')) return arg.unwrap();
+                if (isNumber(arg))           return +arg;
+                if (NameChecker.test(arg))   return vm.global.id[arg]; });
+        }
+
+        this.global.id.println = function(vm, args) {
+            stdout.innerHTML += parseArguments(vm, args).join(' ') + "<br />";
         };
     }
 
