@@ -1,4 +1,4 @@
-import { NameChecker } from '../ast/checkers/name.checker.js';
+import { NameChecker } from '../../../../AST.old/checkers/name.checker.js';
 
 class Interpreter {
 

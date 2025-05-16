@@ -1,4 +1,3 @@
-import { qrtTypeOf } from '../../tokens/types.js'
 import { CodeStream } from './codestream.js'
 
 export class TokenStream {

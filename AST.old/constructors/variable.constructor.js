@@ -1,5 +1,5 @@
-import { RTAssignment } from "./assignment.constructor.js";
-import { RTValue } from "./value.constructor.js";
+import { RTAssignment } from "../constructors/assignment.constructor.js";
+import { RTValue } from "../constructors/value.constructor.js";
 
 export function RTVariable(cursor, name, value, constant = false) {
     this.type = 'Variable';

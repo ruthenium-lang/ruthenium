@@ -1,7 +1,7 @@
-import { ASTFunctionParser } from '../ast/parsers/function.parser.js'
-import { ASTVariableParser } from '../ast/parsers/variableDeclaration.parser.js';
-import { ASTVariableAssignmentPattern } from '../ast/patterns/variableAssignment.pattern.js';
-import { ASTFunctionCallPattern } from '../ast/patterns/functionCall.pattern.js';
+import { ASTFunctionParser } from '../../../../AST.old/parsers/function.parser.js'
+import { ASTVariableParser } from '../../../../AST.old/parsers/variableDeclaration.parser.js';
+import { ASTVariableAssignmentPattern } from '../../../../AST.old/patterns/variableAssignment.pattern.js';
+import { ASTFunctionCallPattern } from '../../../../AST.old/patterns/functionCall.pattern.js';
 
 export class ASTParser {
 

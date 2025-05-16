@@ -1,4 +1,4 @@
-import { equalsCanGoNext } from "../../compiler/lexer.js";
+import { equalsCanGoNext } from "../../playground/static/js/compiler/lexer.js";
 
 export class ASTOperatorPattern {
 
